@@ -6,7 +6,7 @@ import Topics from "./topics/topicsComponent";
 
 const App = () => (
   <Router>
-    <div>
+    <div style={{ display: "flex" }}>
       <Header />
       <Route path="/home" component={Home} />
       <Route path="/about" component={About} />
@@ -16,41 +16,43 @@ const App = () => (
 );
 
 const Header = () => (
-  <ul style={headerStyle}>
-    <li>
-      <NavLink
-        to="/home"
-        activeStyle={{
-          fontWeight: "bold",
-          color: "red"
-        }}
-      >
-        Home
-      </NavLink>
-    </li>
-    <li>
-      <NavLink
-        to="/about"
-        activeStyle={{
-          fontWeight: "bold",
-          color: "red"
-        }}
-      >
-        About
-      </NavLink>
-    </li>
-    <li>
-      <NavLink
-        to="/topics"
-        activeStyle={{
-          fontWeight: "bold",
-          color: "red"
-        }}
-      >
-        Topics
-      </NavLink>
-    </li>
-  </ul>
+  <nav style={{ width: "240px" }}>
+    <ul style={headerStyle}>
+      <li>
+        <NavLink
+          to="/home"
+          activeStyle={{
+            fontWeight: "bold",
+            color: "red"
+          }}
+        >
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/about"
+          activeStyle={{
+            fontWeight: "bold",
+            color: "red"
+          }}
+        >
+          About
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/topics"
+          activeStyle={{
+            fontWeight: "bold",
+            color: "red"
+          }}
+        >
+          Topics
+        </NavLink>
+      </li>
+    </ul>
+  </nav>
 );
 
 export default App;
