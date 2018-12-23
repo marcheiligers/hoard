@@ -1,0 +1,100 @@
+.j10 {
+  width: 240px;
+}
+.j21 {
+  background-color: #333;
+}
+.j23 {
+  box-shadow: none;
+}
+.j70 {
+  margin: 0;
+  display: block;
+}
+.j80 {
+  color: rgba(212, 217, 221, 0.89);
+  font-size: 0.75rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.66;
+  letter-spacing: 0.03333em;
+}
+.j87 {
+  color: rgba(212, 217, 221, 0.79);
+  font-size: 1.25rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+}
+.j99 {
+  color: inherit;
+}
+.j117 {
+  text-decoration: none;
+}
+.j118 {
+  color: inherit;
+}
+.j129 {
+  width: 240px;
+}
+.j130 {
+  color: rgba(0, 0, 0, 0.54);
+  margin-bottom: 4px;
+}
+.j131 {
+  display: flex;
+}
+.j132 {
+  display: flex;
+  flex-grow: 1;
+  min-height: 56px;
+  align-items: flex-start;
+  padding-left: 24px;
+  flex-direction: column;
+  justify-content: center;
+}
+.j133 {
+  color: rgba(212, 217, 221, 0.99);
+}
+.j151 {
+  top: 0;
+  flex: 1 0 auto;
+  height: 100%;
+  display: flex;
+  z-index: 1200;
+  outline: none;
+  position: fixed;
+  overflow-y: auto;
+  flex-direction: column;
+}
+.j152 {
+  left: 0;
+  right: auto;
+}
+.j156 {
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+.j161 {
+  height: 1px;
+  margin: 0;
+  border: none;
+  flex-shrink: 0;
+  background-color: rgba(212, 217, 221, 0.79);
+}
+.j167 {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.j166 {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  list-style: none;
+}
+@media (min-width: 600px) {
+  .j132 {
+    min-height: 64px;
+  }
+}

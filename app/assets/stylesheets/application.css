@@ -16,3 +16,8 @@
 body {
   font-family: "Roboto", sans-serif;
 }
+a {
+  font-weight: "normal";
+  color: white;
+  text-decoration: none;
+}
