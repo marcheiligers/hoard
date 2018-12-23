@@ -16,7 +16,7 @@ const App = () => (
 );
 
 const Header = () => (
-  <ul>
+  <ul style={headerStyle}>
     <li>
       <NavLink
         to="/home"
@@ -54,3 +54,11 @@ const Header = () => (
 );
 
 export default App;
+
+const headerStyle = {
+  display: "flex",
+  justifyContent: "space-between",
+  listStyle: "none",
+  margin: "2em",
+  fontFamily: "Helvetica"
+};
