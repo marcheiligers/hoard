@@ -1,26 +1,17 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { withRouter, Link, Route } from "react-router-dom";
 
-const Topic = ({ match }) => <h3>Requested Param: {match.params.id}</h3>;
-const Topics = ({ match }) => (
+const Topics = ({ match, location }) => (
   <div>
     <h2>Topics</h2>
-
     <ul>
       <li>
-        <Link to={`${match.url}/components`}>Components</Link>
+        <a href={"#"}>Components</a>
       </li>
       <li>
-        <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
+        <a href={"#"}>Props v. State</a>
       </li>
     </ul>
-
-    <Route path={`${match.path}/:id`} component={Topic} />
-    <Route
-      exact
-      path={match.path}
-      render={() => <h3>Please select a topic.</h3>}
-    />
   </div>
 );
-export default Topics;
+export default withRouter(Topics);
