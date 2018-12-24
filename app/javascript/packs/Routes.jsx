@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Home,
-  ContentPaste,
-  Notifications,
-  AccountCircle
-} from "@material-ui/icons";
+import { Home, List, Bookmark, Info } from "@material-ui/icons";
 import HomeComponent from "./home/homeComponent";
 import About from "./about/aboutComponent";
 import Topics, { Topic } from "./topics/topicsComponent";
@@ -22,21 +17,21 @@ const Routes = [
     path: "/about",
     sidebarName: "About",
     navbarName: "About",
-    icon: AccountCircle,
+    icon: Info,
     component: About
   },
   {
     path: "/versions",
     sidebarName: "Versions",
     navbarName: "Versions",
-    icon: AccountCircle,
+    icon: List,
     component: Versions
   },
   {
     path: "/topics",
     sidebarName: "Topics",
     navbarName: "Topics",
-    icon: AccountCircle,
+    icon: Bookmark,
     component: Topics
   }
 ];
