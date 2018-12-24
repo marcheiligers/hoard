@@ -4,12 +4,15 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import App from "./Routes";
+import App from "./App";
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(
-    <App />,
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>,
     document.body.appendChild(document.createElement("div"))
   );
 });
