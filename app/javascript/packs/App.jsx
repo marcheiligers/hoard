@@ -4,9 +4,9 @@ import Main from "./Main";
 
 const App = () => {
   return (
-    <div style={{ display: "flex" }}>
-      <Sidebar />
-      <Main />
+    <div className="app">
+      <Sidebar className="sidebar" />
+      <Main className="main" />
     </div>
   );
 };

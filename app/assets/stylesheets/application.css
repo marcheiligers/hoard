@@ -21,3 +21,8 @@ a {
   color: white;
   text-decoration: none;
 }
+.app {
+  display: grid;
+  grid-column-gap: 1em;
+  grid-template-columns: 15% auto;
+}
