@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import Sidebar from "./Sidebar";
+// import Sidebar from "./Sidebar";
+import Layout from "./Layout";
 import Main from "./Main";
 
 const App = () => {
   return (
-    <div className="app">
-      <Sidebar className="sidebar" />
-      <Main className="main" />
+    <div>
+      {/*<Sidebar className="sidebar" />*/}
+      <Layout>
+        <Main />
+      </Layout>
     </div>
   );
 };
