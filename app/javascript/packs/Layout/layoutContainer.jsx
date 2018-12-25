@@ -34,6 +34,7 @@ const styles = theme => ({
     zIndex: theme.zIndex.drawer + 1
   },
   menuButton: {
+    border: "2px dotted yellow",
     marginRight: 20,
     [theme.breakpoints.up("sm")]: {
       display: "none"
@@ -44,8 +45,15 @@ const styles = theme => ({
     width: drawerWidth
   },
   content: {
+    backgroundColor: "pink",
     flexGrow: 1,
-    padding: theme.spacing.unit * 3
+    marginLeft: 0,
+    padding: theme.spacing.unit * 3,
+    [theme.breakpoints.up("md")]: {
+      width: drawerWidth,
+      marginLeft: drawerWidth,
+      flexShrink: 0
+    }
   }
 });
 
@@ -80,7 +88,10 @@ class Layout extends Component {
                 onClick={this.handleDrawerToggle}
                 className={classes.navIconHide}
               >
-                <Menu />
+                <Hidden mdUp implementation="css">
+                  {/* Make Menu hidden when at larger screen size*/}
+                  <Menu />
+                </Hidden>
               </IconButton>
               <Typography variant="title" color="inherit" noWrap>
                 Hoard
@@ -111,7 +122,7 @@ class Layout extends Component {
               {drawer}
             </Drawer>
           </Hidden>
-          <main style={{ backgroundColor: "blue" }} className={classes.content}>
+          <main className={classes.content}>
             <div className={classes.toolbar} />
             {children}
           </main>

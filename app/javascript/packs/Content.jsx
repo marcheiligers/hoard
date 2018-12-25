@@ -5,7 +5,7 @@ import About from "./about/aboutComponent";
 import Topics from "./topics/topicsComponent";
 import Versions from "./versions/versionsComponent";
 
-export const Main = props => {
+export const Content = props => {
   switch (props.location.pathname) {
     case "/home":
       return <HomeComponent />;
@@ -20,4 +20,4 @@ export const Main = props => {
   }
 };
 
-export default withRouter(Main);
+export default withRouter(Content);
