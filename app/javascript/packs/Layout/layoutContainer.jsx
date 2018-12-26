@@ -33,10 +33,8 @@ const styles = theme => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1
   },
-  menuButton: {
-    border: "2px dotted yellow",
-    marginRight: 20,
-    [theme.breakpoints.up("sm")]: {
+  navIconHide: {
+    [theme.breakpoints.up("md")]: {
       display: "none"
     }
   },
@@ -45,7 +43,6 @@ const styles = theme => ({
     width: drawerWidth
   },
   content: {
-    backgroundColor: "pink",
     flexGrow: 1,
     marginLeft: 0,
     padding: theme.spacing.unit * 3,
