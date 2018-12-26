@@ -89,7 +89,6 @@ class Layout extends Component {
                 className={classes.navIconHide}
               >
                 <Hidden mdUp implementation="css">
-                  {/* Make Menu hidden when at larger screen size*/}
                   <Menu />
                 </Hidden>
               </IconButton>
