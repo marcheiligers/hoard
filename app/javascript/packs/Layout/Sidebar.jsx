@@ -66,9 +66,10 @@ export const Sidebar = ({ location, classes, theme, writers }) => {
         </ListItemIcon>
         <ListItemText primary={"Writers"} />
       </MenuItem>
+      <Divider className={classes.divider} />
       <MenuList>
         {writers.map(({ id, name }) => {
-          const to = "/writer/${id}";
+          const to = `/writers/${id}`;
           return (
             <MenuItem
               to={to}

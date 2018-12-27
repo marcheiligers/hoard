@@ -48,6 +48,9 @@ const styles = theme => ({
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4
+  },
+  divider: {
+    backgroundColor: theme.palette.background.secondary
   }
 });
 
