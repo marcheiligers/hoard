@@ -26,3 +26,14 @@ Things you may want to cover:
 ## Client
 
 The client runs on "http://localhost:5000/home/index".
+The client needs the correct Ruby version to run:
+
+```
+$ rvm use 2.5.1
+```
+
+Then start the client:
+
+```
+$ foreman start
+```
