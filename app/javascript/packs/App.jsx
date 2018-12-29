@@ -1,5 +1,6 @@
-import React, { Component, useState, useEffect } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Switch, Route } from "react-router-dom";
 import HomeComponent from "./home/homeComponent";
 import About from "./about/aboutComponent";
 import Topics from "./topics/topicsComponent";
@@ -7,36 +8,40 @@ import Versions from "./versions/versionsComponent";
 import Writers from "./writers/writersComponent";
 import Layout from "./Layout/layoutContainer";
 import { NotFound } from "./Errors";
-import data from "./writersData.js";
+
+// REDUX
+import writersActions from "./writers/writersActions";
+// import data from "./writersData.js";
+
+const loadWritersRequest = writersActions.loadWritersRequest;
 
 class App extends Component {
-  state = {
-    writers: []
-  };
   componentDidMount() {
-    const writers = data.writers;
-    this.setState({ writers });
+    this.props.loadWritersRequest();
   }
   render() {
-    const { writers } = this.state;
     return (
-      <BrowserRouter>
-        <Layout writers={writers}>
-          <Switch>
-            <Route exact path="/home" component={HomeComponent} />
-            <Route path="/about" component={About} />
-            <Route path="/versions" component={Versions} />
-            <Route path="/topics" component={Topics} />
-            {/*<Route path="/writers" component={Writers} />*/}
-            <Route
-              path="/writers"
-              render={props => <Writers {...props} writers={writers} />}
-            />
-            <Route component={NotFound} />
-          </Switch>
-        </Layout>
-      </BrowserRouter>
+      <Layout writers={this.props.writers}>
+        <Switch>
+          <Route exact path="/home" component={HomeComponent} />
+          <Route path="/about" component={About} />
+          <Route path="/versions" component={Versions} />
+          <Route path="/topics" component={Topics} />
+          <Route
+            path="/writers"
+            render={props => (
+              <Writers {...props} writers={this.props.writers} />
+            )}
+          />
+          <Route component={NotFound} />
+        </Switch>
+      </Layout>
     );
   }
 }
-export default App;
+export default connect(
+  state => ({
+    writers: state.writers.allWriters
+  }),
+  { loadWritersRequest }
+)(App);
