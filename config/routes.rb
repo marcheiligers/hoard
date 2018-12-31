@@ -6,4 +6,9 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  root to: 'home#index'
+  get '*path', to: 'home#index', constraints: ->(request) do
+    !request.xhr? && request.format.html?
+  end
 end
