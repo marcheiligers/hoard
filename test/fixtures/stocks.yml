@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  symbol: CIM
+  name: Chimera
+  annual_dividends: 4
+  heart: false
+  star: false
+
+two:
+  symbol: HCAP
+  name: HCAP
+  annual_dividends: 12
+  heart: false
+  star: false
