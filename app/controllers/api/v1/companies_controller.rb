@@ -12,4 +12,15 @@ class Api::V1::CompaniesController < Api::BaseController
 
     render json: company.to_h.merge(quote.to_h)
   end
+
+  def chart
+    # https://iextrading.com/developer/docs/#chart
+    symbol = params[:id]
+    range = params[:range].blank? || params[:range] == 'today' ? '1d' : params[:range]
+puts range
+
+    charts = IEX::Resources::Chart.get(symbol, range)
+
+    render json: charts
+  end
 end
