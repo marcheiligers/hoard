@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
-  # get 'home/index'
-  # map.connect 'photo/*other', :controller => 'photos', :action => 'unknown',
+  defaults format: :json do
+    namespace :api do
+      namespace :v1 do
+        resources :stocks
+      end
+    end
+  end
 
-  get '/*rest', controller: 'home', action: 'index'
-  root 'home/index', controller: 'home', action: 'index'
+  root to: 'home#index'
+  get '*path', to: 'home#index', constraints: ->(request) do
+    !request.xhr? && request.format.html?
+  end
 end
