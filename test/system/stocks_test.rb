@@ -2,6 +2,7 @@ require "application_system_test_case"
 
 class StocksTest < ApplicationSystemTestCase
   setup do
+    skip 'System tests are not ready for the React front-end yet (and yes, I did use a scaffold)'
     @stock = stocks(:one)
   end
 
