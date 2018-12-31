@@ -13,6 +13,6 @@ class CompaniesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_equal @symbol, response_json['symbol']
-    assert_equal 'Chimera Investment Corporation', response_json['company_name']
+    assert_equal 'Chimera Investment Corporation', response_json['companyName']
   end
 end

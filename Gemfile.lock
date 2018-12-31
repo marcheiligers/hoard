@@ -126,6 +126,11 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.9.1)
       mini_portile2 (~> 2.4.0)
+    oj (3.7.6)
+    olive_branch (2.1.4)
+      multi_json
+      oj
+      rails (>= 4.0)
     public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.6)
@@ -230,6 +235,7 @@ DEPENDENCIES
   iex-ruby-client
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
+  olive_branch
   puma (~> 3.11)
   rails (~> 5.2.2)
   sass-rails (~> 5.0)
