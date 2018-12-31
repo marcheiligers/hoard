@@ -17,7 +17,6 @@ class Api::V1::CompaniesController < Api::BaseController
     # https://iextrading.com/developer/docs/#chart
     symbol = params[:id]
     range = params[:range].blank? || params[:range] == 'today' ? '1d' : params[:range]
-puts range
 
     charts = IEX::Resources::Chart.get(symbol, range)
 
