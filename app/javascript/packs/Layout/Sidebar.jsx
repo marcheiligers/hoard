@@ -16,11 +16,7 @@ import { withStyles } from "@material-ui/core/styles";
 export const Sidebar = ({ location, classes, theme, writers }) => {
   return (
     <MenuList>
-      <MenuItem
-        component={Link}
-        to="/home"
-        selected={"/home" === location.pathname}
-      >
+      <MenuItem component={Link} to="/" selected={"/" === location.pathname}>
         <ListItemIcon>
           <Home />
         </ListItemIcon>

@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <Layout writers={this.props.writers}>
         <Switch>
-          <Route exact path="/home" component={HomeComponent} />
+          <Route exact path="/" component={HomeComponent} />
           <Route path="/about" component={About} />
           <Route path="/versions" component={Versions} />
           <Route path="/topics" component={Topics} />
