@@ -29,6 +29,8 @@ class ActiveSupport::TestCase
       camel_key = key.camelize(:lower)
       if key.ends_with?('at')
         assert_equal val.to_i, Time.parse(actual[camel_key]).to_i, "Expected #{key} to equal #{val} but it was #{Time.parse(actual[camel_key])}"
+      elsif val.nil?
+        assert_nil actual[camel_key], "Expected #{key} to be nil but it was #{actual[camel_key]}"
       else
         assert_equal val, actual[camel_key], "Expected #{key} to equal #{val} but it was #{actual[camel_key]}"
       end

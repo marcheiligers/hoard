@@ -1,0 +1,137 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.iextrading.com/1.0/stock/AAPL/company
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      server:
+      - nginx
+      date:
+      - Tue, 01 Jan 2019 18:35:48 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - close
+      set-cookie:
+      - ctoken=dfe9a63a2ae744d18892c393fa5d29c4; Domain=.iextrading.com; Path=/; Expires=Wed,
+        02 Jan 2019 06:35:48 GMT; Secure
+      content-security-policy:
+      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
+        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
+        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
+        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
+        'self' 'unsafe-inline' 'unsafe-eval';
+      x-content-security-policy:
+      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
+        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
+        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
+        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
+        'self' 'unsafe-inline' 'unsafe-eval';
+      frame-options:
+      - SAMEORIGIN
+      x-frame-options:
+      - SAMEORIGIN
+      x-content-type-options:
+      - nosniff
+      strict-transport-security:
+      - max-age=15768000
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-methods:
+      - GET, OPTIONS
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+    body:
+      encoding: ASCII-8BIT
+      string: '{"symbol":"AAPL","companyName":"Apple Inc.","exchange":"Nasdaq Global
+        Select","industry":"Computer Hardware","website":"http://www.apple.com","description":"Apple
+        Inc is designs, manufactures and markets mobile communication and media devices
+        and personal computers, and sells a variety of related software, services,
+        accessories, networking solutions and third-party digital content and applications.","CEO":"Timothy
+        D. Cook","issueType":"cs","sector":"Technology","tags":["Technology","Consumer
+        Electronics","Computer Hardware"]}'
+    http_version: 
+  recorded_at: Tue, 01 Jan 2019 18:35:48 GMT
+- request:
+    method: get
+    uri: https://api.iextrading.com/1.0/stock/AAPL/dividends/2y
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      server:
+      - nginx
+      date:
+      - Tue, 01 Jan 2019 18:35:48 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - close
+      set-cookie:
+      - ctoken=f320f83850d240a4b88a3ecbf3a408a4; Domain=.iextrading.com; Path=/; Expires=Wed,
+        02 Jan 2019 06:35:48 GMT; Secure
+      content-security-policy:
+      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
+        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
+        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
+        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
+        'self' 'unsafe-inline' 'unsafe-eval';
+      x-content-security-policy:
+      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
+        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
+        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
+        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
+        'self' 'unsafe-inline' 'unsafe-eval';
+      frame-options:
+      - SAMEORIGIN
+      x-frame-options:
+      - SAMEORIGIN
+      x-content-type-options:
+      - nosniff
+      strict-transport-security:
+      - max-age=15768000
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-methods:
+      - GET, OPTIONS
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"exDate":"2018-02-09","paymentDate":"2018-02-15","recordDate":"2018-02-12","declaredDate":"2018-02-01","amount":0.63,"flag":"","type":"Dividend
+        income","qualified":"Q","indicated":""},{"exDate":"2017-11-10","paymentDate":"2017-11-16","recordDate":"2017-11-13","declaredDate":"2017-11-02","amount":0.63,"flag":"","type":"Dividend
+        income","qualified":"Q","indicated":""},{"exDate":"2017-08-10","paymentDate":"2017-08-17","recordDate":"2017-08-14","declaredDate":"2017-08-01","amount":0.63,"flag":"","type":"Dividend
+        income","qualified":"Q","indicated":""},{"exDate":"2017-05-11","paymentDate":"2017-05-18","recordDate":"2017-05-15","declaredDate":"2017-05-02","amount":0.63,"flag":"","type":"Dividend
+        income","qualified":"Q","indicated":""},{"exDate":"2017-02-09","paymentDate":"2017-02-16","recordDate":"2017-02-13","declaredDate":"2017-01-31","amount":0.57,"flag":"","type":"Dividend
+        income","qualified":"Q","indicated":""},{"exDate":"2016-11-03","paymentDate":"2016-11-10","recordDate":"2016-11-07","declaredDate":"2016-10-25","amount":0.57,"flag":"","type":"Dividend
+        income","qualified":"Q","indicated":""},{"exDate":"2016-08-04","paymentDate":"2016-08-11","recordDate":"2016-08-08","declaredDate":"2016-07-26","amount":0.57,"flag":"","type":"Dividend
+        income","qualified":"Q","indicated":""},{"exDate":"2016-05-05","paymentDate":"2016-05-12","recordDate":"2016-05-09","declaredDate":"2016-04-26","amount":0.57,"flag":"","type":"Dividend
+        income","qualified":"Q","indicated":""}]'
+    http_version: 
+  recorded_at: Tue, 01 Jan 2019 18:35:49 GMT
+recorded_with: VCR 4.0.0

@@ -10,6 +10,7 @@ class Api::V1::StocksController < Api::BaseController
 
   def create
     @stock = Stock.new(stock_params)
+    fetch_additional_info
 
     if @stock.save
       render :show, status: :created, location: api_v1_stock_url(@stock)
@@ -38,5 +39,19 @@ class Api::V1::StocksController < Api::BaseController
 
     def stock_params
       params.require(:stock).permit(:symbol, :name, :annual_dividends, :heart, :star)
+    end
+
+    def fetch_additional_info
+      # TODO: Threading to parallelize IEX API requests
+      if @stock.name.blank?
+        company = IEX::Resources::Company.get(@stock.symbol)
+        @stock.name = company.company_name
+      end
+
+      if @stock.annual_dividends.blank?
+        dividends = IEX::Resources::Dividends.get(@stock.symbol, '2y').map { |div| Date.parse(div.payment_date) }
+        year_ago = dividends.first - 360.days # sometimes there is an overlap by a couple of days
+        @stock.annual_dividends = dividends.select { |date| date > year_ago }.size
+      end
     end
 end
