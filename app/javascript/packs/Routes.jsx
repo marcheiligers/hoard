@@ -1,4 +1,5 @@
-import React from "react";
+// TODO: Look into nested routes here later
+/*import React from "react";
 import { Home, List, Bookmark, Info } from "@material-ui/icons";
 import HomeComponent from "./home/homeComponent";
 import About from "./about/aboutComponent";
@@ -7,7 +8,7 @@ import Versions from "./versions/versionsComponent";
 
 const Routes = [
   {
-    path: "/home",
+    path: "/",
     sidebarName: "Home",
     navbarName: "Home",
     icon: Home,
@@ -37,3 +38,4 @@ const Routes = [
 ];
 
 export default Routes;
+*/
