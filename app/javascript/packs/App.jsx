@@ -9,23 +9,21 @@ import Writers from "./writers/writersComponent";
 import Stocks from "./stocks/stocksComponent";
 import Layout from "./Layout/layoutContainer";
 import { NotFound } from "./Errors";
-
-// DUMMY DATA
-import data from "./stocks/stocksData";
-const stocks = data.stocks;
 // REDUX
 import writersActions from "./writers/writersActions";
-// import data from "./writersData.js";
+import stocksActions from "./stocks/stocksActions";
 
 const loadWritersRequest = writersActions.loadWritersRequest;
+const loadStocksRequest = stocksActions.loadStocksRequest;
 
 class App extends Component {
   componentDidMount() {
     this.props.loadWritersRequest();
+    this.props.loadStocksRequest();
   }
   render() {
     return (
-      <Layout writers={this.props.writers} stocks={stocks}>
+      <Layout writers={this.props.writers} stocks={this.props.stocks}>
         <Switch>
           <Route exact path="/" component={HomeComponent} />
           <Route path="/about" component={About} />
@@ -39,7 +37,7 @@ class App extends Component {
           />
           <Route
             path="/stocks"
-            render={props => <Stocks {...props} stocks={stocks} />}
+            render={props => <Stocks {...props} stocks={this.props.stocks} />}
           />
           <Route component={NotFound} />
         </Switch>
@@ -49,7 +47,8 @@ class App extends Component {
 }
 export default connect(
   state => ({
-    writers: state.writers.allWriters
+    writers: state.writers.allWriters,
+    stocks: state.stocks.allStocks
   }),
-  { loadWritersRequest }
+  { loadWritersRequest, loadStocksRequest }
 )(App);
