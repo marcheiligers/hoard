@@ -13,7 +13,7 @@ import {
 import { Home, List, Bookmark, Info, AccountCircle } from "@material-ui/icons";
 import { withStyles } from "@material-ui/core/styles";
 
-export const Sidebar = ({ location, classes, theme, writers }) => {
+export const Sidebar = ({ location, classes, theme, writers, stocks }) => {
   return (
     <MenuList>
       <MenuItem component={Link} to="/" selected={"/" === location.pathname}>
@@ -75,6 +75,33 @@ export const Sidebar = ({ location, classes, theme, writers }) => {
               selected={to === location.pathname}
             >
               {name}
+            </MenuItem>
+          );
+        })}
+      </MenuList>
+      <MenuItem
+        component={Link}
+        to="/stocks"
+        selected={"/stocks" === location.pathname}
+      >
+        <ListItemIcon>
+          <List />
+        </ListItemIcon>
+        <ListItemText primary={"Stocks"} />
+      </MenuItem>
+      <Divider className={classes.divider} />
+      <MenuList>
+        {stocks.map(({ id, symbol }) => {
+          const to = `/stocks/${id}`;
+          return (
+            <MenuItem
+              to={to}
+              key={id}
+              className={classes.nested}
+              component={Link}
+              selected={to === location.pathname}
+            >
+              {symbol}
             </MenuItem>
           );
         })}
