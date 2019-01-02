@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stock: one
+  order_type: 'trade'
+  executed_at: 2019-01-02 12:10:50
+  price: 9.99
+  shares: 1
+
+two:
+  stock: two
+  order_type: 'trade'
+  executed_at: 2019-01-02 12:10:50
+  price: 9.99
+  shares: 1

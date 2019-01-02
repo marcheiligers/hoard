@@ -17,8 +17,8 @@ class ActiveSupport::TestCase
     @response_json ||= JSON.parse(response.body)
   end
 
-  def assert_response_json_model(expected_model)
-    expected = expected_model.attributes.merge('url' => "http://www.example.com/api/v1/stocks/#{expected_model.id}")
+  def assert_response_json_model(expected_model, overrides = {})
+    expected = expected_model.attributes.merge(overrides)
     actual = response_json
 
     actual_keys = actual.keys.map(&:underscore)
@@ -31,6 +31,8 @@ class ActiveSupport::TestCase
         assert_equal val.to_i, Time.parse(actual[camel_key]).to_i, "Expected #{key} to equal #{val} but it was #{Time.parse(actual[camel_key])}"
       elsif val.nil?
         assert_nil actual[camel_key], "Expected #{key} to be nil but it was #{actual[camel_key]}"
+      elsif val.is_a?(BigDecimal)
+        assert_equal val, BigDecimal(actual[camel_key]), "Expected #{key} to be nil but it was #{actual[camel_key]}"
       else
         assert_equal val, actual[camel_key], "Expected #{key} to equal #{val} but it was #{actual[camel_key]}"
       end
