@@ -1,6 +1,19 @@
 {
     "name": "hoard",
     "private": true,
+    "scripts": {
+        "test": "jest",
+        "test-watch": "jest --watch"
+    },
+    "jest": {
+        "roots": ["app/javascript/packs"],
+        "moduleDirectories": ["node_modules", "app/javascript/packs"],
+        "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
+        "moduleNameMapper": {
+            "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/app/javascript/packs/__mocks__/fileMock.js",
+            "\\.(css|less)$": "<rootDir>/app/javascript/packs/__mocks__/styleMock.js"
+        }
+    },
     "dependencies": {
         "@babel/core": "^7.0.0",
         "@babel/preset-react": "^7.0.0",
@@ -9,6 +22,7 @@
         "@material-ui/icons": "^3.0.1",
         "@rails/webpacker": "^4.0.0-rc.2",
         "axios": "^0.18.0",
+        "babel-core": "^7.0.0-0",
         "connected-react-router": "^6.1.0",
         "history": "^4.7.2",
         "prop-types": "^15.6.2",
@@ -20,7 +34,8 @@
         "recompose": "^0.30.0",
         "redux": "^4.0.1",
         "redux-devtools-extension": "^2.13.7",
-        "redux-saga": "^0.16.2"
+        "redux-saga": "^0.16.2",
+        "webpack": "^4.0.0"
     },
     "devDependencies": {
         "@babel/core": "^7.0.0",
@@ -39,7 +54,13 @@
         "@babel/plugin-proposal-throw-expressions": "^7.0.0",
         "@babel/plugin-syntax-dynamic-import": "^7.0.0",
         "@babel/plugin-syntax-import-meta": "^7.0.0",
+        "babel-jest": "^23.6.0",
+        "enzyme": "^3.8.0",
+        "enzyme-adapter-react-16": "^1.7.1",
+        "jest": "^23.6.0",
+        "jest-enzyme": "^7.0.1",
         "redux-saga-tester": "^1.0.381",
+        "regenerator-runtime": "^0.13.1",
         "webpack-dev-server": "^3"
     }
 }
