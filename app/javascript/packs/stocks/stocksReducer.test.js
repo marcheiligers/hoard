@@ -17,4 +17,10 @@ describe("stocks reducer -> load stocks", () => {
     expect(newState.allStocks).toEqual(testStocks);
     expect(newState.error).toBeNull();
   });
+  it("updates state on LOAD_STOCKS_ERROR", () => {
+    const testError = { message: "Could not load stocks" };
+    let testAction = stocksActions.loadStocksError(testError);
+    const newState = stocksReducer(defaultState, testAction);
+    expect(newState.error).toEqual(testError.message);
+  });
 });

@@ -15,6 +15,13 @@ export default function stocksReducer(currentState = initialState, action) {
       };
       return newState;
     }
+    case stocksActions.LOAD_STOCKS_ERROR: {
+      const newState = {
+        ...currentState,
+        error: action.error
+      };
+      return newState;
+    }
     default:
       return currentState;
   }
