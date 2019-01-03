@@ -12,10 +12,12 @@
 #  updated_at  :datetime         not null
 #
 
-require 'test_helper'
-
-class BuyTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+FactoryBot.define do
+  factory :purchase do
+    stock { create(:stock) }
+    order_type  { 'trade' }
+    executed_at { 4.days.ago }
+    price { 1.01 }
+    shares { 10 }
+  end
 end

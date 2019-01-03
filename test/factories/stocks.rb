@@ -12,14 +12,12 @@
 #  updated_at       :datetime         not null
 #
 
-require 'test_helper'
-
-class StockTest < ActiveSupport::TestCase
-  test "cannot be destroyed with a purchase history" do
-    stock = create(:stock)
-    assert stock.destroy
-
-    purchase = create(:purchase)
-    assert_raises { purchase.stock.destroy }
+FactoryBot.define do
+  factory :stock do
+    symbol { 'CIM' }
+    name  { 'Chimera Investment Corporation' }
+    annual_dividends { 4 }
+    heart { false }
+    star { false }
   end
 end

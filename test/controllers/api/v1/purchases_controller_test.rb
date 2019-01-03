@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PurchasesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @purchase = purchases(:one)
+    @purchase = create(:purchase)
   end
 
   test 'should get index' do
@@ -11,10 +11,9 @@ class PurchasesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should create a purchase' do
-    purchase_params = { stock_id: stocks(:one).id, order_type: 'trade', executed_at: Time.now, price: 1.01, shares: 10 }
+    purchase_params = { stock_id: @purchase.stock_id, order_type: 'trade', executed_at: Time.now, price: 1.01, shares: 10 }
     assert_difference('Purchase.count') do
       post api_v1_purchases_url, params: { purchase: purchase_params }
-      puts response_json
     end
 
     assert_response :created
