@@ -15,9 +15,9 @@
 FactoryBot.define do
   factory :purchase do
     stock { create(:stock) }
-    order_type  { 'trade' }
-    executed_at { 4.days.ago }
-    price { 1.01 }
-    shares { 10 }
+    order_type  { Purchase::TYPES.sample }
+    executed_at { rand(360).days.ago }
+    price { (rand * 100).round(5) }
+    shares { rand(990) + 10 }
   end
 end

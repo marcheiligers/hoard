@@ -7,8 +7,21 @@ VCR.configure do |config|
   config.hook_into :faraday
 end
 
+DatabaseCleaner.strategy = :transaction
+
 class ActiveSupport::TestCase
+  def before_setup
+    super
+    DatabaseCleaner.start
+  end
+
+  def after_teardown
+    super
+    DatabaseCleaner.clean
+  end
+
   include FactoryBot::Syntax::Methods
+  FactoryBot.use_parent_strategy = true
 
   make_my_diffs_pretty!
 

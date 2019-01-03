@@ -22,4 +22,9 @@ class StockTest < ActiveSupport::TestCase
     purchase = create(:purchase)
     assert_raises { purchase.stock.destroy }
   end
+
+  test 'the stock factory does what I expect' do
+    skip 'Just making sure this loops through the list of real stock I provided'
+    20.times { puts build(:stock).inspect }
+  end
 end
