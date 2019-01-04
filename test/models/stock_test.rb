@@ -23,8 +23,32 @@ class StockTest < ActiveSupport::TestCase
     assert_raises { purchase.stock.destroy }
   end
 
+  test '#shares_owned' do
+    stock = create(:stock)
+    create(:purchase, stock: stock, shares: 5)
+    create(:purchase, stock: stock, shares: 6)
+
+    assert_equal 11, stock.shares_owned
+  end
+
+  test '#total_purchase_price' do
+    stock = create(:stock)
+    create(:purchase, stock: stock, shares: 5, price: 1.0)
+    create(:purchase, stock: stock, shares: 5, price: 2.0)
+
+    assert_equal 15.0, stock.total_purchase_price
+  end
+
+  test '#average_purchase_price' do
+    stock = create(:stock)
+    create(:purchase, stock: stock, shares: 5, price: 1.0)
+    create(:purchase, stock: stock, shares: 5, price: 2.0)
+
+    assert_equal 1.5, stock.average_purchase_price
+  end
+
   test 'the stock factory does what I expect' do
-    skip 'Just making sure this loops through the list of real stock I provided'
+    skip 'Just making sure this loops through the list of real stocks I provided'
     20.times { puts build(:stock).inspect }
   end
 end

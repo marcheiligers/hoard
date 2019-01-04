@@ -17,6 +17,18 @@ class Stock < ApplicationRecord
 
   before_destroy :ensure_no_purchases
 
+  def shares_owned
+    purchases.sum(&:shares) # TODO: subtract sales
+  end
+
+  def total_purchase_price
+    purchases.sum { |purchase| purchase.price * purchase.shares }
+  end
+
+  def average_purchase_price
+    total_purchase_price / shares_owned
+  end
+
   private
     def ensure_no_purchases
       raise StandardError, 'Cannot destroy stock because it has a purchase history' unless purchases.blank?
