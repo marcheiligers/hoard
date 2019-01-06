@@ -1,6 +1,6 @@
 import stocksActions from "./stocksActions";
 
-const initialState = {
+export const initialState = {
   allStocks: [],
   selectedStock: null,
   error: null
