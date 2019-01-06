@@ -66,7 +66,8 @@ class Layout extends Component {
       classes,
       location: { pathname },
       children,
-      writers
+      writers,
+      stocks
     } = this.props;
     const { mobileOpen } = this.state;
     const drawer = (
@@ -79,6 +80,7 @@ class Layout extends Component {
           classes={classes}
           theme={styles.theme}
           writers={writers}
+          stocks={stocks}
         />
       </div>
     );
