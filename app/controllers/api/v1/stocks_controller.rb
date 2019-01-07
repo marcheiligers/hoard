@@ -49,9 +49,12 @@ class Api::V1::StocksController < Api::BaseController
       end
 
       if @stock.annual_dividends.blank?
+        # TODO: Add tests for catching if the stocks don't pay dividends
         dividends = IEX::Resources::Dividends.get(@stock.symbol, '2y').map { |div| Date.parse(div.payment_date) }
-        year_ago = dividends.first - 360.days # sometimes there is an overlap by a couple of days
-        @stock.annual_dividends = dividends.select { |date| date > year_ago }.size
+        if dividends.length > 0
+          year_ago = dividends.first - 360.days # sometimes there is an overlap by a couple of days
+          @stock.annual_dividends = dividends.select { |date| date > year_ago }.size
+        end
       end
     end
 end
