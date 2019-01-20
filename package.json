@@ -1,6 +1,10 @@
 {
     "name": "hoard",
     "private": true,
+    "scripts": {
+        "test": "jest app/javascript/src/*",
+        "test-watch": "jest app/javascript/src/* --watch"
+    },
     "dependencies": {
         "@babel/core": "^7.0.0",
         "@babel/preset-react": "^7.0.0",
@@ -30,6 +34,9 @@
         "@babel/plugin-syntax-dynamic-import": "^7.0.0",
         "@babel/plugin-syntax-import-meta": "^7.0.0",
         "@babel/plugin-transform-regenerator": "^7.0.0",
+        "babel-core": "^7.0.0-bridge.0",
+        "babel-jest": "^23.6.0",
+        "jest": "^23.6.0",
         "redux-saga-tester": "^1.0.381",
         "webpack-dev-server": "^3"
     }
