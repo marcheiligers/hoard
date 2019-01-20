@@ -13,3 +13,9 @@ export const NotFound = () => (
     </div>
   </div>
 );
+export const ItemNotFound = ({ item, id }) => (
+  <div>
+    <h1>Oops!</h1>
+    <p>{`The item ${item} you are looking for with id ${id} is not found`}</p>
+  </div>
+);

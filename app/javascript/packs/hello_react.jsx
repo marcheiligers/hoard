@@ -6,8 +6,8 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
-import { store, history } from "./store";
-import App from "./App";
+import { store, history } from "../src/application/store";
+import App from "../src/application/App";
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(
