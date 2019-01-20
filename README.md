@@ -37,3 +37,19 @@ Then start the client:
 ```
 $ foreman start
 ```
+
+## Jest with Babel 7
+
+Run client side tests and exit with:
+
+```
+$ yarn test
+```
+
+To watch while testing, run:
+
+```
+$ yarn test-watch
+```
+
+When babel-jest finally reaches a point where it can depend directly on @babel/core: ^7.0.0, remove the dependency on "babel-core": "^7.0.0-bridge.0". The bridge dependency is [A placeholder package that bridges babel-core to @babel/core](https://github.com/babel/babel-bridge).
