@@ -3,21 +3,11 @@ import { Link, Route } from 'react-router-dom';
 import Stock from './stock/stockComponent';
 import { NotFound, ItemNotFound } from '../Errors';
 import StocksTable from './stocksTable';
-import data from './stocksData';
 
 const Stocks = ({ match: { url }, stocks }) => (
   <Fragment>
     {/* This is where the table comes in*/}
-    <StocksTable />
-    <ul>
-      {stocks &&
-        stocks.length &&
-        stocks.map(({ id, symbol }) => (
-          <li key={id}>
-            <Link to={`${url}/${id}`}>{symbol}</Link>
-          </li>
-        ))}
-    </ul>
+    <StocksTable stocks={stocks} />
     <Route
       exact
       path={url}
