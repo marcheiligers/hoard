@@ -5,7 +5,7 @@ import HomeComponent from './home/homeComponent';
 import About from './about/aboutComponent';
 import Topics from './topics/topicsComponent';
 import Versions from './versions/versionsComponent';
-import StyledStocksTable from './stocks/stocksComponent';
+import StyledStocksTable from './stocks/stocksTable';
 import Stock from './stocks/stock/stockComponent';
 import Layout from './Layout/layoutContainer';
 import { NotFound } from './Errors';

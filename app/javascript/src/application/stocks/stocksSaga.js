@@ -27,10 +27,13 @@ export function* loadStockRequest(action) {
     const result = yield call(loadStock, action.id);
     yield put({
       type: stocksActions.LOAD_STOCK_SUCCESS,
-      stock: result.data
+      selectedStock: result.data
     });
   } catch (err) {
-    yield put({ type: stocksActions.LOAD_STOCK_ERROR, error: err });
+    yield put({
+      type: stocksActions.LOAD_STOCK_ERROR,
+      error: 'Could not load stock'
+    });
   }
 }
 

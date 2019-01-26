@@ -60,8 +60,7 @@ class StocksTable extends Component {
                       {stock.symbol ? (
                         <Link
                           to={{
-                            pathname: `stock/${stock.id}`,
-                            state: { stock: stocks.find(stock => stock.id) }
+                            pathname: `stock/${stock.id}`
                           }}
                         >
                           {stock.symbol}

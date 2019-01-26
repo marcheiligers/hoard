@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ItemNotFound } from '../../Errors';
 // REDUX
 import stocksActions from '../stocksActions';
 const loadStockRequest = stocksActions.loadStockRequest;
@@ -9,6 +10,11 @@ class Stock extends Component {
     this.props.loadStockRequest(this.props.match.params.stock_id);
   }
   render() {
+    if (this.props.error) {
+      return (
+        <ItemNotFound item="stock" id={this.props.match.params.stock_id} />
+      );
+    }
     const {
       symbol,
       name,
@@ -37,6 +43,9 @@ class Stock extends Component {
   }
 }
 export default connect(
-  state => ({ stock: state.stocks.stock }),
+  state => ({
+    stock: state.stocks.selectedStock || {},
+    error: state.stocks.error ? state.stocks.error : null
+  }),
   { loadStockRequest }
 )(Stock);

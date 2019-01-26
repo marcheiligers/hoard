@@ -20,13 +20,13 @@ export const stocksActions = {
     type: stocksActions.LOAD_STOCK_REQUEST,
     id: id
   }),
-  loadStockSuccess: stocks => ({
+  loadStockSuccess: stock => ({
     type: stocksActions.LOAD_STOCK_SUCCESS,
-    stock: stock
+    selectedStock: stock
   }),
   loadStockError: err => ({
     type: stocksActions.LOAD_STOCK_ERROR,
-    error: err.message
+    error: err
   })
 };
 export default stocksActions;
