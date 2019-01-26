@@ -1,7 +1,8 @@
-import stocksActions from "./stocksActions";
+import stocksActions from './stocksActions';
 
 export const initialState = {
   allStocks: [],
+  stock: {},
   selectedStock: null,
   error: null
 };
@@ -16,6 +17,20 @@ export default function stocksReducer(currentState = initialState, action) {
       return newState;
     }
     case stocksActions.LOAD_STOCKS_ERROR: {
+      const newState = {
+        ...currentState,
+        error: action.error
+      };
+      return newState;
+    }
+    case stocksActions.LOAD_STOCK_SUCCESS: {
+      const newState = {
+        ...currentState,
+        stock: action.stock
+      };
+      return newState;
+    }
+    case stocksActions.LOAD_STOCK_ERROR: {
       const newState = {
         ...currentState,
         error: action.error
