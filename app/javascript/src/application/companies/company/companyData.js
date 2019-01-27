@@ -1,4 +1,4 @@
-export const companiesData = {
+const companiesData = {
   companies: [
     {
       symbol: "PEI",
@@ -100,3 +100,4 @@ export const companiesData = {
     }
   ]
 };
+export default companiesData;

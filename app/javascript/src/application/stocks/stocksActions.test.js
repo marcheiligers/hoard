@@ -1,7 +1,7 @@
 import data from './stocksData.js';
 import stocksActions from './stocksActions.js';
 
-describe('stocks action creators -> stocksActions', () => {
+describe.only('stocks action creators -> stocksActions', () => {
   it('gets stocks on loadStocksRequest', () => {
     const testLoadStocksRequest = stocksActions.loadStocksRequest();
     expect(testLoadStocksRequest).toEqual({
@@ -45,7 +45,7 @@ describe('stocks action creators -> stocksActions', () => {
     const testLoadStockError = stocksActions.loadStockError(testError);
     expect(testLoadStockError).toEqual({
       type: stocksActions.LOAD_STOCK_ERROR,
-      error: testError.message
+      error: testError
     });
   });
 });

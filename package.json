@@ -2,8 +2,8 @@
     "name": "hoard",
     "private": true,
     "scripts": {
-        "test": "jest app/javascript/src/*",
-        "test-watch": "jest app/javascript/src/* --watch"
+        "test": "jest app/javascript/src/application/*",
+        "test-watch": "jest app/javascript/src/application* --watch"
     },
     "dependencies": {
         "@babel/core": "^7.0.0",

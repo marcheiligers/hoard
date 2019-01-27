@@ -1,10 +1,10 @@
-import companiesData from '.companiesData.js';// TODO add this file
+import companiesData from './companyData.js';// TODO add this file
 import companyActions from './companyActions.js';
 
 describe('company action creators -> companyActions', () => {
   it('gets a company\'s info on loadCompanyRequest', () => {
     const testSymbol = 'CIM';
-    const testLoadCompanyRequest = companyActions.loadCompanyRequest(testId);
+    const testLoadCompanyRequest = companyActions.loadCompanyRequest(testSymbol);
     expect(testLoadCompanyRequest).toEqual({
       type: companyActions.LOAD_COMPANY_REQUEST,
       symbol: testSymbol
@@ -23,7 +23,7 @@ describe('company action creators -> companyActions', () => {
     const testLoadCompanyError = companyActions.loadCompanyError(testError);
     expect(testLoadCompanyError).toEqual({
       type: companyActions.LOAD_COMPANY_ERROR,
-      error: testError.message
+      error: testError
     });
   });
 });
