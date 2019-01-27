@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Link, withRouter } from "react-router-dom";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
 import {
   ListItemIcon,
   ListItemText,
@@ -9,76 +9,60 @@ import {
   MenuList,
   MenuItem,
   Drawer
-} from "@material-ui/core";
-import { Home, List, Bookmark, Info, AccountCircle } from "@material-ui/icons";
-import { withStyles } from "@material-ui/core/styles";
+} from '@material-ui/core';
+import { Home, List, Bookmark, Info, AccountCircle } from '@material-ui/icons';
+import { withStyles } from '@material-ui/core/styles';
 
 export const Sidebar = ({ location, classes, theme, stocks }) => {
   return (
     <MenuList>
-      <MenuItem component={Link} to="/" selected={"/" === location.pathname}>
+      <MenuItem component={Link} to="/" selected={'/' === location.pathname}>
         <ListItemIcon>
           <Home />
         </ListItemIcon>
-        <ListItemText primary={"Home"} />
+        <ListItemText primary={'Home'} />
       </MenuItem>
       <MenuItem
         component={Link}
         to="/about"
-        selected={"/about" === location.pathname}
+        selected={'/about' === location.pathname}
       >
         <ListItemIcon>
           <Info />
         </ListItemIcon>
-        <ListItemText primary={"About"} />
+        <ListItemText primary={'About'} />
       </MenuItem>
       <MenuItem
         component={Link}
         to="/versions"
-        selected={"/versions" === location.pathname}
+        selected={'/versions' === location.pathname}
       >
         <ListItemIcon>
           <List />
         </ListItemIcon>
-        <ListItemText primary={"Versions"} />
+        <ListItemText primary={'Versions'} />
       </MenuItem>
       <MenuItem
         component={Link}
         to="/topics"
-        selected={"/topics" === location.pathname}
+        selected={'/topics' === location.pathname}
       >
         <ListItemIcon>
           <Bookmark />
         </ListItemIcon>
-        <ListItemText primary={"Topics"} />
+        <ListItemText primary={'Topics'} />
       </MenuItem>
       <MenuItem
         component={Link}
         to="/stocks"
-        selected={"/stocks" === location.pathname}
+        selected={'/stocks' === location.pathname}
       >
         <ListItemIcon>
           <AccountCircle />
         </ListItemIcon>
-        <ListItemText primary={"stocks"} />
+        <ListItemText primary={'stocks'} />
       </MenuItem>
       <Divider className={classes.divider} />
-      <MenuList>
-        {stocks.map(({ id, symbol }) => {
-          const to = `/stocks/${id}`;
-          return (
-            <MenuItem
-              to={to}
-              key={id}
-              className={classes.nested}
-              component={Link}
-              selected={to === location.pathname}
-            >
-              {symbol}
-            </MenuItem>
-          );
-        })}
-      </MenuList>
     </MenuList>
   );
 };

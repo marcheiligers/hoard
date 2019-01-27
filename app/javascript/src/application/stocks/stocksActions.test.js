@@ -24,4 +24,28 @@ describe('stocks action creators -> stocksActions', () => {
       error: testError.message
     });
   });
+  it('gets a stock on loadStockRequest', () => {
+    const testId = 8;
+    const testLoadStockRequest = stocksActions.loadStockRequest(testId);
+    expect(testLoadStockRequest).toEqual({
+      type: stocksActions.LOAD_STOCK_REQUEST,
+      id: testId
+    });
+  });
+  it('returns stocks on loadStockSuccess', () => {
+    const testStock = data.stocks[0];
+    const testLoadStockSuccess = stocksActions.loadStockSuccess(testStock);
+    expect(testLoadStockSuccess).toEqual({
+      type: stocksActions.LOAD_STOCK_SUCCESS,
+      selectedStock: testStock
+    });
+  });
+  it('returns and error message on loadStockError', () => {
+    const testError = { message: 'Could not load stock' };
+    const testLoadStockError = stocksActions.loadStockError(testError);
+    expect(testLoadStockError).toEqual({
+      type: stocksActions.LOAD_STOCK_ERROR,
+      error: testError.message
+    });
+  });
 });
