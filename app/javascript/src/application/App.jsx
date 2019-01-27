@@ -7,7 +7,7 @@ import Versions from './versions/versionsComponent';
 import StyledStocksTable from './stocks/stocksTable';
 import StockLayout from './stocks/stock/stockLayout';
 import Layout from './Layout/layoutContainer';
-import { CompanyContainer } from './companies/company/CompanyContainer';
+import CompanyContainer from './companies/company/CompanyContainer';
 import { CompanyChart } from './companies/company/CompanyChart';
 import { NotFound } from './Errors';
 

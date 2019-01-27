@@ -27,6 +27,6 @@ export const stocksActions = {
   loadStockError: err => ({
     type: stocksActions.LOAD_STOCK_ERROR,
     error: err
-  })
+  }),
 };
 export default stocksActions;

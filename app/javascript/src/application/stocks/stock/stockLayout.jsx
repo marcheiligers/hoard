@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import StockContainer from './stockContainer';
-import { CompanyContainer } from '../../companies/company/CompanyContainer';
+import CompanyContainer from '../../companies/company/CompanyContainer';
 import { CompanyChart } from '../../companies/company/CompanyChart';
 
 class StockLayout extends Component {
