@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-// import { connect } from "react-redux";
 import { Switch, Route } from 'react-router-dom';
 import HomeComponent from './home/homeComponent';
 import About from './about/aboutComponent';
 import Topics from './topics/topicsComponent';
 import Versions from './versions/versionsComponent';
 import StyledStocksTable from './stocks/stocksTable';
-import Stock from './stocks/stock/stockComponent';
+import StockLayout from './stocks/stock/stockLayout';
 import Layout from './Layout/layoutContainer';
 import { NotFound } from './Errors';
 
@@ -21,7 +20,7 @@ const App = () => (
         path="/stocks"
         render={props => <StyledStocksTable {...props} />}
       />
-      <Route path="/stock/:stock_id" component={Stock} />
+      <Route path="/stock/:stock_id" component={StockLayout} />
       <Route component={NotFound} />
     </Switch>
   </Layout>

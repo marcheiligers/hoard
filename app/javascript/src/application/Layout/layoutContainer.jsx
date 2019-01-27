@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import PropTypes from 'prop-types';
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import {
@@ -55,6 +56,12 @@ const styles = theme => ({
 });
 
 class Layout extends Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    children: PropTypes.object,
+    stocks: PropTypes.array
+  }
   state = {
     mobileOpen: false
   };

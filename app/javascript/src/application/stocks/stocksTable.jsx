@@ -27,6 +27,10 @@ const styles = theme => ({
 });
 
 class StocksTable extends Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    stocks: PropTypes.array
+  };
   componentDidMount() {
     this.props.loadStocksRequest();
   }
@@ -101,10 +105,7 @@ class StocksTable extends Component {
     );
   }
 }
-StocksTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-  stocks: PropTypes.array
-};
+
 // Applying styles
 const StyledStocksTable = withStyles(styles)(StocksTable);
 // Exporting connected styled component
@@ -114,4 +115,3 @@ export default connect(
   }),
   { loadStocksRequest }
 )(StyledStocksTable);
-// export default withStyles(styles)(StocksTable);
