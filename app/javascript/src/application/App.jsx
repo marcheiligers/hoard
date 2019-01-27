@@ -22,7 +22,7 @@ const App = () => (
         path="/stocks"
         render={props => <StyledStocksTable {...props} />}
       />
-      <Route path="/stock/:stock_id" render={props => <StockLayout {...props} />
+      <Route path="/stock/:stock_id" component={StockLayout} />
       <Route path="/companies/:symbol" component={CompanyContainer} />
       <Route path="/companies/:symbol/chart" component={CompanyChart} />
       <Route component={NotFound} />
