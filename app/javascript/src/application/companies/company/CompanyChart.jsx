@@ -15,7 +15,7 @@ export class CompanyChart extends React.Component {
 
 // export default connect(
 //   state => ({
-//
-// }),
-// {...dispatchers}
+//   state => ({
+//     company: state.company.selectedCompany
+//   }), { loadCompanyRequest }
 // )(CompanyChart)

@@ -15,7 +15,7 @@ export class CompanyContainer extends Component {
 
 // export default connect(
 //   state => ({
-//     company: state.companies.company
+//     company: state.company.selectedCompany
 //   }), { loadCompanyRequest }
 // // Implement map dispatch to props
 // )(CompanyContainer)

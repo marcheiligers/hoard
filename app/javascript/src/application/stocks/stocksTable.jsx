@@ -115,3 +115,6 @@ export default connect(
   }),
   { loadStocksRequest }
 )(StyledStocksTable);
+// TODO: Add filtering and sorting to this table
+// TODO: Add styling to display favorited and hearted stocks
+// TODO: Add functionality to favorite and heart a stock

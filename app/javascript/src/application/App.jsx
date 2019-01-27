@@ -30,3 +30,4 @@ const App = () => (
   </Layout>
 );
 export default App;
+// TODO: add a container for the Stocks again to handle adding a new stock (POST) and removing a stock (DELETE)
