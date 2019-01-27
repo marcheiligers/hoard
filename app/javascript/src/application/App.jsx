@@ -7,6 +7,8 @@ import Versions from './versions/versionsComponent';
 import StyledStocksTable from './stocks/stocksTable';
 import StockLayout from './stocks/stock/stockLayout';
 import Layout from './Layout/layoutContainer';
+import { CompanyContainer } from './companies/company/CompanyContainer';
+import { CompanyChart } from './companies/company/CompanyChart';
 import { NotFound } from './Errors';
 
 const App = () => (
@@ -20,7 +22,9 @@ const App = () => (
         path="/stocks"
         render={props => <StyledStocksTable {...props} />}
       />
-      <Route path="/stock/:stock_id" component={StockLayout} />
+      <Route path="/stock/:stock_id" render={props => <StockLayout {...props} />
+      <Route path="/companies/:symbol" component={CompanyContainer} />
+      <Route path="/companies/:symbol/chart" component={CompanyChart} />
       <Route component={NotFound} />
     </Switch>
   </Layout>

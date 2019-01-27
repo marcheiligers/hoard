@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom'
 import StockContainer from './stockContainer';
+import {CompanyContainer} from '../../companies/company/CompanyContainer';
+import {CompanyChart} from '../../companies/company/CompanyChart';
 
 class StockLayout extends Component {
   static propTypes = {
@@ -13,10 +14,10 @@ class StockLayout extends Component {
     return (
       <React.Fragment>
         <StockContainer router={this.props}/>
-        <div>Company Info Goes Here</div>
-        <div>Chart Goes Here</div>
+        <CompanyContainer router={this.props}/>
+        <CompanyChart router={this.props}/>
       </React.Fragment>
     )
   }
 }
-export default withRouter(StockLayout);
+export default StockLayout;

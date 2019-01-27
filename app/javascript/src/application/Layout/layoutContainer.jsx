@@ -13,7 +13,7 @@ import {
   CssBaseline
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { Menu } from "@material-ui/icons";
+import {Menu } from "@material-ui/icons";
 import Sidebar from "./Sidebar";
 
 const drawerWidth = 240;
