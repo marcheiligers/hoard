@@ -1,21 +1,44 @@
-import React from 'react';
+import React, { Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+// REDUX
+import companyActions from './companyActions';
+const loadCompanyRequest = companyActions.loadCompanyRequest;
 
-export class CompanyChart extends React.Component {
+class CompanyChart extends Component {
   static propTypes = {
-    router: PropTypes.object,
+    company: PropTypes.object,
+    symbol: PropTypes.string,
+    error: PropTypes.string,
+    loadCompanyRequest: PropTypes.func,
   };
+  componentDidMount() {
+    if (this.props.symbol) {
+      this.props.loadCompanyRequest(this.props.symbol);
+    }
+  }
   render() {
     return (
-      <h1>Company Chart Goes Here</h1>
+      <Fragment>
+        <h1>Company Chart Goes Here</h1>
+        { this.props.company &&
+          Object.keys(this.props.company).map((item, idx) =>
+            <div key={idx}>
+              <span>{`${item}${" : "}`}</span>
+              <span>{this.props.company[item]}</span>
+            </div>
+          )
+        }
+      </Fragment>
     );
   }
 }
 
-// export default connect(
-//   state => ({
-//   state => ({
-//     company: state.company.selectedCompany
-//   }), { loadCompanyRequest }
-// )(CompanyChart)
+export default connect(
+  state => ({
+    company: state.company.selectedCompany || {},
+    error: state.company.error ? state.company.error : null,
+  }), {
+    loadCompanyRequest,
+   }
+)(CompanyChart)

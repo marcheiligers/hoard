@@ -12,11 +12,7 @@ class StockContainer extends Component {
     stock: PropTypes.object,
     error: PropTypes.string,
     router: PropTypes.object,
-    loadStockRequest: PropTypes.func,
   };
-  componentDidMount() {
-    this.props.loadStockRequest(this.props.router.match.params.stock_id);
-  }
   render() {
     if (this.props.error) {
       return (
