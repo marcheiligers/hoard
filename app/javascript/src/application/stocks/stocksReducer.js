@@ -47,6 +47,20 @@ export default function stocksReducer(currentState = initialState, action) {
       };
       return newState;
     }
+    case stocksActions.ADD_STOCK_ERROR: {
+      const newState = {
+        ...currentState,
+        error: action.error
+      };
+      return newState;
+    }
+    case stocksActions.CLEAR_ADD_STOCK_ERROR: {
+      const newState = {
+        ...currentState,
+        error: null,
+      }
+      return newState;
+    }
     default:
       return currentState;
   }

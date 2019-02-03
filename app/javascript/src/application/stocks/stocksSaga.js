@@ -42,6 +42,7 @@ export function* addStockRequestWatcher() {
 }
 
 export function* addStockRequest(action) {
+  console.log('In addStockRequestSaga, action.symbol:', action.symbol)
   try {
     const result = yield call(addStock, action.symbol);
     console.log('result.data from post new stock:', result.data)
@@ -52,6 +53,7 @@ export function* addStockRequest(action) {
       newStock: result.data
     });
   } catch (err) {
+    console.log('AN ERROR FROM THE POST:', err)
     yield put({
       type: stocksActions.ADD_STOCK_ERROR,
       error: 'Could not add stock'

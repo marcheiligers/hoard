@@ -8,6 +8,7 @@ export const stocksActions = {
   ADD_STOCK_REQUEST: 'ADD_STOCK_REQUEST',
   ADD_STOCK_ERROR: 'ADD_STOCK_ERROR',
   ADD_STOCK_SUCCESS: 'ADD_STOCK_SUCCESS',
+  CLEAR_ADD_STOCK_ERROR: 'CLEAR_ADD_STOCK_ERROR',
   loadStocksRequest: () => ({
     type: stocksActions.LOAD_STOCKS_REQUEST
   }),
@@ -37,11 +38,14 @@ export const stocksActions = {
   }),
   addStockError: err => ({
     type: stocksActions.ADD_STOCK_ERROR,
-    error: err.message
+    error: err
   }),
   addStockSuccess: newStock => ({
     type: stocksActions.ADD_STOCK_SUCCESS,
     newStock: newStock
   }),
+  clearAddStockError: () => ({
+    type: stocksActions.CLEAR_ADD_STOCK_ERROR,
+  })
 };
 export default stocksActions;
