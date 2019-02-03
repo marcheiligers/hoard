@@ -18,14 +18,14 @@ class AddStockForm extends Component {
             let errors = {};
             if (dup) {
               errors.symbol = 'Duplicate';
-            } else if (!values.symbol.toUpperCase().match(pattern)) {
+            } else if (!values.symbol.match(pattern)) {
               errors.symbol = 'Not A Valid Symbol';
             }
             return errors;
           }}
           onSubmit={(values, { setSubmitting, errors }) => {
             const newStockSymbol = values.symbol.toUpperCase();
-            if (!errors.length) {
+            if (!errors) {
               this.props.addStockRequest(newStockSymbol);
               setSubmitting(false)
             };
