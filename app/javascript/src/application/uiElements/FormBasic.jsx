@@ -14,11 +14,12 @@ class AddStockForm extends Component {
           initialValues={{ symbol: '' }}
           validate={values => {
             const dup = currentSymbols.find(item => item === values.symbol.toUpperCase())
+            const pattern = /^[A-Z]{2,5}((.|-)[A-Z])?$/;
             let errors = {};
-            if (!values.symbol) {
-              errors.symbol = 'Required';
-            } else if (dup) {
+            if (dup) {
               errors.symbol = 'Duplicate';
+            } else if (!values.symbol.toUpperCase().match(pattern)) {
+              errors.symbol = 'Not A Valid Symbol';
             }
             return errors;
           }}
@@ -34,7 +35,10 @@ class AddStockForm extends Component {
             <Form>
               <Field type='text' name='symbol' placeholder='symbol' style={{ textTransform: 'uppercase' }} />
               <ErrorMessage name='symbol' component='div' />
-              <button type='submit' disabled={isSubmitting || errors.length || !values.symbol.length}>
+              <button
+                type='submit'
+                disabled={isSubmitting || !!Object.values(errors).length || !values.symbol.length}
+              >
                 Add
               </button>
               <button type='reset' disabled={!values.symbol.length}>
