@@ -4,7 +4,7 @@ import HomeComponent from './home/homeComponent';
 import About from './about/aboutComponent';
 import Topics from './topics/topicsComponent';
 import Versions from './versions/versionsComponent';
-import StyledStocksTable from './stocks/stocksTable';
+import StocksLayout from './stocks/stocksTable';
 import StockLayout from './stocks/stock/stockLayout';
 import Layout from './Layout/layoutContainer';
 import CompanyContainer from './companies/company/CompanyContainer';
@@ -18,10 +18,7 @@ const App = () => (
       <Route path="/about" component={About} />
       <Route path="/versions" component={Versions} />
       <Route path="/topics" component={Topics} />
-      <Route
-        path="/stocks"
-        render={props => <StyledStocksTable {...props} />}
-      />
+      <Route path="/stocks" component={StocksLayout} />
       <Route path="/stock/:stock_id" component={StockLayout} />
       <Route path="/companies/:symbol" component={CompanyContainer} />
       <Route path="/companies/:symbol/chart" component={CompanyChart} />

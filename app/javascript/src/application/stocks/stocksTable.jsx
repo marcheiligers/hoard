@@ -70,8 +70,8 @@ class StocksTable extends Component {
                           {stock.symbol}
                         </Link>
                       ) : (
-                        'N/A'
-                      )}
+                          'N/A'
+                        )}
                     </TableCell>
                     <TableCell align="right">
                       {stock.annualDividends ? stock.annualDividends : 'N/A'}
@@ -85,15 +85,15 @@ class StocksTable extends Component {
                     <TableCell align="right">
                       {stock.createdAt
                         ? moment(stock.createdAt)
-                            .tz('America/Phoenix')
-                            .format('YYYY/MM/DD')
+                          .tz('America/Phoenix')
+                          .format('YYYY/MM/DD')
                         : 'N/A'}
                     </TableCell>
                     <TableCell align="right">
                       {stock.updatedAt
                         ? moment(stock.updatedAt)
-                            .tz('America/Phoenix')
-                            .format('YYYY/MM/DD')
+                          .tz('America/Phoenix')
+                          .format('YYYY/MM/DD')
                         : 'N/A'}
                     </TableCell>
                   </TableRow>
