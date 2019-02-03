@@ -36,7 +36,7 @@ class StocksTable extends Component {
   }
   componentDidUpdate(prevProps) {
     if (prevProps.stocks !== this.props.stocks) {
-      console.log('The stocks have changed and received in stocksTable', this.props.stocks)
+      // console.log('The stocks have changed and received in stocksTable', this.props.stocks)
     }
   }
   render() {

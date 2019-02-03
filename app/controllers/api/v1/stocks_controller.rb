@@ -9,6 +9,8 @@ class Api::V1::StocksController < Api::BaseController
   end
 
   def create
+    # TODO: Prevent duplicates being added
+    # TODO: Add tests for catching if a duplicate is added
     @stock = Stock.new(stock_params)
     fetch_additional_info
 

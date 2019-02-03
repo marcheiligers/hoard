@@ -19,25 +19,16 @@ class StocksLayout extends Component {
   }
   componentDidUpdate(prevProps) {
     if (prevProps.stocks !== this.props.stocks) {
-      console.log('The stocks have changed and received in StocksLayout', this.props.stocks)
-    }
-  }
-  handleAddStock(e, symbol = '') {
-    e.preventDefault()
-    if (symbol !== '') {
-      this.props.addStockRequest(symbol);
-    } else {
-      console.log('handleAddStock clicked, event:', e.target)
+      if (prevProps.stocks.length !== this.props.stocks.length) {
+        console.log('Stocks Updated!')
+      }
     }
   }
   render() {
     return (
       <Fragment>
         <h1>Stocks</h1>
-        <div>
-          <FormBasic addStock={this.handleAddStock} />
-        </div>
-        <button>Remove</button>
+        <FormBasic stocks={this.props.stocks} />
         <StyledStocksTable {...this.props} />
       </Fragment>
     )

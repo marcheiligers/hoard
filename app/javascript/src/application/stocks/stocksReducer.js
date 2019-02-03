@@ -39,7 +39,7 @@ export default function stocksReducer(currentState = initialState, action) {
       return newState;
     }
     case stocksActions.ADD_STOCK_SUCCESS: {
-      const updatedStocks = [...allStocks, action.newStock];
+      const updatedStocks = [...currentState.allStocks, action.newStock];
       const newState = {
         ...currentState,
         allStocks: updatedStocks,

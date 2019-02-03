@@ -6,38 +6,39 @@ import stocksActions from '../stocks/stocksActions';
 // REDUX
 const addStockRequest = stocksActions.addStockRequest;
 class AddStockForm extends Component {
-  render() {
+  render(props) {
+    const currentSymbols = this.props.stocks.map(stock => stock.symbol);
     return (
       <div>
-        <h4>Add Stock</h4>
         <Formik
           initialValues={{ symbol: '' }}
           validate={values => {
+            const dup = currentSymbols.find(item => item === values.symbol.toUpperCase())
             let errors = {};
             if (!values.symbol) {
               errors.symbol = 'Required';
-            } else if (
-              // check if the symbol is already in the stocks we have
-              this.props.stocks.find(stock => stock.symbol === values.symbol).length
-            ) {
+            } else if (dup) {
               errors.symbol = 'Duplicate';
             }
             return errors;
           }}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              this.props.addStockRequest(values);
-              setSubmitting(false);
-            }, 400);
+          onSubmit={(values, { setSubmitting, errors }) => {
+            const newStockSymbol = values.symbol.toUpperCase();
+            if (!errors.length) {
+              this.props.addStockRequest(newStockSymbol);
+              setSubmitting(false)
+            };
           }}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, errors, values }) => (
             <Form>
-              <Field type='text' name='symbol' />
+              <Field type='text' name='symbol' placeholder='symbol' style={{ textTransform: 'uppercase' }} />
               <ErrorMessage name='symbol' component='div' />
-              <button type='submit' disabled={isSubmitting}>
+              <button type='submit' disabled={isSubmitting || errors.length || !values.symbol.length}>
                 Add
+              </button>
+              <button type='reset' disabled={!values.symbol.length}>
+                Clear
               </button>
             </Form>
           )}
@@ -49,6 +50,7 @@ class AddStockForm extends Component {
 };
 export default connect(
   state => ({
-    stocks: state.stocks.AllStocks || [],
     error: state.stocks.error || null,
   }), { addStockRequest })(AddStockForm);
+  // TODO style the form better using material-ui input maybe?
+  // TODO: validation ain't working on duplications

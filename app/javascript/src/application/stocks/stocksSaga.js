@@ -1,6 +1,6 @@
 import { takeEvery, call, all, fork, put } from 'redux-saga/effects';
 import stocksActions from './stocksActions';
-import { loadStocks, loadStock } from './stocksServices';
+import { loadStocks, loadStock, addStock } from './stocksServices';
 
 export function* loadStocksRequestWatcher() {
   yield takeEvery(stocksActions.LOAD_STOCKS_REQUEST, loadStocksRequest);
@@ -44,6 +44,9 @@ export function* addStockRequestWatcher() {
 export function* addStockRequest(action) {
   try {
     const result = yield call(addStock, action.symbol);
+    console.log('result.data from post new stock:', result.data)
+    console.log('put an action to show a modal')
+    // TODO: Add redux actions and react component for modal notifications.
     yield put({
       type: stocksActions.ADD_STOCK_SUCCESS,
       newStock: result.data
@@ -56,5 +59,9 @@ export function* addStockRequest(action) {
   }
 }
 export default function* stocksSaga() {
-  yield all([fork(loadStocksRequestWatcher), fork(loadStockRequestWatcher)]);
+  yield all([
+    fork(loadStocksRequestWatcher),
+    fork(loadStockRequestWatcher),
+    fork(addStockRequestWatcher)
+  ]);
 }
