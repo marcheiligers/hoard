@@ -37,6 +37,24 @@ export function* loadStockRequest(action) {
   }
 }
 
+export function* addStockRequestWatcher() {
+  yield takeEvery(stocksActions.ADD_STOCK_REQUEST, addStockRequest);
+}
+
+export function* addStockRequest(action) {
+  try {
+    const result = yield call(addStock, action.symbol);
+    yield put({
+      type: stocksActions.ADD_STOCK_SUCCESS,
+      newStock: result.data
+    });
+  } catch (err) {
+    yield put({
+      type: stocksActions.ADD_STOCK_ERROR,
+      error: 'Could not add stock'
+    });
+  }
+}
 export default function* stocksSaga() {
   yield all([fork(loadStocksRequestWatcher), fork(loadStockRequestWatcher)]);
 }

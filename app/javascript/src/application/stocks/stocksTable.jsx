@@ -34,6 +34,11 @@ class StocksTable extends Component {
   componentDidMount() {
     this.props.loadStocksRequest();
   }
+  componentDidUpdate(prevProps) {
+    if (prevProps.stocks !== this.props.stocks) {
+      console.log('The stocks have changed and received in stocksTable', this.props.stocks)
+    }
+  }
   render() {
     const { classes, stocks } = this.props;
     return (

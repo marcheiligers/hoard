@@ -2,12 +2,12 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import StyledStocksTable from './stocksTable';
-
+import FormBasic from '../uiElements/FormBasic';
 // REDUX
-import stocksActions from '../stocksActions';
+import stocksActions from './stocksActions';
 const loadStocksRequest = stocksActions.loadStocksRequest;
-
-class StockLayout extends Component {
+const addStockRequest = stocksActions.addStockRequest;
+class StocksLayout extends Component {
   static propTypes = {
     stocks: PropTypes.array,
     error: PropTypes.string,
@@ -19,21 +19,34 @@ class StockLayout extends Component {
   }
   componentDidUpdate(prevProps) {
     if (prevProps.stocks !== this.props.stocks) {
-      console.log('The stocks have changed,', this.props.stocks)
+      console.log('The stocks have changed and received in StocksLayout', this.props.stocks)
+    }
+  }
+  handleAddStock(e, symbol = '') {
+    e.preventDefault()
+    if (symbol !== '') {
+      this.props.addStockRequest(symbol);
+    } else {
+      console.log('handleAddStock clicked, event:', e.target)
     }
   }
   render() {
     return (
       <Fragment>
-        <StocksTable {...props} />
+        <h1>Stocks</h1>
+        <div>
+          <FormBasic addStock={this.handleAddStock} />
+        </div>
+        <button>Remove</button>
+        <StyledStocksTable {...this.props} />
       </Fragment>
     )
   }
 }
 export default connect(
   state => ({
-    stocks: state.stocks || [],
+    stocks: state.stocks.allStocks || [],
     error: state.stocks.error ? state.stocks.error : null,
   }),
-  { loadStocksRequest }
+  { loadStocksRequest, addStockRequest }
 )(StocksLayout);
