@@ -8,7 +8,7 @@ import {
   loadStockRequest
 } from './stocksSaga';
 import data from './stocksData';
-
+// TODO: add tests for adding a stock
 describe('stocks saga -> loadsStocksRequestWatcher', () => {
   const loadStocksRequestWatcherGen = loadStocksRequestWatcher();
   it('should act on every LOAD_STOCKS_REQUEST action', () => {
@@ -61,9 +61,9 @@ describe('stocks saga -> loadStockRequest', () => {
     );
   });
   it('should put LOAD_STOCK_ERROR on an error', () => {
-    const testError = new Error('Error');
+    const testError = { message: 'Could not load stock' };
     expect(loadStockRequestGen.throw(testError).value).toEqual(
-      put({ type: stocksActions.LOAD_STOCK_ERROR, error: testError })
+      put({ type: stocksActions.LOAD_STOCK_ERROR, error: 'Could not load stock' })
     );
   });
 });

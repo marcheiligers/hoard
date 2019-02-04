@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import PropTypes from 'prop-types';
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import {
@@ -12,7 +13,7 @@ import {
   CssBaseline
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { Menu } from "@material-ui/icons";
+import {Menu } from "@material-ui/icons";
 import Sidebar from "./Sidebar";
 
 const drawerWidth = 240;
@@ -55,6 +56,12 @@ const styles = theme => ({
 });
 
 class Layout extends Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    children: PropTypes.object,
+    stocks: PropTypes.array
+  }
   state = {
     mobileOpen: false
   };

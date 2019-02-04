@@ -1,7 +1,7 @@
 import stocksReducer, { initialState } from './stocksReducer';
 import stocksActions from './stocksActions';
 import data from './stocksData';
-
+// TODO: add tests for adding a stock
 describe('stocks reducer -> load stocks', () => {
   const defaultState = stocksReducer(initialState, { type: 'unexpected' });
   it('returns an object', () => {
@@ -18,7 +18,7 @@ describe('stocks reducer -> load stocks', () => {
     expect(newState.allStocks).toEqual(testStocks);
     expect(newState.error).toBeNull();
   });
-  it('updates state on LOAD_STOCKS_ERROR', () => {
+  it.only('updates state on LOAD_STOCKS_ERROR', () => {
     const testError = { message: 'Could not load stocks' };
     let testAction = stocksActions.loadStocksError(testError);
     const newState = stocksReducer(defaultState, testAction);
@@ -35,6 +35,6 @@ describe('stocks reducer -> load stocks', () => {
     const testError = { message: 'Could not load stock' };
     let testAction = stocksActions.loadStockError(testError);
     const newState = stocksReducer(defaultState, testAction);
-    expect(newState.error).toEqual(testError.message);
+    expect(newState.error).toEqual(testError);
   });
 });

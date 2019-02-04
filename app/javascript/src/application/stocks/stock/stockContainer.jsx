@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { ItemNotFound } from '../../Errors';
 // REDUX
 import stocksActions from '../stocksActions';
 const loadStockRequest = stocksActions.loadStockRequest;
 
-class Stock extends Component {
-  componentDidMount() {
-    this.props.loadStockRequest(this.props.match.params.stock_id);
-  }
+// rename -> it's connected to the Redux Store.
+class StockContainer extends Component {
+  static propTypes = {
+    stock: PropTypes.object,
+    error: PropTypes.string,
+    router: PropTypes.object,
+  };
   render() {
     if (this.props.error) {
       return (
-        <ItemNotFound item="stock" id={this.props.match.params.stock_id} />
+        <ItemNotFound item="stock" id={this.props.router.match.params.stock_id} />
       );
     }
     const {
@@ -45,7 +49,7 @@ class Stock extends Component {
 export default connect(
   state => ({
     stock: state.stocks.selectedStock || {},
-    error: state.stocks.error ? state.stocks.error : null
+    error: state.stocks.error ? state.stocks.error : null,
   }),
   { loadStockRequest }
-)(Stock);
+)(StockContainer);

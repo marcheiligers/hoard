@@ -27,8 +27,17 @@ const styles = theme => ({
 });
 
 class StocksTable extends Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    stocks: PropTypes.array
+  };
   componentDidMount() {
     this.props.loadStocksRequest();
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.stocks !== this.props.stocks) {
+      // console.log('The stocks have changed and received in stocksTable', this.props.stocks)
+    }
   }
   render() {
     const { classes, stocks } = this.props;
@@ -66,8 +75,8 @@ class StocksTable extends Component {
                           {stock.symbol}
                         </Link>
                       ) : (
-                        'N/A'
-                      )}
+                          'N/A'
+                        )}
                     </TableCell>
                     <TableCell align="right">
                       {stock.annualDividends ? stock.annualDividends : 'N/A'}
@@ -81,15 +90,15 @@ class StocksTable extends Component {
                     <TableCell align="right">
                       {stock.createdAt
                         ? moment(stock.createdAt)
-                            .tz('America/Phoenix')
-                            .format('YYYY/MM/DD')
+                          .tz('America/Phoenix')
+                          .format('YYYY/MM/DD')
                         : 'N/A'}
                     </TableCell>
                     <TableCell align="right">
                       {stock.updatedAt
                         ? moment(stock.updatedAt)
-                            .tz('America/Phoenix')
-                            .format('YYYY/MM/DD')
+                          .tz('America/Phoenix')
+                          .format('YYYY/MM/DD')
                         : 'N/A'}
                     </TableCell>
                   </TableRow>
@@ -101,10 +110,7 @@ class StocksTable extends Component {
     );
   }
 }
-StocksTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-  stocks: PropTypes.array
-};
+
 // Applying styles
 const StyledStocksTable = withStyles(styles)(StocksTable);
 // Exporting connected styled component
@@ -114,4 +120,6 @@ export default connect(
   }),
   { loadStocksRequest }
 )(StyledStocksTable);
-// export default withStyles(styles)(StocksTable);
+// TODO: Add filtering and sorting to this table
+// TODO: Add styling to display favorited and hearted stocks
+// TODO: Add functionality to favorite and heart a stock

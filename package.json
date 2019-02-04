@@ -2,8 +2,8 @@
     "name": "hoard",
     "private": true,
     "scripts": {
-        "test": "jest app/javascript/src/*",
-        "test-watch": "jest app/javascript/src/* --watch"
+        "test": "jest app/javascript/src/application/*",
+        "test-watch": "jest app/javascript/src/application* --watch"
     },
     "dependencies": {
         "@babel/core": "^7.0.0",
@@ -14,6 +14,7 @@
         "@rails/webpacker": "^4.0.0-rc.2",
         "axios": "^0.18.0",
         "connected-react-router": "^6.1.0",
+        "formik": "^1.4.3",
         "history": "^4.7.2",
         "moment-timezone": "^0.5.23",
         "prop-types": "^15.6.2",

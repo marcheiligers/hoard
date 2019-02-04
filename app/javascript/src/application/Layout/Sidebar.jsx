@@ -60,7 +60,7 @@ export const Sidebar = ({ location, classes, theme, stocks }) => {
         <ListItemIcon>
           <AccountCircle />
         </ListItemIcon>
-        <ListItemText primary={'stocks'} />
+        <ListItemText primary={'Stocks'} />
       </MenuItem>
       <Divider className={classes.divider} />
     </MenuList>

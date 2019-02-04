@@ -10,7 +10,6 @@ const HomeComponent = props => (
 HomeComponent.defaultProps = {
   name: "Heiligers"
 };
-
 HomeComponent.propTypes = {
   name: PropTypes.string
 };
