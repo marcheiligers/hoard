@@ -28,7 +28,7 @@ class AddStockForm extends Component {
               let errors = {};
               if (dup) {
                 errors.symbol = 'Duplicate';
-              } else if (!values.symbol.match(pattern)) {
+              } else if (!values.symbol.toUpperCase().match(pattern)) {
                 errors.symbol = 'Not A Valid Symbol';
               }
               return errors;
@@ -48,7 +48,7 @@ class AddStockForm extends Component {
                   type='text'
                   name='symbol'
                   placeholder='symbol'
-                  values={values.symbol || ''}
+                  value={values.symbol.toUpperCase() || ''}
                   style={{ textTransform: 'uppercase' }}
                 />
                 <ErrorMessage name='symbol' component='div' />

@@ -1,7 +1,7 @@
 import stocksReducer, { initialState } from './stocksReducer';
 import stocksActions from './stocksActions';
 import data from './stocksData';
-
+// TODO: add tests for adding a stock
 describe('stocks reducer -> load stocks', () => {
   const defaultState = stocksReducer(initialState, { type: 'unexpected' });
   it('returns an object', () => {

@@ -1,6 +1,6 @@
 import data from './stocksData.js';
 import stocksActions from './stocksActions.js';
-
+// TODO: add tests for adding a stock
 describe.only('stocks action creators -> stocksActions', () => {
   it('gets stocks on loadStocksRequest', () => {
     const testLoadStocksRequest = stocksActions.loadStocksRequest();

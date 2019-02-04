@@ -8,7 +8,7 @@ import {
   loadStockRequest
 } from './stocksSaga';
 import data from './stocksData';
-
+// TODO: add tests for adding a stock
 describe('stocks saga -> loadsStocksRequestWatcher', () => {
   const loadStocksRequestWatcherGen = loadStocksRequestWatcher();
   it('should act on every LOAD_STOCKS_REQUEST action', () => {
