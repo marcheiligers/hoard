@@ -6,6 +6,7 @@ import stocksActions from '../stocks/stocksActions';
 // REDUX
 const addStockRequest = stocksActions.addStockRequest;
 const clearAddStockError = stocksActions.clearAddStockError;
+// TODO: add some prettiness to this form!
 class AddStockForm extends Component {
   handleClearError = () => {
     this.props.clearAddStockError();
@@ -14,7 +15,6 @@ class AddStockForm extends Component {
     const currentSymbols = this.props.stocks.map(stock => stock.symbol);
     return (
       <div>
-
         {this.props.error ?
           <Fragment>
             <div style={{ display: 'inline-flex', paddingRight: '1vw' }}>{this.props.error}</div>

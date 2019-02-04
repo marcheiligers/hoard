@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import StyledStocksTable from './stocksTable';
-import FormBasic from '../uiElements/FormBasic';
+import FormBasic from '../uiElements/FormBasic'; // TODO: move this form to the stocks folder
 // REDUX
 import stocksActions from './stocksActions';
 const loadStocksRequest = stocksActions.loadStocksRequest;
