@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import StyledStocksTable from './stocksTable';
+import EnhancedTable from './EnhancedTable';
 import FormBasic from '../uiElements/FormBasic'; // TODO: move this form to the stocks folder
 // REDUX
 import stocksActions from './stocksActions';
@@ -29,6 +30,7 @@ class StocksLayout extends Component {
       <Fragment>
         <h1>Stocks</h1>
         <FormBasic stocks={this.props.stocks} />
+        <EnhancedTable />
         <StyledStocksTable {...this.props} />
       </Fragment>
     )
