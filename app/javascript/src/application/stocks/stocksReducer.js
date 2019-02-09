@@ -2,6 +2,7 @@ import stocksActions from './stocksActions';
 
 export const initialState = {
   allStocks: [],
+  selectedStocks: [],
   selectedStock: null,
   error: null
 };
@@ -58,6 +59,23 @@ export default function stocksReducer(currentState = initialState, action) {
       const newState = {
         ...currentState,
         error: null,
+      }
+      return newState;
+    }
+    case stocksActions.DELETE_SELECTED_STOCKS: {
+      // I want to remove the selectedStocks from allStocks array
+      const updatedStocks = currentState.allStocks.filter(stock => selectedStocks.indexOf(stock.id) < 0);// i.e. keep it if it's not in the selectedStocks array
+      const newState = {
+        ...currentState,
+        allStocks: updatedStocks,
+        selectedStocks: [],
+      }
+      return newState;
+    }
+    case stocksActions.UPDATE_SELECTED_STOCKS: {
+      const newState = {
+        ...currentState,
+        selectedStocks: action.selectedStocks,
       }
       return newState;
     }

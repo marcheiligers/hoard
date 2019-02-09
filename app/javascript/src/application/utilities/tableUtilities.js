@@ -25,3 +25,16 @@ function desc(a, b, orderBy) {
   }
   return 0;
 }
+function createHeaderRows(stocks = [], rows = []) {
+  if (stocks && stocks[0]) {
+    const rows = Object.keys(stocks[0]).map(key => (
+      // console.log('KEY:', key)
+      {
+        id: key,
+        label: `${key[0].toUpperCase()}${key.slice(1)}`,
+        numeric: (key === 'name' || key === 'symbol') ? false : true,
+        disablePadding: (key === 'name' || key === 'symbol') ? true : false
+      }
+    ));
+  }
+}

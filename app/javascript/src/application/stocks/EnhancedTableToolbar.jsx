@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -9,7 +10,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
-
+// REDUX
+import stocksActions from './stocksActions';
+// TODO: create this action creator
+const deleteSelectedStocks = stocksActions.deleteSelectedStocks;
 const toolbarStyles = theme => ({
   root: {
     paddingRight: theme.spacing.unit,
@@ -51,7 +55,7 @@ let EnhancedTableToolbar = props => {
           </Typography>
         ) : (
             <Typography variant="h6" id="tableTitle">
-              Nutrition
+              Stocks
           </Typography>
           )}
       </div>
@@ -60,13 +64,13 @@ let EnhancedTableToolbar = props => {
         {numSelected > 0 ? (
           <Tooltip title="Delete">
             <IconButton aria-label="Delete">
-              <DeleteIcon />
+              <DeleteIcon onClick={(event) => console.log(`Delete Button Clicked! issue this.props.deleteSelectedStocks()`)} />
             </IconButton>
           </Tooltip>
         ) : (
             <Tooltip title="Filter list">
               <IconButton aria-label="Filter list">
-                <FilterListIcon />
+                <FilterListIcon onClick={(event) => console.log(`Delete Button Clicked! issue this.props.deleteSelectedStocks()`)} />
               </IconButton>
             </Tooltip>
           )}
@@ -78,7 +82,10 @@ let EnhancedTableToolbar = props => {
 EnhancedTableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
+  deleteSelectedStocks: PropTypes.func,
 };
 
 EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
-export default EnhancedTableToolbar;
+export default connect(null, {
+  deleteSelectedStocks
+})(EnhancedTableToolbar);

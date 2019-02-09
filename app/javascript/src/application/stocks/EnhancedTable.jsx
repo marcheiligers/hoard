@@ -17,6 +17,7 @@ import { stableSort, getSorting } from '../utilities/tableUtilities';
 // REDUX
 import stocksActions from './stocksActions';
 const loadStocksRequest = stocksActions.loadStocksRequest;
+const updateSelectedStocks = stocksActions.updateSelectedStocks;
 // these are utility functions from m-ui
 
 const styles = theme => ({
@@ -36,7 +37,7 @@ class EnhancedTable extends React.Component {
   state = {
     order: 'asc',
     orderBy: 'annualDividends',
-    selected: [],
+    // selected: [],
     page: 0,
     rowsPerPage: 5,
   };
@@ -63,31 +64,31 @@ class EnhancedTable extends React.Component {
 
   handleSelectAllClick = event => {
     if (event.target.checked) {
-      this.setState(state => ({ selected: this.props.stocks.map(n => n.id) }));
+      this.props.updateSelectedStocks(this.props.stocks.map(stock => stock.id));
       return;
     }
-    this.setState({ selected: [] });
+    this.props.updateSelectedStocks([]);
   };
 
   handleClick = (event, id) => {
-    const { selected } = this.state;
-    const selectedIndex = selected.indexOf(id);
+    const selectedArray = this.props.selected;
+    const selectedIndex = selectedArray.indexOf(id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selectedArray, id);
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelected = newSelected.concat(selectedArray.slice(1));
+    } else if (selectedIndex === selectedArray.length - 1) {
+      newSelected = newSelected.concat(selectedArray.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selectedArray.slice(0, selectedIndex),
+        selectedArray.slice(selectedIndex + 1),
       );
     }
 
-    this.setState({ selected: newSelected });
+    this.props.updateSelectedStocks(newSelected);
   };
 
   handleChangePage = (event, page) => {
@@ -98,12 +99,11 @@ class EnhancedTable extends React.Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  isSelected = id => this.state.selected.indexOf(id) !== -1;
+  isSelected = id => this.props.selected.indexOf(id) !== -1;
 
   render() {
-    console.log('Stocks?', this.props.stocks)
-    const { classes, stocks } = this.props;
-    const { order, orderBy, selected, rowsPerPage, page } = this.state;
+    const { classes, stocks, selected } = this.props;
+    const { order, orderBy, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, stocks.length - page * rowsPerPage);
 
     return (
@@ -140,7 +140,19 @@ class EnhancedTable extends React.Component {
                       <TableCell component="th" scope="row" padding="none">
                         {stock.name ? stock.name : '--'}
                       </TableCell>
-                      <TableCell align="right">{stock.symbol ? stock.symbol : '--'}</TableCell>
+                      <TableCell align="right">
+                        {stock.symbol ? (
+                          <Link
+                            to={{
+                              pathname: `stock/${stock.id}`
+                            }}
+                          >
+                            {stock.symbol}
+                          </Link>
+                        ) : (
+                            'N/A'
+                          )}
+                      </TableCell>
                       <TableCell align="right">{stock.annualDividends ? stock.annualDividends : 'N/A'}</TableCell>
                       <TableCell align="right">{stock.heart ? stock.heart : '--'}</TableCell>
                       <TableCell align="right">{stock.star ? stock.star : '--'}</TableCell>
@@ -188,10 +200,17 @@ class EnhancedTable extends React.Component {
 EnhancedTable.propTypes = {
   classes: PropTypes.object.isRequired,
   stocks: PropTypes.array,
+  selected: PropTypes.array,
+  loadStocksRequest: PropTypes.func,
+  updateSelectedStocks: PropTypes.func,
 };
+
+EnhancedTable = withStyles(styles)(EnhancedTable);
+
 export default connect(
   state => ({
-    stocks: state.stocks.allStocks
+    stocks: state.stocks.allStocks,
+    selected: state.stocks.selectedStocks,
   }),
-  { loadStocksRequest }
-)(withStyles(styles)(EnhancedTable))
+  { loadStocksRequest, updateSelectedStocks }
+)(EnhancedTable)
