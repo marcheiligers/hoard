@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import moment from 'moment-timezone';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,34 +13,11 @@ import EnhancedTableToolbar from './EnhancedTableToolbar';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Checkbox from '@material-ui/core/Checkbox';
-
-let counter = 0;
-function createData(name, calories, fat, carbs, protein) {
-  counter += 1;
-  return { id: counter, name, calories, fat, carbs, protein };
-}
-function stableSort(array, cmp) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = cmp(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map(el => el[0]);
-}
-
-function getSorting(order, orderBy) {
-  return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
-}
-function desc(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
+import { stableSort, getSorting } from '../utilities/tableUtilities';
+// REDUX
+import stocksActions from './stocksActions';
+const loadStocksRequest = stocksActions.loadStocksRequest;
+// these are utility functions from m-ui
 
 const styles = theme => ({
   root: {
@@ -55,25 +35,19 @@ const styles = theme => ({
 class EnhancedTable extends React.Component {
   state = {
     order: 'asc',
-    orderBy: 'calories',
+    orderBy: 'annualDividends',
     selected: [],
-    data: [
-      createData('Cupcake', 305, 3.7, 67, 4.3),
-      createData('Donut', 452, 25.0, 51, 4.9),
-      createData('Eclair', 262, 16.0, 24, 6.0),
-      createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-      createData('Gingerbread', 356, 16.0, 49, 3.9),
-      createData('Honeycomb', 408, 3.2, 87, 6.5),
-      createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-      createData('Jelly Bean', 375, 0.0, 94, 0.0),
-      createData('KitKat', 518, 26.0, 65, 7.0),
-      createData('Lollipop', 392, 0.2, 98, 0.0),
-      createData('Marshmallow', 318, 0, 81, 2.0),
-      createData('Nougat', 360, 19.0, 9, 37.0),
-      createData('Oreo', 437, 18.0, 63, 4.0),
-    ],
     page: 0,
     rowsPerPage: 5,
+  };
+  componentDidMount() {
+    this.props.loadStocksRequest();
+  };
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.stocks !== this.props.stocks) {
+      // console.log('The stocks have changed and received in stocksTable', this.props.stocks)
+    }
   };
 
   handleRequestSort = (event, property) => {
@@ -89,7 +63,7 @@ class EnhancedTable extends React.Component {
 
   handleSelectAllClick = event => {
     if (event.target.checked) {
-      this.setState(state => ({ selected: state.data.map(n => n.id) }));
+      this.setState(state => ({ selected: this.props.stocks.map(n => n.id) }));
       return;
     }
     this.setState({ selected: [] });
@@ -127,9 +101,10 @@ class EnhancedTable extends React.Component {
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render() {
-    const { classes } = this.props;
-    const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    console.log('Stocks?', this.props.stocks)
+    const { classes, stocks } = this.props;
+    const { order, orderBy, selected, rowsPerPage, page } = this.state;
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, stocks.length - page * rowsPerPage);
 
     return (
       <Paper className={classes.root}>
@@ -142,33 +117,43 @@ class EnhancedTable extends React.Component {
               orderBy={orderBy}
               onSelectAllClick={this.handleSelectAllClick}
               onRequestSort={this.handleRequestSort}
-              rowCount={data.length}
+              stocks={stocks}
             />
             <TableBody>
-              {stableSort(data, getSorting(order, orderBy))
+              {stableSort(stocks, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(n => {
-                  const isSelected = this.isSelected(n.id);
+                .map(stock => {
+                  const isSelected = this.isSelected(stock.id);
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, n.id)}
+                      onClick={event => this.handleClick(event, stock.id)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
-                      key={n.id}
+                      key={stock.id}
                       selected={isSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox checked={isSelected} />
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        {n.name}
+                        {stock.name ? stock.name : '--'}
                       </TableCell>
-                      <TableCell align="right">{n.calories}</TableCell>
-                      <TableCell align="right">{n.fat}</TableCell>
-                      <TableCell align="right">{n.carbs}</TableCell>
-                      <TableCell align="right">{n.protein}</TableCell>
+                      <TableCell align="right">{stock.symbol ? stock.symbol : '--'}</TableCell>
+                      <TableCell align="right">{stock.annualDividends ? stock.annualDividends : 'N/A'}</TableCell>
+                      <TableCell align="right">{stock.heart ? stock.heart : '--'}</TableCell>
+                      <TableCell align="right">{stock.star ? stock.star : '--'}</TableCell>
+                      <TableCell align="right">{stock.createdAt
+                        ? moment(stock.createdAt)
+                          .tz('America/Phoenix')
+                          .format('YYYY/MM/DD')
+                        : 'N/A'}</TableCell>
+                      <TableCell align="right">{stock.updatedAt
+                        ? moment(stock.updatedAt)
+                          .tz('America/Phoenix')
+                          .format('YYYY/MM/DD')
+                        : 'N/A'}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -183,7 +168,7 @@ class EnhancedTable extends React.Component {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={data.length}
+          count={stocks.length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
@@ -202,6 +187,11 @@ class EnhancedTable extends React.Component {
 
 EnhancedTable.propTypes = {
   classes: PropTypes.object.isRequired,
+  stocks: PropTypes.array,
 };
-
-export default withStyles(styles)(EnhancedTable);
+export default connect(
+  state => ({
+    stocks: state.stocks.allStocks
+  }),
+  { loadStocksRequest }
+)(withStyles(styles)(EnhancedTable))
