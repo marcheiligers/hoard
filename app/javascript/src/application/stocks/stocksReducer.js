@@ -62,9 +62,8 @@ export default function stocksReducer(currentState = initialState, action) {
       }
       return newState;
     }
-    case stocksActions.DELETE_SELECTED_STOCKS: {
-      // I want to remove the selectedStocks from allStocks array
-      const updatedStocks = currentState.allStocks.filter(stock => selectedStocks.indexOf(stock.id) < 0);// i.e. keep it if it's not in the selectedStocks array
+    case stocksActions.DELETE_SELECTED_STOCKS_REQUEST: {
+      const updatedStocks = currentState.allStocks.filter(stock => stock.id !== action.id);
       const newState = {
         ...currentState,
         allStocks: updatedStocks,

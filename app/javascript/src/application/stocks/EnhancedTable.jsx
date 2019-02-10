@@ -18,6 +18,7 @@ import { stableSort, getSorting } from '../utilities/tableUtilities';
 import stocksActions from './stocksActions';
 const loadStocksRequest = stocksActions.loadStocksRequest;
 const updateSelectedStocks = stocksActions.updateSelectedStocks;
+const deleteSelectedStocksRequest = stocksActions.deleteSelectedStocksRequest;
 // these are utility functions from m-ui
 
 const styles = theme => ({
@@ -98,7 +99,14 @@ class EnhancedTable extends React.Component {
   handleChangeRowsPerPage = event => {
     this.setState({ rowsPerPage: event.target.value });
   };
-
+  handleDelete = () => {
+    if (this.props.selected.length === 1) {
+      this.props.deleteSelectedStocksRequest(this.props.selected[0]);
+    } else {
+      // TODO: change to a modal
+      alert('Cannot delete mutiple items, please only choose one')
+    }
+  }
   isSelected = id => this.props.selected.indexOf(id) !== -1;
 
   render() {
@@ -108,7 +116,10 @@ class EnhancedTable extends React.Component {
 
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          handleDelete={this.handleDelete}
+        />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -212,5 +223,9 @@ export default connect(
     stocks: state.stocks.allStocks,
     selected: state.stocks.selectedStocks,
   }),
-  { loadStocksRequest, updateSelectedStocks }
+  {
+    loadStocksRequest,
+    updateSelectedStocks,
+    deleteSelectedStocksRequest,
+  }
 )(EnhancedTable)

@@ -40,7 +40,7 @@ const toolbarStyles = theme => ({
 });
 
 let EnhancedTableToolbar = props => {
-  const { numSelected, classes } = props;
+  const { numSelected, classes, handleDelete } = props;
 
   return (
     <Toolbar
@@ -64,13 +64,13 @@ let EnhancedTableToolbar = props => {
         {numSelected > 0 ? (
           <Tooltip title="Delete">
             <IconButton aria-label="Delete">
-              <DeleteIcon onClick={(event) => console.log(`Delete Button Clicked! issue this.props.deleteSelectedStocks()`)} />
+              <DeleteIcon onClick={handleDelete} />
             </IconButton>
           </Tooltip>
         ) : (
             <Tooltip title="Filter list">
               <IconButton aria-label="Filter list">
-                <FilterListIcon onClick={(event) => console.log(`Delete Button Clicked! issue this.props.deleteSelectedStocks()`)} />
+                <FilterListIcon onClick={(event) => console.log(`Filter Button Clicked! issue this.props.filterSelectedStocks()`)} />
               </IconButton>
             </Tooltip>
           )}

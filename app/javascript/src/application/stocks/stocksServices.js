@@ -9,6 +9,9 @@ export const loadStock = async id => {
 };
 export const addStock = async (symbol) => {
   const result = await axios.post(`${baseUrl}/stocks`, { symbol: symbol });
-  console.log('result from POST:', result)
+  return result;
+};
+export const deleteStock = async (id) => {
+  const result = await axios.delete(`${baseUrl}/stocks/${id}`);
   return result;
 }

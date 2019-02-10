@@ -1,6 +1,6 @@
 import { takeEvery, call, all, fork, put } from 'redux-saga/effects';
 import stocksActions from './stocksActions';
-import { loadStocks, loadStock, addStock } from './stocksServices';
+import { loadStocks, loadStock, addStock, deleteStock } from './stocksServices';
 
 export function* loadStocksRequestWatcher() {
   yield takeEvery(stocksActions.LOAD_STOCKS_REQUEST, loadStocksRequest);
@@ -42,28 +42,41 @@ export function* addStockRequestWatcher() {
 }
 
 export function* addStockRequest(action) {
-  console.log('In addStockRequestSaga, action.symbol:', action.symbol)
   try {
     const result = yield call(addStock, action.symbol);
-    console.log('result.data from post new stock:', result.data)
-    console.log('put an action to show a modal')
     // TODO: Add redux actions and react component for modal notifications.
     yield put({
       type: stocksActions.ADD_STOCK_SUCCESS,
       newStock: result.data
     });
   } catch (err) {
-    console.log('AN ERROR FROM THE POST:', err)
     yield put({
       type: stocksActions.ADD_STOCK_ERROR,
       error: 'Could not add stock'
     });
   }
 }
+export function* deleteSelectedStocksRequestWatcher() {
+  yield takeEvery(stocksActions.DELETE_SELECTED_STOCKS_REQUEST, deleteSelectedStocks);
+}
+export function* deleteSelectedStocks(action) {
+  try {
+    const result = yield call(deleteStock, action.id);
+    yield put({
+      type: stocksActions.DELETE_SELECTED_STOCKS_SUCCESS
+    })
+  } catch (err) {
+    yield put({
+      type: stocksActions.DELETE_SELECTED_STOCKS_ERROR,
+      error: 'Could not delete stocks'
+    })
+  }
+}
 export default function* stocksSaga() {
   yield all([
     fork(loadStocksRequestWatcher),
     fork(loadStockRequestWatcher),
-    fork(addStockRequestWatcher)
+    fork(addStockRequestWatcher),
+    fork(deleteSelectedStocksRequestWatcher),
   ]);
 }
