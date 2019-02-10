@@ -13,6 +13,5 @@ export const addStock = async symbol => {
 };
 export const deleteStock = async id => {
   const result = await axios.delete(`${baseUrl}/stocks/${id}`);
-  console.log(result)
   return result;
 }
