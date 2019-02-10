@@ -56,18 +56,18 @@ export function* addStockRequest(action) {
     });
   }
 }
-export function* deleteSelectedStocksRequestWatcher() {
-  yield takeEvery(stocksActions.DELETE_SELECTED_STOCKS_REQUEST, deleteSelectedStocks);
+export function* deleteSelectedStockRequestWatcher() {
+  yield takeEvery(stocksActions.DELETE_SELECTED_STOCK_REQUEST, deleteSelectedStocks);
 }
 export function* deleteSelectedStocks(action) {
   try {
     const result = yield call(deleteStock, action.id);
     yield put({
-      type: stocksActions.DELETE_SELECTED_STOCKS_SUCCESS
+      type: stocksActions.DELETE_SELECTED_STOCK_SUCCESS
     })
   } catch (err) {
     yield put({
-      type: stocksActions.DELETE_SELECTED_STOCKS_ERROR,
+      type: stocksActions.DELETE_SELECTED_STOCK_ERROR,
       error: 'Could not delete stocks'
     })
   }
@@ -77,6 +77,6 @@ export default function* stocksSaga() {
     fork(loadStocksRequestWatcher),
     fork(loadStockRequestWatcher),
     fork(addStockRequestWatcher),
-    fork(deleteSelectedStocksRequestWatcher),
+    fork(deleteSelectedStockRequestWatcher),
   ]);
 }

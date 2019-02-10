@@ -62,7 +62,7 @@ export default function stocksReducer(currentState = initialState, action) {
       }
       return newState;
     }
-    case stocksActions.DELETE_SELECTED_STOCKS_REQUEST: {
+    case stocksActions.DELETE_SELECTED_STOCK_REQUEST: {
       const updatedStocks = currentState.allStocks.filter(stock => stock.id !== action.id);
       const newState = {
         ...currentState,
@@ -75,6 +75,13 @@ export default function stocksReducer(currentState = initialState, action) {
       const newState = {
         ...currentState,
         selectedStocks: action.selectedStocks,
+      }
+      return newState;
+    }
+    case stocksActions.DELETE_SELECTED_STOCK_ERROR: {
+      const newState = {
+        ...currentState,
+        error: action.error
       }
       return newState;
     }

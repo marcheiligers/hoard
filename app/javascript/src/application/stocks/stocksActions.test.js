@@ -48,25 +48,25 @@ describe.only('stocks action creators -> stocksActions', () => {
       error: testError
     });
   });
-  it('deletes a stock on deleteSelectedStocksRequest', () => {
+  it('deletes a stock on deleteSelectedStockRequest', () => {
     const testStockId = data.stocks[0].id;
-    const testDeleteStockRequest = stocksActions.deleteSelectedStocksRequest(testStockId);
+    const testDeleteStockRequest = stocksActions.deleteSelectedStockRequest(testStockId);
     expect(testDeleteStockRequest).toEqual({
-      type: stocksActions.DELETE_SELECTED_STOCKS_REQUEST,
+      type: stocksActions.DELETE_SELECTED_STOCK_REQUEST,
       id: testStockId,
     });
   });
   it('does nothing on deleteSelectedStockSuccess', () => {
-    const testDeleteStocksSuccess = stocksActions.deleteSelectedStocksSuccess();
+    const testDeleteStocksSuccess = stocksActions.deleteSelectedStockSuccess();
     expect(testDeleteStocksSuccess).toEqual({
-      type: stocksActions.DELETE_SELECTED_STOCKS_SUCCESS,
+      type: stocksActions.DELETE_SELECTED_STOCK_SUCCESS,
     })
   });
   it('returns and error message on deleteSelectedStockError', () => {
     const testError = { message: 'Could not delete stock' };
-    const testDeleteSelectedStocksError = stocksActions.deleteSelectedStocksError(testError);
-    expect(testDeleteSelectedStocksError).toEqual({
-      type: stocksActions.DELETE_SELECTED_STOCKS_ERROR,
+    const testDeleteSelectedStockError = stocksActions.deleteSelectedStockError(testError);
+    expect(testDeleteSelectedStockError).toEqual({
+      type: stocksActions.DELETE_SELECTED_STOCK_ERROR,
       error: testError
     });
   });
