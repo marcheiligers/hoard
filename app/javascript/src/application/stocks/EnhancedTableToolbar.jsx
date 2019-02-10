@@ -41,7 +41,6 @@ const toolbarStyles = theme => ({
 
 let EnhancedTableToolbar = props => {
   const { numSelected, classes, handleDelete } = props;
-
   return (
     <Toolbar
       className={classNames(classes.root, {
@@ -61,7 +60,7 @@ let EnhancedTableToolbar = props => {
       </div>
       <div className={classes.spacer} />
       <div className={classes.actions}>
-        {numSelected > 0 ? (
+        {numSelected === 1 ? (
           <Tooltip title="Delete">
             <IconButton aria-label="Delete">
               <DeleteIcon onClick={handleDelete} />
