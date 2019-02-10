@@ -18,7 +18,7 @@ import { stableSort, getSorting } from '../utilities/tableUtilities';
 import stocksActions from './stocksActions';
 const loadStocksRequest = stocksActions.loadStocksRequest;
 const updateSelectedStocks = stocksActions.updateSelectedStocks;
-const deleteSelectedStockRequest = stocksActions.deleteSelectedStockRequest;
+const deleteStockRequest = stocksActions.deleteStockRequest;
 // these are utility functions from m-ui
 
 const styles = theme => ({
@@ -101,7 +101,7 @@ class EnhancedTable extends React.Component {
   };
   handleDelete = () => {
     if (this.props.selected.length === 1) {
-      this.props.deleteSelectedStockRequest(this.props.selected[0]);
+      this.props.deleteStockRequest(this.props.selected[0]);
     } else {
       // TODO: change to a modal
       alert('Cannot delete mutiple items, please only choose one')
@@ -226,6 +226,6 @@ export default connect(
   {
     loadStocksRequest,
     updateSelectedStocks,
-    deleteSelectedStockRequest,
+    deleteStockRequest,
   }
 )(EnhancedTable)

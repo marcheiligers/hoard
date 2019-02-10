@@ -2,6 +2,8 @@ import { takeEvery, call, all, fork, put } from 'redux-saga/effects';
 import stocksActions from './stocksActions';
 import { loadStocks, loadStock, addStock, deleteStock } from './stocksServices';
 
+// TODO: Rethink hard coding these error messages, we should rather be using the error message from the api
+
 export function* loadStocksRequestWatcher() {
   yield takeEvery(stocksActions.LOAD_STOCKS_REQUEST, loadStocksRequest);
 }
@@ -56,19 +58,19 @@ export function* addStockRequest(action) {
     });
   }
 }
-export function* deleteSelectedStockRequestWatcher() {
-  yield takeEvery(stocksActions.DELETE_SELECTED_STOCK_REQUEST, deleteSelectedStocks);
+export function* deleteStockRequestWatcher() {
+  yield takeEvery(stocksActions.DELETE_STOCK_REQUEST, deleteStockRequest);
 }
-export function* deleteSelectedStocks(action) {
+export function* deleteStockRequest(action) {
   try {
     const result = yield call(deleteStock, action.id);
     yield put({
-      type: stocksActions.DELETE_SELECTED_STOCK_SUCCESS
+      type: stocksActions.DELETE_STOCK_SUCCESS
     })
   } catch (err) {
     yield put({
-      type: stocksActions.DELETE_SELECTED_STOCK_ERROR,
-      error: 'Could not delete stocks'
+      type: stocksActions.DELETE_STOCK_ERROR,
+      error: 'Could not delete stock'
     })
   }
 }
@@ -77,6 +79,6 @@ export default function* stocksSaga() {
     fork(loadStocksRequestWatcher),
     fork(loadStockRequestWatcher),
     fork(addStockRequestWatcher),
-    fork(deleteSelectedStockRequestWatcher),
+    fork(deleteStockRequestWatcher),
   ]);
 }

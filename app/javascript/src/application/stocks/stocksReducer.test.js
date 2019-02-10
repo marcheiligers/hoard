@@ -1,7 +1,6 @@
 import stocksReducer, { initialState } from './stocksReducer';
 import stocksActions from './stocksActions';
 import data from './stocksData';
-// TODO: add tests for adding a stock
 describe('stocks reducer -> load stocks', () => {
   const defaultState = stocksReducer(initialState, { type: 'unexpected' });
   it('returns an object', () => {
@@ -67,17 +66,17 @@ describe('stocks reducer -> load stocks', () => {
     const newState = stocksReducer(testState, testAction);
     expect(newState.error).toBeNull;
   });
-  it('removes a stock from allStocks and empties the selectedStocks array on state on DELETE_SELECTED_STOCK_REQUEST', () => {
+  it('removes a stock from allStocks and empties the selectedStocks array on state on DELETE_STOCK_REQUEST', () => {
     const testState = { ...defaultState, selectedStocks: [2], allStocks: data.stocks };
-    let testAction = stocksActions.deleteSelectedStockRequest(2);
+    let testAction = stocksActions.deleteStockRequest(2);
     const newState = stocksReducer(testState, testAction);
     expect(newState.allStocks.length).toEqual(1);
     expect(newState.allStocks.filter(stock => stock.id === 2).length).toEqual(0);
   });
-  it('adds an error to state on DELETE_SELECTED_STOCK_ERROR', () => {
+  it('adds an error to state on DELETE_STOCK_ERROR', () => {
     const testState = { ...defaultState, selectedStocks: [10], allStocks: data.stocks };
     const testError = { message: 'Could not delete stock' }
-    let testAction = stocksActions.deleteSelectedStockError(testError);
+    let testAction = stocksActions.deleteStockError(testError);
     const newState = stocksReducer(testState, testAction);
     expect(newState.error).toEqual(testError);
   })

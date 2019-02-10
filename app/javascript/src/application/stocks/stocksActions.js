@@ -9,9 +9,9 @@ export const stocksActions = {
   ADD_STOCK_ERROR: 'ADD_STOCK_ERROR',
   ADD_STOCK_SUCCESS: 'ADD_STOCK_SUCCESS',
   CLEAR_ADD_STOCK_ERROR: 'CLEAR_ADD_STOCK_ERROR',
-  DELETE_SELECTED_STOCK_REQUEST: 'DELETE_SELECTED_STOCK_REQUEST',
-  DELETE_SELECTED_STOCK_ERROR: 'DELETE_SELECTED_STOCK_ERROR',
-  DELETE_SELECTED_STOCK_SUCCESS: 'DELETE_SELECTED_STOCK_SUCCESS',
+  DELETE_STOCK_REQUEST: 'DELETE_STOCK_REQUEST',
+  DELETE_STOCK_ERROR: 'DELETE_STOCK_ERROR',
+  DELETE_STOCK_SUCCESS: 'DELETE_STOCK_SUCCESS',
   UPDATE_SELECTED_STOCKS: 'UPDATE_SELECTED_STOCKS',
   loadStocksRequest: () => ({
     type: stocksActions.LOAD_STOCKS_REQUEST
@@ -51,15 +51,15 @@ export const stocksActions = {
   clearAddStockError: () => ({
     type: stocksActions.CLEAR_ADD_STOCK_ERROR,
   }),
-  deleteSelectedStockRequest: id => ({
-    type: stocksActions.DELETE_SELECTED_STOCK_REQUEST,
+  deleteStockRequest: id => ({
+    type: stocksActions.DELETE_STOCK_REQUEST,
     id: id
   }),
-  deleteSelectedStockSuccess: () => ({
-    type: stocksActions.DELETE_SELECTED_STOCK_SUCCESS
+  deleteStockSuccess: () => ({
+    type: stocksActions.DELETE_STOCK_SUCCESS
   }),
-  deleteSelectedStockError: err => ({
-    type: stocksActions.DELETE_SELECTED_STOCK_ERROR,
+  deleteStockError: err => ({
+    type: stocksActions.DELETE_STOCK_ERROR,
     error: err
   }),
   updateSelectedStocks: idsArray => ({

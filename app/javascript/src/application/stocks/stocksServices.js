@@ -7,11 +7,12 @@ export const loadStocks = async () => {
 export const loadStock = async id => {
   return await axios.get(`${baseUrl}/stocks/${id}`);
 };
-export const addStock = async (symbol) => {
+export const addStock = async symbol => {
   const result = await axios.post(`${baseUrl}/stocks`, { symbol: symbol });
   return result;
 };
-export const deleteStock = async (id) => {
+export const deleteStock = async id => {
   const result = await axios.delete(`${baseUrl}/stocks/${id}`);
+  console.log(result)
   return result;
 }
