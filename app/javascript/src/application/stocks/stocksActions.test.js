@@ -48,4 +48,34 @@ describe.only('stocks action creators -> stocksActions', () => {
       error: testError
     });
   });
+  it('deletes a stock on deleteSelectedStocksRequest', () => {
+    const testStockId = data.stocks[0].id;
+    const testDeleteStockRequest = stocksActions.deleteSelectedStocksRequest(testStockId);
+    expect(testDeleteStockRequest).toEqual({
+      type: stocksActions.DELETE_SELECTED_STOCKS_REQUEST,
+      id: testStockId,
+    });
+  });
+  it('does nothing on deleteSelectedStockSuccess', () => {
+    const testDeleteStocksSuccess = stocksActions.deleteSelectedStocksSuccess();
+    expect(testDeleteStocksSuccess).toEqual({
+      type: stocksActions.DELETE_SELECTED_STOCKS_SUCCESS,
+    })
+  });
+  it('returns and error message on deleteSelectedStockError', () => {
+    const testError = { message: 'Could not delete stock' };
+    const testDeleteSelectedStocksError = stocksActions.deleteSelectedStocksError(testError);
+    expect(testDeleteSelectedStocksError).toEqual({
+      type: stocksActions.DELETE_SELECTED_STOCKS_ERROR,
+      error: testError
+    });
+  });
+  it('updates selectedStocks on updateSelectedStocks', () => {
+    const testSelectedStocks = [data.stocks[1].id];
+    const testUpdateSelectedStocks = stocksActions.updateSelectedStocks(testSelectedStocks);
+    expect(testUpdateSelectedStocks).toEqual({
+      type: stocksActions.UPDATE_SELECTED_STOCKS,
+      selectedStocks: testSelectedStocks
+    })
+  })
 });

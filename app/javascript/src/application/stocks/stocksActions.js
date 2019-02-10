@@ -55,10 +55,10 @@ export const stocksActions = {
     type: stocksActions.DELETE_SELECTED_STOCKS_REQUEST,
     id: id
   }),
-  deleteSelectedStockSuccess: () => ({
+  deleteSelectedStocksSuccess: () => ({
     type: stocksActions.DELETE_SELECTED_STOCKS_SUCCESS
   }),
-  deleteSelectedStockError: err => ({
+  deleteSelectedStocksError: err => ({
     type: stocksActions.DELETE_SELECTED_STOCKS_ERROR,
     error: err
   }),
