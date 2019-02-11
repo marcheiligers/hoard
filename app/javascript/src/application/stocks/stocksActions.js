@@ -1,3 +1,4 @@
+// TODO: clean up the errors such that we only use one or two
 export const stocksActions = {
   LOAD_STOCKS_REQUEST: 'LOAD_STOCKS_REQUEST',
   LOAD_STOCKS_SUCCESS: 'LOAD_STOCKS_SUCCESS',

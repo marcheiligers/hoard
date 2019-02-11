@@ -31,7 +31,6 @@ class StocksLayout extends Component {
         <h1>Stocks</h1>
         <FormBasic stocks={this.props.stocks} />
         <EnhancedTable {...this.props} />
-        {/*<StyledStocksTable {...this.props} />*/}
       </Fragment>
     )
   }

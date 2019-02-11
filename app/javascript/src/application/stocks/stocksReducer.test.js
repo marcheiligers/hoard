@@ -79,5 +79,19 @@ describe('stocks reducer -> load stocks', () => {
     let testAction = stocksActions.deleteStockError(testError);
     const newState = stocksReducer(testState, testAction);
     expect(newState.error).toEqual(testError);
-  })
+  });
+  it('updates a stock on UPDATE_STOCK_SUCCESS', () => {
+    const testState = { ...defaultState, allStocks: data.stocks };
+    const testUpdatedStock = { ...data.stocks[0], star: true }
+    let testAction = stocksActions.updateStockSuccess(testUpdatedStock);
+    const newState = stocksReducer(testState, testAction);
+    expect(newState.allStocks.filter(stock => stock.id === testUpdatedStock.id).star).toBeTruthy;
+  });
+  it('adds an error to state on UPDATE_STOCK_ERROR', () => {
+    const testState = { ...defaultState, allStocks: data.stocks };
+    const testError = { message: 'Could not update stock' }
+    let testAction = stocksActions.updateStockError(testError);
+    const newState = stocksReducer(testState, testAction);
+    expect(newState.error).toEqual(testError);
+  });
 });

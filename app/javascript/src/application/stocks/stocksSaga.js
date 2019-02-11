@@ -3,7 +3,7 @@ import stocksActions from './stocksActions';
 import { loadStocks, loadStock, addStock, deleteStock, updateStock } from './stocksServices';
 
 // TODO: Rethink hard coding these error messages, we should rather be using the error message from the api
-
+// TODO: clean up the errors such that we only use one or two (e.g. STOCKS_ERROR and STOCK_ERROR)
 export function* loadStocksRequestWatcher() {
   yield takeEvery(stocksActions.LOAD_STOCKS_REQUEST, loadStocksRequest);
 }

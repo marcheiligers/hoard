@@ -1,5 +1,5 @@
 import { call, put, takeEvery, select } from 'redux-saga/effects';
-import { loadStocks, loadStock, addStock, deleteStock } from './stocksServices';
+import { loadStocks, loadStock, addStock, deleteStock, updateStock } from './stocksServices';
 import stocksActions from './stocksActions';
 import {
   loadStocksRequestWatcher,
@@ -10,6 +10,8 @@ import {
   addStockRequest,
   deleteStockRequestWatcher,
   deleteStockRequest,
+  updateStockRequestWatcher,
+  updateStockRequest
 } from './stocksSaga';
 import data, { newStock } from './stocksData';
 // TODO: add tests for adding a stock
@@ -134,6 +136,42 @@ describe('stocks saga -> deleteStockRequest', () => {
     expect(deleteStockRequestGen.throw(testError).value).toEqual(
       put({
         type: stocksActions.DELETE_STOCK_ERROR,
+        error: testError.message
+      })
+    )
+  });
+});
+describe('stocks saga -> updateStockRequestWatcher', () => {
+  const updateStockRequestWatcherGen = updateStockRequestWatcher();
+  it('should act on every UPDATE_STOCK_REQUEST', () => {
+    expect(updateStockRequestWatcherGen.next().value).toEqual(
+      takeEvery(stocksActions.UPDATE_STOCK_REQUEST, updateStockRequest)
+    )
+  });
+});
+describe('stocks saga -> updateStockRequest', () => {
+  const testStock = { ...data.stocks[0], star: false };
+  const testAction = { stock: testStock }
+  const updateStockRequestGen = updateStockRequest(testAction);
+  it('should call the api', () => {
+    expect(updateStockRequestGen.next().value).toEqual(
+      call(updateStock, testAction.stock)
+    );
+  });
+  it('should put UPDATE_STOCK_SUCCESS on success of the api call', () => {
+    const testResult = { data: testStock };
+    expect(updateStockRequestGen.next(testResult).value).toEqual(
+      put({
+        type: stocksActions.UPDATE_STOCK_SUCCESS,
+        updatedStock: testResult.data
+      })
+    );
+  });
+  it('should put UPDATE_STOCK_ERROR on an error from the api', () => {
+    const testError = { message: 'Could not update stock' };
+    expect(updateStockRequestGen.throw(testError).value).toEqual(
+      put({
+        type: stocksActions.UPDATE_STOCK_ERROR,
         error: testError.message
       })
     )

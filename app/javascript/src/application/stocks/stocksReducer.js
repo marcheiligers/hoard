@@ -6,7 +6,7 @@ export const initialState = {
   selectedStock: null,
   error: null
 };
-
+// TODO: clean up the errors such that we only use one or two
 export default function stocksReducer(currentState = initialState, action) {
   switch (action.type) {
     case stocksActions.LOAD_STOCKS_SUCCESS: {

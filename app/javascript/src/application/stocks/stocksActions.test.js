@@ -77,5 +77,29 @@ describe.only('stocks action creators -> stocksActions', () => {
       type: stocksActions.UPDATE_SELECTED_STOCKS,
       selectedStocks: testSelectedStocks
     })
-  })
+  });
+  it('updates a stock on updateStockRequest', () => {
+    const testUpdatedStock = { ...data.stocks[0], heart: true };
+    const testUpdateStock = stocksActions.updateStockRequest(testUpdatedStock);
+    expect(testUpdateStock).toEqual({
+      type: stocksActions.UPDATE_STOCK_REQUEST,
+      stock: testUpdatedStock
+    })
+  });
+  it('updates a stock on updateStockSuccess', () => {
+    const testUpdatedStock = { ...data.stocks[0], heart: true };
+    const testUpdatedStockSuccess = stocksActions.updateStockSuccess(testUpdatedStock);
+    expect(testUpdatedStockSuccess).toEqual({
+      type: stocksActions.UPDATE_STOCK_SUCCESS,
+      updatedStock: testUpdatedStock
+    })
+  });
+  it('returns and error message on updateStockError', () => {
+    const testError = { message: 'Could not update stock' };
+    const testUpdateStockError = stocksActions.updateStockError(testError);
+    expect(testUpdateStockError).toEqual({
+      type: stocksActions.UPDATE_STOCK_ERROR,
+      error: testError
+    });
+  });
 });
