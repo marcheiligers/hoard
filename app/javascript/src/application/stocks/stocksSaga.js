@@ -1,6 +1,6 @@
 import { takeEvery, call, all, fork, put } from 'redux-saga/effects';
 import stocksActions from './stocksActions';
-import { loadStocks, loadStock, addStock, deleteStock } from './stocksServices';
+import { loadStocks, loadStock, addStock, deleteStock, updateStock } from './stocksServices';
 
 // TODO: Rethink hard coding these error messages, we should rather be using the error message from the api
 
@@ -74,11 +74,29 @@ export function* deleteStockRequest(action) {
     })
   }
 }
+export function* updateStockRequestWatcher() {
+  yield takeEvery(stocksActions.UPDATE_STOCK_REQUEST, updateStockRequest);
+}
+export function* updateStockRequest(action) {
+  try {
+    const result = yield call(updateStock, action.stock);
+    yield put({
+      type: stocksActions.UPDATE_STOCK_SUCCESS,
+      updatedStock: result.data
+    })
+  } catch (err) {
+    yield put({
+      type: stocksActions.UPDATE_STOCK_ERROR,
+      error: 'Could not update stock'
+    })
+  }
+}
 export default function* stocksSaga() {
   yield all([
     fork(loadStocksRequestWatcher),
     fork(loadStockRequestWatcher),
     fork(addStockRequestWatcher),
     fork(deleteStockRequestWatcher),
+    fork(updateStockRequestWatcher),
   ]);
 }

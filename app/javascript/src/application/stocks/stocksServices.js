@@ -15,3 +15,9 @@ export const deleteStock = async id => {
   const result = await axios.delete(`${baseUrl}/stocks/${id}`);
   return result;
 }
+export const updateStock = async stock => {
+  const payload = { ...stock }
+  delete payload.createdAt;
+  const result = await axios.put(`${baseUrl}/stocks/${stock.id}`, payload);
+  return result;
+}

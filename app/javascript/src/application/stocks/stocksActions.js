@@ -13,6 +13,9 @@ export const stocksActions = {
   DELETE_STOCK_ERROR: 'DELETE_STOCK_ERROR',
   DELETE_STOCK_SUCCESS: 'DELETE_STOCK_SUCCESS',
   UPDATE_SELECTED_STOCKS: 'UPDATE_SELECTED_STOCKS',
+  UPDATE_STOCK_REQUEST: 'UPDATE_STOCK_REQUEST',
+  UPDATE_STOCK_SUCCESS: 'UPDATE_STOCK_SUCCESS',
+  UPDATE_STOCK_ERROR: 'UPDATE_STOCK_ERROR',
   loadStocksRequest: () => ({
     type: stocksActions.LOAD_STOCKS_REQUEST
   }),
@@ -66,5 +69,17 @@ export const stocksActions = {
     type: stocksActions.UPDATE_SELECTED_STOCKS,
     selectedStocks: idsArray
   }),
+  updateStockRequest: stock => ({
+    type: stocksActions.UPDATE_STOCK_REQUEST,
+    stock: stock
+  }),
+  updateStockSuccess: updatedStock => ({
+    type: stocksActions.UPDATE_STOCK_SUCCESS,
+    updatedStock: updatedStock
+  }),
+  updateStockError: err => ({
+    type: stocksActions.UPDATE_STOCK_ERROR,
+    error: err
+  })
 };
 export default stocksActions;

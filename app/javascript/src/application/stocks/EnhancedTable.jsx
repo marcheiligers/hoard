@@ -16,9 +16,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { stableSort, getSorting } from '../utilities/tableUtilities';
 // REDUX
 import stocksActions from './stocksActions';
+import { FavoriteBorder, Favorite, StarBorder, Star } from '@material-ui/icons';
 const loadStocksRequest = stocksActions.loadStocksRequest;
 const updateSelectedStocks = stocksActions.updateSelectedStocks;
 const deleteStockRequest = stocksActions.deleteStockRequest;
+const updateStockRequest = stocksActions.updateStockRequest;
 // these are utility functions from m-ui
 
 const styles = theme => ({
@@ -109,6 +111,21 @@ class EnhancedTable extends React.Component {
   }
   isSelected = id => this.props.selected.indexOf(id) !== -1;
 
+  toggleProp = (event, stockId, prop) => {
+    event.preventDefault();
+    const stockChosen = this.props.stocks.find(stock => stock.id === stockId)
+    if (stockChosen) {
+      stockChosen[prop] = !stockChosen[prop];
+      this.props.updateStockRequest(stockChosen);
+    } else {
+      console.log('Stock not found')
+      // TODO: show modal
+      // this.props.showModal
+    }
+
+  }
+
+
   render() {
     const { classes, stocks, selected } = this.props;
     const { order, orderBy, rowsPerPage, page } = this.state;
@@ -138,7 +155,6 @@ class EnhancedTable extends React.Component {
                   return (
                     <TableRow
                       hover
-                      onClick={event => this.handleClick(event, stock.id)}
                       role="checkbox"
                       aria-checked={isSelected}
                       tabIndex={-1}
@@ -146,11 +162,32 @@ class EnhancedTable extends React.Component {
                       selected={isSelected}
                     >
                       <TableCell padding="checkbox">
-                        <Checkbox checked={isSelected} />
+                        <Checkbox
+                          checked={isSelected}
+                          onClick={event => this.handleClick(event, stock.id)} />
+                      </TableCell>
+                      <TableCell align="right">
+                        {
+                          stock.heart ?
+                            <Favorite
+                              onClick={event => this.toggleProp(event, stock.id, 'heart')} /> :
+                            <FavoriteBorder
+                              onClick={event => this.toggleProp(event, stock.id, 'heart')} />
+                        }
+                      </TableCell>
+                      <TableCell align="right">
+                        {
+                          stock.star ?
+                            <Star
+                              onClick={event => this.toggleProp(event, stock.id, 'star')} /> :
+                            <StarBorder
+                              onClick={event => this.toggleProp(event, stock.id, 'star')} />
+                        }
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
                         {stock.name ? stock.name : '--'}
                       </TableCell>
+
                       <TableCell align="right">
                         {stock.symbol ? (
                           <Link
@@ -165,8 +202,7 @@ class EnhancedTable extends React.Component {
                           )}
                       </TableCell>
                       <TableCell align="right">{stock.annualDividends ? stock.annualDividends : 'N/A'}</TableCell>
-                      <TableCell align="right">{stock.heart ? stock.heart : '--'}</TableCell>
-                      <TableCell align="right">{stock.star ? stock.star : '--'}</TableCell>
+
                       <TableCell align="right">{stock.createdAt
                         ? moment(stock.createdAt)
                           .tz('America/Phoenix')
@@ -227,5 +263,6 @@ export default connect(
     loadStocksRequest,
     updateSelectedStocks,
     deleteStockRequest,
+    updateStockRequest
   }
 )(EnhancedTable)

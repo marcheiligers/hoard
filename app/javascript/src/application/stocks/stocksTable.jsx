@@ -49,10 +49,10 @@ class StocksTable extends Component {
               <TableCell>
                 <em>Stock</em>
               </TableCell>
-              <TableCell align="right">symbol</TableCell>
-              <TableCell align="right">annualDividends</TableCell>
               <TableCell align="right">heart</TableCell>
               <TableCell align="right">star</TableCell>
+              <TableCell align="right">symbol</TableCell>
+              <TableCell align="right">annualDividends</TableCell>
               <TableCell align="right">createdAt</TableCell>
               <TableCell align="right">updatedAt</TableCell>
             </TableRow>
@@ -64,6 +64,12 @@ class StocksTable extends Component {
                   <TableRow key={stock.id}>
                     <TableCell component="th" scope="stock">
                       {stock.name ? stock.name : 'N/A'}
+                    </TableCell>
+                    <TableCell align="right">
+                      {stock.heart ? stock.heart : 'N/A'}
+                    </TableCell>
+                    <TableCell align="right">
+                      {stock.star ? stock.star : 'N/A'}
                     </TableCell>
                     <TableCell align="right">
                       {stock.symbol ? (
@@ -80,12 +86,6 @@ class StocksTable extends Component {
                     </TableCell>
                     <TableCell align="right">
                       {stock.annualDividends ? stock.annualDividends : 'N/A'}
-                    </TableCell>
-                    <TableCell align="right">
-                      {stock.heart ? stock.heart : 'N/A'}
-                    </TableCell>
-                    <TableCell align="right">
-                      {stock.star ? stock.star : 'N/A'}
                     </TableCell>
                     <TableCell align="right">
                       {stock.createdAt
