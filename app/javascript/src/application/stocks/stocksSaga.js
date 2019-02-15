@@ -16,7 +16,7 @@ export function* loadStocksRequest() {
       stocks: results.data
     });
   } catch (err) {
-    yield put({ type: stocksActions.LOAD_STOCKS_ERROR, error: err });
+    yield put({ type: stocksActions.STOCKS_ERROR, error: err });
   }
 }
 
@@ -33,7 +33,7 @@ export function* loadStockRequest(action) {
     });
   } catch (err) {
     yield put({
-      type: stocksActions.LOAD_STOCK_ERROR,
+      type: stocksActions.STOCK_ERROR,
       error: 'Could not load stock'
     });
   }
@@ -53,7 +53,7 @@ export function* addStockRequest(action) {
     });
   } catch (err) {
     yield put({
-      type: stocksActions.ADD_STOCK_ERROR,
+      type: stocksActions.STOCK_ERROR,
       error: 'Could not add stock'
     });
   }
@@ -69,7 +69,7 @@ export function* deleteStockRequest(action) {
     })
   } catch (err) {
     yield put({
-      type: stocksActions.DELETE_STOCK_ERROR,
+      type: stocksActions.STOCK_ERROR,
       error: 'Could not delete stock'
     })
   }
@@ -86,7 +86,7 @@ export function* updateStockRequest(action) {
     })
   } catch (err) {
     yield put({
-      type: stocksActions.UPDATE_STOCK_ERROR,
+      type: stocksActions.STOCK_ERROR,
       error: 'Could not update stock'
     })
   }

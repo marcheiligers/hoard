@@ -17,9 +17,9 @@ describe('stocks reducer -> load stocks', () => {
     expect(newState.allStocks).toEqual(testStocks);
     expect(newState.error).toBeNull();
   });
-  it('adds an error to state on LOAD_STOCKS_ERROR', () => {
+  it('adds an error to state on STOCKS_ERROR', () => {
     const testError = { message: 'Could not load stocks' };
-    let testAction = stocksActions.loadStocksError(testError);
+    let testAction = stocksActions.stocksError(testError);
     const newState = stocksReducer(defaultState, testAction);
     expect(newState.error).toEqual(testError.message);
   });
@@ -30,9 +30,9 @@ describe('stocks reducer -> load stocks', () => {
     expect(newState.selectedStock).toEqual(testStock);
     expect(newState.error).toBeNull();
   });
-  it('adds an error to state on LOAD_STOCK_ERROR', () => {
+  it('adds an error to state on STOCK_ERROR', () => {
     const testError = { message: 'Could not load stock' };
-    let testAction = stocksActions.loadStockError(testError);
+    let testAction = stocksActions.stockError(testError);
     const newState = stocksReducer(defaultState, testAction);
     expect(newState.error).toEqual(testError);
   });
@@ -73,10 +73,10 @@ describe('stocks reducer -> load stocks', () => {
     expect(newState.allStocks.length).toEqual(1);
     expect(newState.allStocks.filter(stock => stock.id === 2).length).toEqual(0);
   });
-  it('adds an error to state on DELETE_STOCK_ERROR', () => {
+  it('adds an error to state on STOCK_ERROR', () => {
     const testState = { ...defaultState, selectedStocks: [10], allStocks: data.stocks };
     const testError = { message: 'Could not delete stock' }
-    let testAction = stocksActions.deleteStockError(testError);
+    let testAction = stocksActions.stockError(testError);
     const newState = stocksReducer(testState, testAction);
     expect(newState.error).toEqual(testError);
   });
@@ -86,12 +86,5 @@ describe('stocks reducer -> load stocks', () => {
     let testAction = stocksActions.updateStockSuccess(testUpdatedStock);
     const newState = stocksReducer(testState, testAction);
     expect(newState.allStocks.filter(stock => stock.id === testUpdatedStock.id).star).toBeTruthy;
-  });
-  it('adds an error to state on UPDATE_STOCK_ERROR', () => {
-    const testState = { ...defaultState, allStocks: data.stocks };
-    const testError = { message: 'Could not update stock' }
-    let testAction = stocksActions.updateStockError(testError);
-    const newState = stocksReducer(testState, testAction);
-    expect(newState.error).toEqual(testError);
   });
 });

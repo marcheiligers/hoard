@@ -1,7 +1,7 @@
 import data from './stocksData.js';
 import stocksActions from './stocksActions.js';
-// TODO: add tests for adding a stock
-describe.only('stocks action creators -> stocksActions', () => {
+
+describe('stocks action creators -> stocksActions', () => {
   it('gets stocks on loadStocksRequest', () => {
     const testLoadStocksRequest = stocksActions.loadStocksRequest();
     expect(testLoadStocksRequest).toEqual({
@@ -16,11 +16,11 @@ describe.only('stocks action creators -> stocksActions', () => {
       stocks: testStocks
     });
   });
-  it('returns and error message on loadStocksError', () => {
+  it('returns and error message on stocksError', () => {
     const testError = { message: 'Could not load stocks' };
-    const testLoadStocksError = stocksActions.loadStocksError(testError);
+    const testLoadStocksError = stocksActions.stocksError(testError);
     expect(testLoadStocksError).toEqual({
-      type: stocksActions.LOAD_STOCKS_ERROR,
+      type: stocksActions.STOCKS_ERROR,
       error: testError.message
     });
   });
@@ -40,11 +40,11 @@ describe.only('stocks action creators -> stocksActions', () => {
       selectedStock: testStock
     });
   });
-  it('returns and error message on loadStockError', () => {
+  it('returns an error message on stockError', () => {
     const testError = { message: 'Could not load stock' };
-    const testLoadStockError = stocksActions.loadStockError(testError);
+    const testLoadStockError = stocksActions.stockError(testError);
     expect(testLoadStockError).toEqual({
-      type: stocksActions.LOAD_STOCK_ERROR,
+      type: stocksActions.STOCK_ERROR,
       error: testError
     });
   });
@@ -61,14 +61,6 @@ describe.only('stocks action creators -> stocksActions', () => {
     expect(testDeleteStocksSuccess).toEqual({
       type: stocksActions.DELETE_STOCK_SUCCESS,
     })
-  });
-  it('returns and error message on deleteStockError', () => {
-    const testError = { message: 'Could not delete stock' };
-    const testDeleteStockError = stocksActions.deleteStockError(testError);
-    expect(testDeleteStockError).toEqual({
-      type: stocksActions.DELETE_STOCK_ERROR,
-      error: testError
-    });
   });
   it('updates selectedStocks on updateSelectedStocks', () => {
     const testSelectedStocks = [data.stocks[1].id];
@@ -93,13 +85,5 @@ describe.only('stocks action creators -> stocksActions', () => {
       type: stocksActions.UPDATE_STOCK_SUCCESS,
       updatedStock: testUpdatedStock
     })
-  });
-  it('returns and error message on updateStockError', () => {
-    const testError = { message: 'Could not update stock' };
-    const testUpdateStockError = stocksActions.updateStockError(testError);
-    expect(testUpdateStockError).toEqual({
-      type: stocksActions.UPDATE_STOCK_ERROR,
-      error: testError
-    });
   });
 });

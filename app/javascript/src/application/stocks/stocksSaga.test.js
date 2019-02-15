@@ -34,10 +34,10 @@ describe('stocks saga -> loadStocksRequest', () => {
       put({ type: stocksActions.LOAD_STOCKS_SUCCESS, stocks: testResult.data })
     );
   });
-  it('should put LOAD_STOCKS_ERROR action on an error', () => {
+  it('should put STOCKS_ERROR action on an error', () => {
     const testError = new Error('Error');
     expect(loadStocksRequestGen.throw(testError).value).toEqual(
-      put({ type: stocksActions.LOAD_STOCKS_ERROR, error: testError })
+      put({ type: stocksActions.STOCKS_ERROR, error: testError })
     );
   });
 });
@@ -66,10 +66,10 @@ describe('stocks saga -> loadStockRequest', () => {
       })
     );
   });
-  it('should put LOAD_STOCK_ERROR on an error', () => {
+  it('should put STOCK_ERROR on an error', () => {
     const testError = { message: 'Could not load stock' };
     expect(loadStockRequestGen.throw(testError).value).toEqual(
-      put({ type: stocksActions.LOAD_STOCK_ERROR, error: testError.message })
+      put({ type: stocksActions.STOCK_ERROR, error: testError.message })
     );
   });
 });
@@ -98,11 +98,11 @@ describe('stocks saga -> addStockRequest', () => {
       })
     );
   });
-  it('should put ADD_STOCK_ERROR on an error from the api call', () => {
+  it('should put STOCK_ERROR on an error from the api call', () => {
     const testError = { message: 'Could not add stock' };
     expect(addStockRequestGen.throw(testError).value).toEqual(
       put({
-        type: stocksActions.ADD_STOCK_ERROR,
+        type: stocksActions.STOCK_ERROR,
         error: testError.message
       })
     )
@@ -131,11 +131,11 @@ describe('stocks saga -> deleteStockRequest', () => {
       })
     );
   });
-  it('should put DELETE_STOCK_ERROR on an error from the api', () => {
+  it('should put STOCK_ERROR on an error from the api', () => {
     const testError = { message: 'Could not delete stock' };
     expect(deleteStockRequestGen.throw(testError).value).toEqual(
       put({
-        type: stocksActions.DELETE_STOCK_ERROR,
+        type: stocksActions.STOCK_ERROR,
         error: testError.message
       })
     )
@@ -167,11 +167,11 @@ describe('stocks saga -> updateStockRequest', () => {
       })
     );
   });
-  it('should put UPDATE_STOCK_ERROR on an error from the api', () => {
+  it('should put STOCK_ERROR on an error from the api', () => {
     const testError = { message: 'Could not update stock' };
     expect(updateStockRequestGen.throw(testError).value).toEqual(
       put({
-        type: stocksActions.UPDATE_STOCK_ERROR,
+        type: stocksActions.STOCK_ERROR,
         error: testError.message
       })
     )
