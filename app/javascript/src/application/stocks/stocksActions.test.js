@@ -48,4 +48,58 @@ describe.only('stocks action creators -> stocksActions', () => {
       error: testError
     });
   });
+  it('deletes a stock on deleteStockRequest', () => {
+    const testStockId = data.stocks[0].id;
+    const testDeleteStockRequest = stocksActions.deleteStockRequest(testStockId);
+    expect(testDeleteStockRequest).toEqual({
+      type: stocksActions.DELETE_STOCK_REQUEST,
+      id: testStockId,
+    });
+  });
+  it('does nothing on deleteStockSuccess', () => {
+    const testDeleteStocksSuccess = stocksActions.deleteStockSuccess();
+    expect(testDeleteStocksSuccess).toEqual({
+      type: stocksActions.DELETE_STOCK_SUCCESS,
+    })
+  });
+  it('returns and error message on deleteStockError', () => {
+    const testError = { message: 'Could not delete stock' };
+    const testDeleteStockError = stocksActions.deleteStockError(testError);
+    expect(testDeleteStockError).toEqual({
+      type: stocksActions.DELETE_STOCK_ERROR,
+      error: testError
+    });
+  });
+  it('updates selectedStocks on updateSelectedStocks', () => {
+    const testSelectedStocks = [data.stocks[1].id];
+    const testUpdateSelectedStocks = stocksActions.updateSelectedStocks(testSelectedStocks);
+    expect(testUpdateSelectedStocks).toEqual({
+      type: stocksActions.UPDATE_SELECTED_STOCKS,
+      selectedStocks: testSelectedStocks
+    })
+  });
+  it('updates a stock on updateStockRequest', () => {
+    const testUpdatedStock = { ...data.stocks[0], heart: true };
+    const testUpdateStock = stocksActions.updateStockRequest(testUpdatedStock);
+    expect(testUpdateStock).toEqual({
+      type: stocksActions.UPDATE_STOCK_REQUEST,
+      stock: testUpdatedStock
+    })
+  });
+  it('updates a stock on updateStockSuccess', () => {
+    const testUpdatedStock = { ...data.stocks[0], heart: true };
+    const testUpdatedStockSuccess = stocksActions.updateStockSuccess(testUpdatedStock);
+    expect(testUpdatedStockSuccess).toEqual({
+      type: stocksActions.UPDATE_STOCK_SUCCESS,
+      updatedStock: testUpdatedStock
+    })
+  });
+  it('returns and error message on updateStockError', () => {
+    const testError = { message: 'Could not update stock' };
+    const testUpdateStockError = stocksActions.updateStockError(testError);
+    expect(testUpdateStockError).toEqual({
+      type: stocksActions.UPDATE_STOCK_ERROR,
+      error: testError
+    });
+  });
 });

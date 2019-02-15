@@ -5,13 +5,10 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
-  IconButton,
   MenuList,
-  MenuItem,
-  Drawer
+  MenuItem
 } from '@material-ui/core';
-import { Home, List, Bookmark, Info, AccountCircle } from '@material-ui/icons';
-import { withStyles } from '@material-ui/core/styles';
+import { Home, List, Bookmark, Info, AccountCircle, Build } from '@material-ui/icons';
 
 export const Sidebar = ({ location, classes, theme, stocks }) => {
   return (
@@ -63,6 +60,11 @@ export const Sidebar = ({ location, classes, theme, stocks }) => {
         <ListItemText primary={'Stocks'} />
       </MenuItem>
       <Divider className={classes.divider} />
+      <MenuItem component={Link} to="#"><ListItemIcon>
+        <Build />
+      </ListItemIcon>
+        <ListItemText primary={'Utilities'} />
+      </MenuItem>
     </MenuList>
   );
 };

@@ -1,13 +1,19 @@
 import { call, put, takeEvery, select } from 'redux-saga/effects';
-import { loadStocks, loadStock } from './stocksServices';
+import { loadStocks, loadStock, addStock, deleteStock, updateStock } from './stocksServices';
 import stocksActions from './stocksActions';
 import {
   loadStocksRequestWatcher,
   loadStocksRequest,
   loadStockRequestWatcher,
-  loadStockRequest
+  loadStockRequest,
+  addStockRequestWatcher,
+  addStockRequest,
+  deleteStockRequestWatcher,
+  deleteStockRequest,
+  updateStockRequestWatcher,
+  updateStockRequest
 } from './stocksSaga';
-import data from './stocksData';
+import data, { newStock } from './stocksData';
 // TODO: add tests for adding a stock
 describe('stocks saga -> loadsStocksRequestWatcher', () => {
   const loadStocksRequestWatcherGen = loadStocksRequestWatcher();
@@ -63,7 +69,111 @@ describe('stocks saga -> loadStockRequest', () => {
   it('should put LOAD_STOCK_ERROR on an error', () => {
     const testError = { message: 'Could not load stock' };
     expect(loadStockRequestGen.throw(testError).value).toEqual(
-      put({ type: stocksActions.LOAD_STOCK_ERROR, error: 'Could not load stock' })
+      put({ type: stocksActions.LOAD_STOCK_ERROR, error: testError.message })
     );
   });
 });
+describe('stocks saga -> addStockRequestWatcher', () => {
+  const addStockRequestWatcherGen = addStockRequestWatcher();
+  it('should act on every ADD_STOCK_REQUEST action', () => {
+    expect(addStockRequestWatcherGen.next().value).toEqual(
+      takeEvery(stocksActions.ADD_STOCK_REQUEST, addStockRequest)
+    );
+  });
+});
+describe('stocks saga -> addStockRequest', () => {
+  const testAction = { symbol: newStock.symbol };
+  const addStockRequestGen = addStockRequest(testAction);
+  it('should call the api', () => {
+    expect(addStockRequestGen.next().value).toEqual(
+      call(addStock, testAction.symbol)
+    );
+  });
+  it('should put ADD_STOCK_SUCCESS on success of the api call', () => {
+    const testResult = { data: newStock };
+    expect(addStockRequestGen.next(testResult).value).toEqual(
+      put({
+        type: stocksActions.ADD_STOCK_SUCCESS,
+        newStock: testResult.data
+      })
+    );
+  });
+  it('should put ADD_STOCK_ERROR on an error from the api call', () => {
+    const testError = { message: 'Could not add stock' };
+    expect(addStockRequestGen.throw(testError).value).toEqual(
+      put({
+        type: stocksActions.ADD_STOCK_ERROR,
+        error: testError.message
+      })
+    )
+  })
+});
+describe('stocks saga -> deleteStockRequestWatcher', () => {
+  const deleteStockRequestWatcherGen = deleteStockRequestWatcher();
+  it('should act on every DELETE_SELECTED_STOCK', () => {
+    expect(deleteStockRequestWatcherGen.next().value).toEqual(
+      takeEvery(stocksActions.DELETE_STOCK_REQUEST, deleteStockRequest)
+    );
+  });
+});
+describe('stocks saga -> deleteStockRequest', () => {
+  const testAction = { id: 3 };
+  const deleteStockRequestGen = deleteStockRequest(testAction);
+  it('should call the api', () => {
+    expect(deleteStockRequestGen.next().value).toEqual(
+      call(deleteStock, testAction.id)
+    );
+  });
+  it('should put DELETE_STOCK_SUCCESS on success of the api call', () => {
+    expect(deleteStockRequestGen.next().value).toEqual(
+      put({
+        type: stocksActions.DELETE_STOCK_SUCCESS
+      })
+    );
+  });
+  it('should put DELETE_STOCK_ERROR on an error from the api', () => {
+    const testError = { message: 'Could not delete stock' };
+    expect(deleteStockRequestGen.throw(testError).value).toEqual(
+      put({
+        type: stocksActions.DELETE_STOCK_ERROR,
+        error: testError.message
+      })
+    )
+  });
+});
+describe('stocks saga -> updateStockRequestWatcher', () => {
+  const updateStockRequestWatcherGen = updateStockRequestWatcher();
+  it('should act on every UPDATE_STOCK_REQUEST', () => {
+    expect(updateStockRequestWatcherGen.next().value).toEqual(
+      takeEvery(stocksActions.UPDATE_STOCK_REQUEST, updateStockRequest)
+    )
+  });
+});
+describe('stocks saga -> updateStockRequest', () => {
+  const testStock = { ...data.stocks[0], star: false };
+  const testAction = { stock: testStock }
+  const updateStockRequestGen = updateStockRequest(testAction);
+  it('should call the api', () => {
+    expect(updateStockRequestGen.next().value).toEqual(
+      call(updateStock, testAction.stock)
+    );
+  });
+  it('should put UPDATE_STOCK_SUCCESS on success of the api call', () => {
+    const testResult = { data: testStock };
+    expect(updateStockRequestGen.next(testResult).value).toEqual(
+      put({
+        type: stocksActions.UPDATE_STOCK_SUCCESS,
+        updatedStock: testResult.data
+      })
+    );
+  });
+  it('should put UPDATE_STOCK_ERROR on an error from the api', () => {
+    const testError = { message: 'Could not update stock' };
+    expect(updateStockRequestGen.throw(testError).value).toEqual(
+      put({
+        type: stocksActions.UPDATE_STOCK_ERROR,
+        error: testError.message
+      })
+    )
+  })
+})

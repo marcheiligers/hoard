@@ -9,11 +9,10 @@ import {
   Typography,
   Hidden,
   Drawer,
-  Divider,
   CssBaseline
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import {Menu } from "@material-ui/icons";
+import { Menu } from "@material-ui/icons";
 import Sidebar from "./Sidebar";
 
 const drawerWidth = 240;
@@ -38,6 +37,7 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
+    height: "100vh",
     [theme.breakpoints.up("md")]: {
       position: "relative"
     }
@@ -84,7 +84,7 @@ class Layout extends Component {
         <Sidebar
           location={location}
           classes={classes}
-          theme={styles.theme}
+          theme={styles}
           stocks={stocks}
         />
       </div>

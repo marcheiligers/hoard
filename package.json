@@ -1,45 +1,45 @@
 {
-    "name": "hoard",
-    "private": true,
-    "scripts": {
-        "test": "jest app/javascript/src/application/*",
-        "test-watch": "jest app/javascript/src/application* --watch"
-    },
-    "dependencies": {
-        "@babel/core": "^7.0.0",
-        "@babel/preset-react": "^7.0.0",
-        "@babel/runtime-corejs2": "^7.2.0",
-        "@material-ui/core": "^3.7.1",
-        "@material-ui/icons": "^3.0.1",
-        "@rails/webpacker": "^4.0.0-rc.2",
-        "axios": "^0.18.0",
-        "connected-react-router": "^6.1.0",
-        "formik": "^1.4.3",
-        "history": "^4.7.2",
-        "moment-timezone": "^0.5.23",
-        "prop-types": "^15.6.2",
-        "react": "^16.7.0",
-        "react-dom": "^16.7.0",
-        "react-redux": "^6.0.0",
-        "react-router": "^4.3.1",
-        "react-router-dom": "^4.3.1",
-        "recompose": "^0.30.0",
-        "redux": "^4.0.1",
-        "redux-devtools-extension": "^2.13.7",
-        "redux-saga": "^0.16.2"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.0.0",
-        "@babel/plugin-proposal-class-properties": "7.0.0",
-        "@babel/plugin-proposal-json-strings": "^7.0.0",
-        "@babel/plugin-proposal-throw-expressions": "7.0.0",
-        "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-        "@babel/plugin-syntax-import-meta": "^7.0.0",
-        "@babel/plugin-transform-regenerator": "^7.0.0",
-        "babel-core": "^7.0.0-bridge.0",
-        "babel-jest": "^23.6.0",
-        "jest": "^23.6.0",
-        "redux-saga-tester": "^1.0.381",
-        "webpack-dev-server": "^3"
-    }
+  "name": "hoard",
+  "private": true,
+  "scripts": {
+    "test": "jest app/javascript/src/application/*",
+    "test-watch": "jest app/javascript/src/application* --watch"
+  },
+  "dependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/runtime-corejs2": "^7.2.0",
+    "@material-ui/core": "^3.7.1",
+    "@material-ui/icons": "^3.0.1",
+    "@rails/webpacker": "^4.0.0-rc.2",
+    "axios": "^0.18.0",
+    "connected-react-router": "^6.1.0",
+    "formik": "^1.4.3",
+    "history": "^4.7.2",
+    "moment-timezone": "^0.5.23",
+    "prop-types": "^15.6.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-redux": "^6.0.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "recompose": "^0.30.0",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.7",
+    "redux-saga": "^0.16.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "7.0.0",
+    "@babel/plugin-proposal-json-strings": "^7.0.0",
+    "@babel/plugin-proposal-throw-expressions": "7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-import-meta": "^7.0.0",
+    "@babel/plugin-transform-regenerator": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
+    "redux-saga-tester": "^1.0.381",
+    "webpack-dev-server": "^3"
+  }
 }

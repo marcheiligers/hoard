@@ -1,7 +1,9 @@
 import { takeEvery, call, all, fork, put } from 'redux-saga/effects';
 import stocksActions from './stocksActions';
-import { loadStocks, loadStock, addStock } from './stocksServices';
+import { loadStocks, loadStock, addStock, deleteStock, updateStock } from './stocksServices';
 
+// TODO: Rethink hard coding these error messages, we should rather be using the error message from the api
+// TODO: clean up the errors such that we only use one or two (e.g. STOCKS_ERROR and STOCK_ERROR)
 export function* loadStocksRequestWatcher() {
   yield takeEvery(stocksActions.LOAD_STOCKS_REQUEST, loadStocksRequest);
 }
@@ -42,28 +44,59 @@ export function* addStockRequestWatcher() {
 }
 
 export function* addStockRequest(action) {
-  console.log('In addStockRequestSaga, action.symbol:', action.symbol)
   try {
     const result = yield call(addStock, action.symbol);
-    console.log('result.data from post new stock:', result.data)
-    console.log('put an action to show a modal')
     // TODO: Add redux actions and react component for modal notifications.
     yield put({
       type: stocksActions.ADD_STOCK_SUCCESS,
       newStock: result.data
     });
   } catch (err) {
-    console.log('AN ERROR FROM THE POST:', err)
     yield put({
       type: stocksActions.ADD_STOCK_ERROR,
       error: 'Could not add stock'
     });
   }
 }
+export function* deleteStockRequestWatcher() {
+  yield takeEvery(stocksActions.DELETE_STOCK_REQUEST, deleteStockRequest);
+}
+export function* deleteStockRequest(action) {
+  try {
+    const result = yield call(deleteStock, action.id);
+    yield put({
+      type: stocksActions.DELETE_STOCK_SUCCESS
+    })
+  } catch (err) {
+    yield put({
+      type: stocksActions.DELETE_STOCK_ERROR,
+      error: 'Could not delete stock'
+    })
+  }
+}
+export function* updateStockRequestWatcher() {
+  yield takeEvery(stocksActions.UPDATE_STOCK_REQUEST, updateStockRequest);
+}
+export function* updateStockRequest(action) {
+  try {
+    const result = yield call(updateStock, action.stock);
+    yield put({
+      type: stocksActions.UPDATE_STOCK_SUCCESS,
+      updatedStock: result.data
+    })
+  } catch (err) {
+    yield put({
+      type: stocksActions.UPDATE_STOCK_ERROR,
+      error: 'Could not update stock'
+    })
+  }
+}
 export default function* stocksSaga() {
   yield all([
     fork(loadStocksRequestWatcher),
     fork(loadStockRequestWatcher),
-    fork(addStockRequestWatcher)
+    fork(addStockRequestWatcher),
+    fork(deleteStockRequestWatcher),
+    fork(updateStockRequestWatcher),
   ]);
 }

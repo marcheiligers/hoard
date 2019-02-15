@@ -25,3 +25,15 @@ const data = {
   ]
 };
 export default data;
+
+export const newStock = {
+  id: 4,
+  symbol: 'MOCK2',
+  name: 'Mock Stock 2',
+  annualDividends: null,
+  heart: null,
+  star: null,
+  createdAt: '2019-01-31T18:22:05.279Z',
+  updatedAt: '2019-02-01T18:22:05.279Z',
+  url: 'http://localhost:5000/api/v1/stocks/4'
+};

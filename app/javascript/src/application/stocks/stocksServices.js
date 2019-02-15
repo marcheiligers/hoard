@@ -7,8 +7,17 @@ export const loadStocks = async () => {
 export const loadStock = async id => {
   return await axios.get(`${baseUrl}/stocks/${id}`);
 };
-export const addStock = async (symbol) => {
+export const addStock = async symbol => {
   const result = await axios.post(`${baseUrl}/stocks`, { symbol: symbol });
-  console.log('result from POST:', result)
+  return result;
+};
+export const deleteStock = async id => {
+  const result = await axios.delete(`${baseUrl}/stocks/${id}`);
+  return result;
+}
+export const updateStock = async stock => {
+  const payload = { ...stock }
+  delete payload.createdAt;
+  const result = await axios.put(`${baseUrl}/stocks/${stock.id}`, payload);
   return result;
 }
