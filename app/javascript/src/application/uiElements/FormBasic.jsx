@@ -11,8 +11,33 @@ class AddStockForm extends Component {
   handleClearError = () => {
     this.props.clearStockError();
   };
-  render() {
+  handleValidate = (values) => {
+    console.log('In validate, values:', values)
     const currentSymbols = this.props.stocks.map(stock => stock.symbol);
+    const dup = currentSymbols.find(item => item === values.symbol.toUpperCase())
+    const pattern = /^[A-Z]{2,5}((.|-)[A-Z])?$/;
+    let errors = {};
+    if (dup) {
+      errors.symbol = 'Duplicate';
+    } else if (!values.symbol.toUpperCase().match(pattern)) {
+      errors.symbol = 'Not A Valid Symbol';
+    }
+    return errors;
+  }
+  handleSubmit = (values, { setSubmitting, errors, resetForm }) => {
+    console.log('handle submit')
+    const newStockSymbol = values.symbol.toUpperCase();
+    if (!errors) {
+      this.props.addStockRequest(newStockSymbol);
+      setSubmitting(false);
+      resetForm({ symbol: '' });
+    };
+  }
+  handleClick = (ev) => {
+    console.log('clear')
+    ev.preventDefault();
+  }
+  render() {
     return (
       <div>
         {this.props.error ?
@@ -22,27 +47,10 @@ class AddStockForm extends Component {
           </Fragment> :
           <Formik
             initialValues={{ symbol: '' }}
-            validate={values => {
-              const dup = currentSymbols.find(item => item === values.symbol.toUpperCase())
-              const pattern = /^[A-Z]{2,5}((.|-)[A-Z])?$/;
-              let errors = {};
-              if (dup) {
-                errors.symbol = 'Duplicate';
-              } else if (!values.symbol.toUpperCase().match(pattern)) {
-                errors.symbol = 'Not A Valid Symbol';
-              }
-              return errors;
-            }}
-            onSubmit={(values, { setSubmitting, errors, resetForm }) => {
-              const newStockSymbol = values.symbol.toUpperCase();
-              if (!errors) {
-                this.props.addStockRequest(newStockSymbol);
-                setSubmitting(false);
-                resetForm({ symbol: '' });
-              };
-            }}
+            validate={values => this.handleValidate(values)}
+            onSubmit={(values, formProps) => this.handleSubmit(values, formProps)}
           >
-            {({ isSubmitting, errors, values, handleReset }) => (
+            {({ isSubmitting, errors, values }) => (
               <Form>
                 <Field
                   type='text'
@@ -58,9 +66,11 @@ class AddStockForm extends Component {
                 >
                   Add
               </button>
-                <button type='reset' disabled={!values.symbol.length}>
-                  Clear
-              </button>
+                <input
+                  type='reset'
+                  disabled={!values.symbol.length}
+                  value="Reset"
+                />
               </Form>
             )}
           </Formik>
