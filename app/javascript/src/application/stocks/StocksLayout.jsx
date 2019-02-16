@@ -3,17 +3,20 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import EnhancedTable from './EnhancedTable';
 import FormBasic from '../uiElements/FormBasic'; // TODO: move this form to the stocks folder
-import Snackbar from '@material-ui/core/Snackbar'; // Growl for error messages
+import PositionedSnackbar from '../uiElements/SnackBar'; // Growl for error messages
 // REDUX
 import stocksActions from './stocksActions';
 const loadStocksRequest = stocksActions.loadStocksRequest;
 const addStockRequest = stocksActions.addStockRequest;
+const clearStockError = stocksActions.clearStockError;
 class StocksLayout extends Component {
   static propTypes = {
     stocks: PropTypes.array,
     error: PropTypes.string,
     match: PropTypes.object,
     loadStocksRequest: PropTypes.func,
+    addStockRequest: PropTypes.func,
+    clearStockError: PropTypes.func
   }
   componentDidMount() {
     this.props.loadStocksRequest();
@@ -26,7 +29,7 @@ class StocksLayout extends Component {
     }
   }
   handleClose = () => {
-    this.props.clearError();
+    this.props.clearStockError();
   }
   render() {
     return (
@@ -34,13 +37,7 @@ class StocksLayout extends Component {
         <h1>Stocks</h1>
         <FormBasic stocks={this.props.stocks} />
         <EnhancedTable {...this.props} />
-        {this.props.error &&
-          <Snackbar
-            onClose={this.handleClose}
-            message={<span id="message-id">I love snacks</span>}
-          />
-        }
-
+        {this.props.error ? <PositionedSnackbar /> : null}
       </Fragment>
     )
   }
@@ -50,5 +47,5 @@ export default connect(
     stocks: state.stocks.allStocks || [],
     error: state.stocks.error ? state.stocks.error : null,
   }),
-  { loadStocksRequest, addStockRequest, clearError }
+  { loadStocksRequest, addStockRequest, clearStockError }
 )(StocksLayout);

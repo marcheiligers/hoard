@@ -5,19 +5,19 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import stocksActions from '../stocks/stocksActions';
 // REDUX
 const addStockRequest = stocksActions.addStockRequest;
-const clearAddStockError = stocksActions.clearAddStockError;
+const clearStockError = stocksActions.clearStockError;
 // TODO: add some prettiness to this form!
 class AddStockForm extends Component {
   handleClearError = () => {
-    this.props.clearAddStockError();
+    this.props.clearStockError();
   };
-  render(props) {
+  render() {
     const currentSymbols = this.props.stocks.map(stock => stock.symbol);
     return (
       <div>
         {this.props.error ?
           <Fragment>
-            <div style={{ display: 'inline-flex', paddingRight: '1vw' }}>{this.props.error}</div>
+            <div style={{ paddingRight: '1vw' }}>{this.props.error}</div>
             <button onClick={this.handleClearError}>Ok</button>
           </Fragment> :
           <Formik
@@ -73,6 +73,6 @@ class AddStockForm extends Component {
 export default connect(
   state => ({
     error: state.stocks.error || null,
-  }), { addStockRequest, clearAddStockError })(AddStockForm);
+  }), { addStockRequest, clearStockError })(AddStockForm);
   // TODO style the form better using material-ui input maybe?
   // TODO: validation ain't working on duplications
