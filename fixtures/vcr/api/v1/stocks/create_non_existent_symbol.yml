@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.iextrading.com/1.0/stock/BOBO/company
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      server:
+      - nginx
+      date:
+      - Sun, 17 Feb 2019 18:38:44 GMT
+      content-type:
+      - text/html; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - close
+      set-cookie:
+      - ctoken=2f59c59c1a7745c8a6fc3f66ab81c6b7; Domain=.iextrading.com; Path=/; Expires=Mon,
+        18 Feb 2019 06:38:44 GMT; Secure
+      content-security-policy:
+      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
+        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
+        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
+        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
+        'self' 'unsafe-inline' 'unsafe-eval';
+      x-content-security-policy:
+      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
+        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
+        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
+        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
+        'self' 'unsafe-inline' 'unsafe-eval';
+      frame-options:
+      - SAMEORIGIN
+      x-frame-options:
+      - SAMEORIGIN
+      strict-transport-security:
+      - max-age=15768000
+      access-control-allow-origin:
+      - "*"
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-methods:
+      - GET, OPTIONS
+      access-control-allow-headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+    body:
+      encoding: ASCII-8BIT
+      string: Unknown symbol
+    http_version: 
+  recorded_at: Sun, 17 Feb 2019 18:39:28 GMT
+recorded_with: VCR 4.0.0
