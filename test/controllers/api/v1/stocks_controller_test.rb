@@ -36,8 +36,10 @@ class StocksControllerTest < ActionDispatch::IntegrationTest
   test 'should return a JSON encoded error when fetching additional information fails' do
     VCR.use_cassette('api/v1/stocks/create_non_existent_symbol') do
       post api_v1_stocks_url, params: { stock: { symbol: 'BOBO' } }
-      puts response_json
     end
+
+    assert_response :unprocessable_entity
+    assert_includes response_json['error'], 'Symbol BOBO Not Found'
   end
 
   test "should show stock" do
