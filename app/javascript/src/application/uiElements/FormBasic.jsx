@@ -2,11 +2,30 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import MuiTextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import ContainedButton from './Button';
+import { LinearProgress } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { fieldToTextField, TextFieldProps } from 'formik-material-ui';
+
 import stocksActions from '../stocks/stocksActions';
 // REDUX
 const addStockRequest = stocksActions.addStockRequest;
 const clearStockError = stocksActions.clearStockError;
-// TODO: add some prettiness to this form!
+
+const UppercasingTextField = (props) => (
+  <MuiTextField
+    {...fieldToTextField(props)}
+    onChange={event => {
+      const { value } = event.target;
+      props.form.setFieldValue(
+        props.field.name,
+        value ? value.toUpperCase() : ''
+      );
+    }}
+  />
+);
 class AddStockForm extends Component {
   handleClearError = () => {
     this.props.clearStockError();
@@ -40,36 +59,47 @@ class AddStockForm extends Component {
       <Fragment>
         {this.props.error ?
           <Fragment>
-            <span style={{ paddingRight: '1vw' }}>{this.props.error}</span>
-            <button onClick={this.handleClearError}>Ok</button>
+            <div style={{ paddingRight: '1vw' }}>{this.props.error}</div>
+            <ContainedButton
+              variant="contained"
+              size="large"
+              onClick={this.handleClearError}
+            >
+              Ok
+            </ContainedButton>
           </Fragment> :
           <Formik
             initialValues={{ symbol: '' }}
             validate={values => this.handleValidate(values)}
             onSubmit={(values, formProps) => this.handleSubmit(values, formProps)}
           >
-            {({ isSubmitting, errors, values }) => (
+            {({ submitForm, isSubmitting, errors, values, setFieldValue }) => (
               <Form>
                 <Field
                   type='text'
                   name='symbol'
-                  placeholder='symbol'
-                  value={values.symbol.toUpperCase() || ''}
-                  style={{ textTransform: 'uppercase' }}
+                  label='symbol'
+                  component={UppercasingTextField}
                 />
-
-                <button
-                  type='submit'
+                <br />
+                {isSubmitting && <LinearProgress />}
+                <br />
+                <ContainedButton
+                  variant="contained"
+                  size="large"
+                  color="primary"
+                  onClick={submitForm}
                   disabled={isSubmitting || !!Object.values(errors).length || !values.symbol.length}
                 >
                   Add
-              </button>
-                <input
+              </ContainedButton>
+                <ContainedButton
+                  variant="contained"
+                  size="large"
+                  color="secondary"
                   type='reset'
                   disabled={!values.symbol.length}
-                  value="Reset"
-                />
-                {errors ? <ErrorMessage name='symbol' component='div' /> : <div></div>}
+                > Reset </ContainedButton>
               </Form>
             )}
           </Formik>
