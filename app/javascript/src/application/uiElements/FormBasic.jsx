@@ -109,5 +109,4 @@ export default connect(
   state => ({
     error: state.stocks.error || null,
   }), { addStockRequest, clearStockError })(AddStockForm);
-  // TODO style the form better using material-ui input maybe?
-  // TODO: validation ain't working on duplications
+  // TODO remove the top level error and just reset the form.
