@@ -12,7 +12,6 @@ class AddStockForm extends Component {
     this.props.clearStockError();
   };
   handleValidate = (values) => {
-    console.log('In validate, values:', values)
     const currentSymbols = this.props.stocks.map(stock => stock.symbol);
     const dup = currentSymbols.find(item => item === values.symbol.toUpperCase())
     const pattern = /^[A-Z]{2,5}((.|-)[A-Z])?$/;
@@ -25,17 +24,12 @@ class AddStockForm extends Component {
     return errors;
   }
   handleSubmit = (values, { setSubmitting, errors, resetForm }) => {
-    console.log('handle submit')
     const newStockSymbol = values.symbol.toUpperCase();
     if (!errors) {
       this.props.addStockRequest(newStockSymbol);
       setSubmitting(false);
       resetForm({ symbol: '' });
     };
-  }
-  handleClick = (ev) => {
-    console.log('clear')
-    ev.preventDefault();
   }
   render() {
     return (
