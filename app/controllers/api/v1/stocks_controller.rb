@@ -14,10 +14,10 @@ class Api::V1::StocksController < Api::BaseController
     @stock = Stock.new(stock_params)
     fetch_additional_info
 
-    if @stock.save
+    if @stock.errors.empty? && @stock.save
       render :show, status: :created, location: api_v1_stock_url(@stock)
     else
-      render json: @stock.errors, status: :unprocessable_entity
+      render json: { error: @stock.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
   end
 
@@ -25,7 +25,7 @@ class Api::V1::StocksController < Api::BaseController
     if @stock.update(stock_params)
       render :show, status: :ok, location: api_v1_stock_url(@stock)
     else
-      render json: @stock.errors, status: :unprocessable_entity
+      render json: { error: @stock.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
   end
 
@@ -58,5 +58,7 @@ class Api::V1::StocksController < Api::BaseController
           @stock.annual_dividends = dividends.select { |date| date > year_ago }.size
         end
       end
+    rescue => e
+      @stock.errors.add(:base, "Error fetching additional stock information: #{e.message}")
     end
 end
