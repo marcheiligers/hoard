@@ -99,11 +99,11 @@ describe('stocks saga -> addStockRequest', () => {
     );
   });
   it('should put STOCK_ERROR on an error from the api call', () => {
-    const testError = { message: 'Could not add stock' };
+    const testError = { response: { data: { error: 'Could not add stock' } } };
     expect(addStockRequestGen.throw(testError).value).toEqual(
       put({
         type: stocksActions.STOCK_ERROR,
-        error: testError.message
+        error: 'Could not add stock'
       })
     )
   })

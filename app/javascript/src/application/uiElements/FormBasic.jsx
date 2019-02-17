@@ -50,10 +50,6 @@ class AddStockForm extends Component {
       resetForm({ symbol: '' });
     };
   }
-  handleClick = (ev) => {
-    console.log('clear')
-    ev.preventDefault();
-  }
   render() {
     return (
       <Fragment>

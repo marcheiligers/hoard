@@ -54,7 +54,7 @@ export function* addStockRequest(action) {
   } catch (err) {
     yield put({
       type: stocksActions.STOCK_ERROR,
-      error: 'Could not add stock'
+      error: err.response.data.error
     });
   }
 }
