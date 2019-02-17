@@ -12,7 +12,6 @@ class AddStockForm extends Component {
     this.props.clearStockError();
   };
   handleValidate = (values) => {
-    console.log('In validate, values:', values)
     const currentSymbols = this.props.stocks.map(stock => stock.symbol);
     const dup = currentSymbols.find(item => item === values.symbol.toUpperCase())
     const pattern = /^[A-Z]{2,5}((.|-)[A-Z])?$/;
@@ -25,7 +24,6 @@ class AddStockForm extends Component {
     return errors;
   }
   handleSubmit = (values, { setSubmitting, errors, resetForm }) => {
-    console.log('handle submit')
     const newStockSymbol = values.symbol.toUpperCase();
     if (!errors) {
       this.props.addStockRequest(newStockSymbol);
@@ -39,10 +37,10 @@ class AddStockForm extends Component {
   }
   render() {
     return (
-      <div>
+      <Fragment>
         {this.props.error ?
           <Fragment>
-            <div style={{ paddingRight: '1vw' }}>{this.props.error}</div>
+            <span style={{ paddingRight: '1vw' }}>{this.props.error}</span>
             <button onClick={this.handleClearError}>Ok</button>
           </Fragment> :
           <Formik
@@ -59,7 +57,7 @@ class AddStockForm extends Component {
                   value={values.symbol.toUpperCase() || ''}
                   style={{ textTransform: 'uppercase' }}
                 />
-                <ErrorMessage name='symbol' component='div' />
+
                 <button
                   type='submit'
                   disabled={isSubmitting || !!Object.values(errors).length || !values.symbol.length}
@@ -71,11 +69,12 @@ class AddStockForm extends Component {
                   disabled={!values.symbol.length}
                   value="Reset"
                 />
+                {errors ? <ErrorMessage name='symbol' component='div' /> : <div></div>}
               </Form>
             )}
           </Formik>
         }
-      </div >
+      </Fragment>
     )
   }
 
