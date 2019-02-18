@@ -50,9 +50,11 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
     [theme.breakpoints.up("md")]: {
-      width: "70%"
+      width: "70%",
     },
-    border: "1px solid pink"
+    [theme.breakpoints.down("sm")]: {
+      width: "70%",
+    }
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4

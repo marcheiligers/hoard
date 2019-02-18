@@ -30,15 +30,19 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
-    // [theme.breakpoints.up("md")]: {
-    //   width: "90vw",
-    //   backgroundColor: theme.palette.background.primary,
-    // },
+    [theme.breakpoints.up("md")]: {
+      border: "2px solid pink"
+    },
+    [theme.breakpoints.down("md")]: {
+      border: "2px solid blue"
+    },
+    [theme.breakpoints.down("sm")]: {
+      border: "2px solid red"
+    }
     // [theme.breakpoints.down("sm")]: {
     //   width: "95vw",
     //   backgroundColor: theme.palette.background.secondary,
     // },
-    border: "1px solid pink"
   },
   // table: {
   //   minWidth: 1020,
