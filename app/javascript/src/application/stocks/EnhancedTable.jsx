@@ -25,8 +25,6 @@ const updateStockRequest = stocksActions.updateStockRequest;
 
 const styles = theme => ({
   root: {
-    // width: '100vw',
-    // marginTop: theme.spacing.unit * 3,
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
@@ -39,14 +37,7 @@ const styles = theme => ({
     [theme.breakpoints.down("sm")]: {
       border: "2px solid red"
     }
-    // [theme.breakpoints.down("sm")]: {
-    //   width: "95vw",
-    //   backgroundColor: theme.palette.background.secondary,
-    // },
   },
-  // table: {
-  //   minWidth: 1020,
-  // },
   tableWrapper: {
     overflowX: 'auto',
   },
@@ -56,7 +47,6 @@ class EnhancedTable extends React.Component {
   state = {
     order: 'asc',
     orderBy: 'annualDividends',
-    // selected: [],
     page: 0,
     rowsPerPage: 5,
   };
@@ -67,6 +57,7 @@ class EnhancedTable extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.stocks !== this.props.stocks) {
       // console.log('The stocks have changed and received in stocksTable', this.props.stocks)
+      this.setState({ order: 'asc', orderBy: 'updatedAt' });
     }
   };
 
@@ -93,7 +84,6 @@ class EnhancedTable extends React.Component {
     const selectedArray = this.props.selected;
     const selectedIndex = selectedArray.indexOf(id);
     let newSelected = [];
-
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selectedArray, id);
     } else if (selectedIndex === 0) {
@@ -106,7 +96,6 @@ class EnhancedTable extends React.Component {
         selectedArray.slice(selectedIndex + 1),
       );
     }
-
     this.props.updateSelectedStocks(newSelected);
   };
 
@@ -121,7 +110,8 @@ class EnhancedTable extends React.Component {
     if (this.props.selected.length === 1) {
       this.props.deleteStockRequest(this.props.selected[0]);
     } else {
-      // TODO: change to a modal
+      // TODO: issue a general growl
+      // this.props.showGrowl
       alert('Cannot delete mutiple items, please only choose one')
     }
   }
@@ -135,10 +125,9 @@ class EnhancedTable extends React.Component {
       this.props.updateStockRequest(stockChosen);
     } else {
       console.log('Stock not found')
-      // TODO: show modal
-      // this.props.showModal
+      // TODO: issue a general growl
+      // this.props.showGrowl
     }
-
   }
 
 

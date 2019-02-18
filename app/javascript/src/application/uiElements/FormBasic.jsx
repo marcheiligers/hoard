@@ -53,53 +53,41 @@ class AddStockForm extends Component {
   render() {
     return (
       <Fragment>
-        {this.props.error ?
-          <Fragment>
-            <div style={{ paddingRight: '1vw' }}>{this.props.error}</div>
-            <ContainedButton
-              variant="contained"
-              size="large"
-              onClick={this.handleClearError}
-            >
-              Ok
-            </ContainedButton>
-          </Fragment> :
-          <Formik
-            initialValues={{ symbol: '' }}
-            validate={values => this.handleValidate(values)}
-            onSubmit={(values, formProps) => this.handleSubmit(values, formProps)}
-          >
-            {({ submitForm, isSubmitting, errors, values, setFieldValue }) => (
-              <Form>
-                <Field
-                  type='text'
-                  name='symbol'
-                  label='symbol'
-                  component={UppercasingTextField}
-                />
-                <br />
-                {isSubmitting && <LinearProgress />}
-                <br />
-                <ContainedButton
-                  variant="contained"
-                  size="large"
-                  color="primary"
-                  onClick={submitForm}
-                  disabled={isSubmitting || !!Object.values(errors).length || !values.symbol.length}
-                >
-                  Add
+        <Formik
+          initialValues={{ symbol: '' }}
+          validate={values => this.handleValidate(values)}
+          onSubmit={(values, formProps) => this.handleSubmit(values, formProps)}
+        >
+          {({ submitForm, isSubmitting, errors, values, setFieldValue }) => (
+            <Form>
+              <Field
+                type='text'
+                name='symbol'
+                label='symbol'
+                component={UppercasingTextField}
+              />
+              <br />
+              {isSubmitting && <LinearProgress />}
+              <br />
+              <ContainedButton
+                variant="contained"
+                size="large"
+                color="primary"
+                onClick={submitForm}
+                disabled={isSubmitting || !!Object.values(errors).length || !values.symbol.length}
+              >
+                Add
               </ContainedButton>
-                <ContainedButton
-                  variant="contained"
-                  size="large"
-                  color="secondary"
-                  type='reset'
-                  disabled={!values.symbol.length}
-                > Reset </ContainedButton>
-              </Form>
-            )}
-          </Formik>
-        }
+              <ContainedButton
+                variant="contained"
+                size="large"
+                color="secondary"
+                type='reset'
+                disabled={!values.symbol.length}
+              > Reset </ContainedButton>
+            </Form>
+          )}
+        </Formik>
       </Fragment>
     )
   }
