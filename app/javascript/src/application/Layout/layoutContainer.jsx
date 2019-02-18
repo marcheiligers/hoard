@@ -42,6 +42,9 @@ const styles = theme => ({
       position: "relative"
     }
   },
+  button: {
+    margin: theme.spacing.unit,
+  },
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,

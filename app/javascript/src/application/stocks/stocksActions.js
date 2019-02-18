@@ -9,7 +9,7 @@ export const stocksActions = {
   ADD_STOCK_REQUEST: 'ADD_STOCK_REQUEST',
   ADD_STOCK_ERROR: 'ADD_STOCK_ERROR',
   ADD_STOCK_SUCCESS: 'ADD_STOCK_SUCCESS',
-  CLEAR_ADD_STOCK_ERROR: 'CLEAR_ADD_STOCK_ERROR',
+  CLEAR_STOCK_ERROR: 'CLEAR_STOCK_ERROR',
   DELETE_STOCK_REQUEST: 'DELETE_STOCK_REQUEST',
   DELETE_STOCK_SUCCESS: 'DELETE_STOCK_SUCCESS',
   UPDATE_SELECTED_STOCKS: 'UPDATE_SELECTED_STOCKS',
@@ -50,8 +50,8 @@ export const stocksActions = {
     type: stocksActions.ADD_STOCK_SUCCESS,
     newStock: newStock
   }),
-  clearAddStockError: () => ({
-    type: stocksActions.CLEAR_ADD_STOCK_ERROR,
+  clearStockError: () => ({
+    type: stocksActions.CLEAR_STOCK_ERROR,
   }),
   deleteStockRequest: id => ({
     type: stocksActions.DELETE_STOCK_REQUEST,

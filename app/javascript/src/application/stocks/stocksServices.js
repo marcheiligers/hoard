@@ -8,8 +8,7 @@ export const loadStock = async id => {
   return await axios.get(`${baseUrl}/stocks/${id}`);
 };
 export const addStock = async symbol => {
-  const result = await axios.post(`${baseUrl}/stocks`, { symbol: symbol });
-  return result;
+  return await axios.post(`${baseUrl}/stocks`, { symbol: symbol });
 };
 export const deleteStock = async id => {
   const result = await axios.delete(`${baseUrl}/stocks/${id}`);

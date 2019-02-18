@@ -2,70 +2,105 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import MuiTextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import ContainedButton from './Button';
+import { LinearProgress } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { fieldToTextField, TextFieldProps } from 'formik-material-ui';
+
 import stocksActions from '../stocks/stocksActions';
 // REDUX
 const addStockRequest = stocksActions.addStockRequest;
-const clearAddStockError = stocksActions.clearAddStockError;
-// TODO: add some prettiness to this form!
+const clearStockError = stocksActions.clearStockError;
+
+const UppercasingTextField = (props) => (
+  <MuiTextField
+    {...fieldToTextField(props)}
+    onChange={event => {
+      const { value } = event.target;
+      props.form.setFieldValue(
+        props.field.name,
+        value ? value.toUpperCase() : ''
+      );
+    }}
+  />
+);
 class AddStockForm extends Component {
   handleClearError = () => {
-    this.props.clearAddStockError();
+    this.props.clearStockError();
   };
-  render(props) {
+  handleValidate = (values) => {
     const currentSymbols = this.props.stocks.map(stock => stock.symbol);
+    const dup = currentSymbols.find(item => item === values.symbol.toUpperCase())
+    const pattern = /^[A-Z]{2,5}((.|-)[A-Z])?$/;
+    let errors = {};
+    if (dup) {
+      errors.symbol = 'Duplicate';
+    } else if (!values.symbol.toUpperCase().match(pattern)) {
+      errors.symbol = 'Not A Valid Symbol';
+    }
+    return errors;
+  }
+  handleSubmit = (values, { setSubmitting, errors, resetForm }) => {
+    const newStockSymbol = values.symbol.toUpperCase();
+    if (!errors) {
+      this.props.addStockRequest(newStockSymbol);
+      setSubmitting(false);
+      resetForm({ symbol: '' });
+    };
+  }
+  render() {
     return (
-      <div>
+      <Fragment>
         {this.props.error ?
           <Fragment>
-            <div style={{ display: 'inline-flex', paddingRight: '1vw' }}>{this.props.error}</div>
-            <button onClick={this.handleClearError}>Ok</button>
+            <div style={{ paddingRight: '1vw' }}>{this.props.error}</div>
+            <ContainedButton
+              variant="contained"
+              size="large"
+              onClick={this.handleClearError}
+            >
+              Ok
+            </ContainedButton>
           </Fragment> :
           <Formik
             initialValues={{ symbol: '' }}
-            validate={values => {
-              const dup = currentSymbols.find(item => item === values.symbol.toUpperCase())
-              const pattern = /^[A-Z]{2,5}((.|-)[A-Z])?$/;
-              let errors = {};
-              if (dup) {
-                errors.symbol = 'Duplicate';
-              } else if (!values.symbol.toUpperCase().match(pattern)) {
-                errors.symbol = 'Not A Valid Symbol';
-              }
-              return errors;
-            }}
-            onSubmit={(values, { setSubmitting, errors, resetForm }) => {
-              const newStockSymbol = values.symbol.toUpperCase();
-              if (!errors) {
-                this.props.addStockRequest(newStockSymbol);
-                setSubmitting(false);
-                resetForm({ symbol: '' });
-              };
-            }}
+            validate={values => this.handleValidate(values)}
+            onSubmit={(values, formProps) => this.handleSubmit(values, formProps)}
           >
-            {({ isSubmitting, errors, values, handleReset }) => (
+            {({ submitForm, isSubmitting, errors, values, setFieldValue }) => (
               <Form>
                 <Field
                   type='text'
                   name='symbol'
-                  placeholder='symbol'
-                  value={values.symbol.toUpperCase() || ''}
-                  style={{ textTransform: 'uppercase' }}
+                  label='symbol'
+                  component={UppercasingTextField}
                 />
-                <ErrorMessage name='symbol' component='div' />
-                <button
-                  type='submit'
+                <br />
+                {isSubmitting && <LinearProgress />}
+                <br />
+                <ContainedButton
+                  variant="contained"
+                  size="large"
+                  color="primary"
+                  onClick={submitForm}
                   disabled={isSubmitting || !!Object.values(errors).length || !values.symbol.length}
                 >
                   Add
-              </button>
-                <button type='reset' disabled={!values.symbol.length}>
-                  Clear
-              </button>
+              </ContainedButton>
+                <ContainedButton
+                  variant="contained"
+                  size="large"
+                  color="secondary"
+                  type='reset'
+                  disabled={!values.symbol.length}
+                > Reset </ContainedButton>
               </Form>
             )}
           </Formik>
         }
-      </div >
+      </Fragment>
     )
   }
 
@@ -73,6 +108,5 @@ class AddStockForm extends Component {
 export default connect(
   state => ({
     error: state.stocks.error || null,
-  }), { addStockRequest, clearAddStockError })(AddStockForm);
-  // TODO style the form better using material-ui input maybe?
-  // TODO: validation ain't working on duplications
+  }), { addStockRequest, clearStockError })(AddStockForm);
+  // TODO remove the top level error and just reset the form.

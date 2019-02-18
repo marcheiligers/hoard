@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { Home, List, Bookmark, Info, AccountCircle, Build } from '@material-ui/icons';
 
-export const Sidebar = ({ location, classes, theme, stocks }) => {
+export const Sidebar = ({ location, classes }) => {
   return (
     <MenuList>
       <MenuItem component={Link} to="/" selected={'/' === location.pathname}>

@@ -258,6 +258,7 @@ export default connect(
   state => ({
     stocks: state.stocks.allStocks,
     selected: state.stocks.selectedStocks,
+    error: state.stocks.error
   }),
   {
     loadStocksRequest,

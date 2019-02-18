@@ -60,9 +60,9 @@ describe('stocks reducer -> load stocks', () => {
     const newState = stocksReducer(defaultState, testAction);
     expect(newState.error).toEqual(testError);
   });
-  it('clears an error on state on CLEAR_ADD_STOCK_ERROR', () => {
+  it('clears an error on state on CLEAR_STOCK_ERROR', () => {
     const testState = { ...defaultState, error: 'Could not add stock' };
-    let testAction = stocksActions.clearAddStockError();
+    let testAction = stocksActions.clearStockError();
     const newState = stocksReducer(testState, testAction);
     expect(newState.error).toBeNull;
   });
