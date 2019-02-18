@@ -23,7 +23,7 @@ const deleteStockRequest = stocksActions.deleteStockRequest;
 const updateStockRequest = stocksActions.updateStockRequest;
 // these are utility functions from m-ui
 
-const styles = theme => ({
+const enhancedTableStyles = theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
@@ -36,19 +36,13 @@ const styles = theme => ({
 
 class EnhancedTable extends React.Component {
   state = {
-    order: 'desc',
-    orderBy: 'annualDividends',
+    order: 'asc',
+    orderBy: 'name',
     page: 0,
     rowsPerPage: 5,
   };
   componentDidMount() {
     this.props.loadStocksRequest();
-  };
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.stocks !== this.props.stocks && prevProps.stocks.length < this.props.stocks.length) {
-      this.setState({ order: 'desc', orderBy: 'createdAt' });
-    }
   };
 
   handleRequestSort = (event, property) => {
@@ -191,7 +185,7 @@ class EnhancedTable extends React.Component {
                             {stock.symbol}
                           </Link>
                         ) : (
-                            'N/A'
+                            '--'
                           )}
                       </TableCell>
                       <TableCell align="right">{stock.annualDividends ? stock.annualDividends : 'N/A'}</TableCell>
@@ -200,12 +194,12 @@ class EnhancedTable extends React.Component {
                         ? moment(stock.createdAt)
                           .tz('America/Phoenix')
                           .format('YYYY/MM/DD')
-                        : 'N/A'}</TableCell>
+                        : '--'}</TableCell>
                       <TableCell align="right">{stock.updatedAt
                         ? moment(stock.updatedAt)
                           .tz('America/Phoenix')
                           .format('YYYY/MM/DD')
-                        : 'N/A'}</TableCell>
+                        : '--'}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -245,7 +239,7 @@ EnhancedTable.propTypes = {
   updateSelectedStocks: PropTypes.func,
 };
 
-EnhancedTable = withStyles(styles)(EnhancedTable);
+EnhancedTable = withStyles(enhancedTableStyles)(EnhancedTable);
 
 export default connect(
   state => ({
