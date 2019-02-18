@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from "recompose";
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -9,35 +10,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import { lighten } from '@material-ui/core/styles/colorManipulator';
+import { toolbarStyles } from '../uiElements/styles';
 // REDUX
 import stocksActions from './stocksActions';
-// TODO: create this action creator
 const deleteSelectedStocks = stocksActions.deleteSelectedStocks;
-const toolbarStyles = theme => ({
-  root: {
-    paddingRight: theme.spacing.unit,
-  },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-        color: theme.palette.secondary.main,
-        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-      }
-      : {
-        color: theme.palette.text.primary,
-        backgroundColor: theme.palette.secondary.dark,
-      },
-  spacer: {
-    flex: '1 1 100%',
-  },
-  actions: {
-    color: theme.palette.text.secondary,
-  },
-  title: {
-    flex: '0 0 auto',
-  },
-});
 
 let EnhancedTableToolbar = props => {
   const { numSelected, classes, handleDelete } = props;
@@ -84,7 +60,7 @@ EnhancedTableToolbar.propTypes = {
   deleteSelectedStocks: PropTypes.func,
 };
 
-EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
-export default connect(null, {
-  deleteSelectedStocks
-})(EnhancedTableToolbar);
+export default compose(
+  connect(null, { deleteSelectedStocks }),
+  withStyles(toolbarStyles)
+)(EnhancedTableToolbar);

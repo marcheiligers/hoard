@@ -10,24 +10,12 @@ class PositionedSnackbar extends Component {
     error: PropTypes.string,
     clearStockError: PropTypes.func
   }
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     open: false,
-  //   };
-  // }
-
-  // componentDidMount = () => {
-  //   this.setState({ open: true });
-  // }
 
   handleClose = () => {
-    // this.setState({ open: false });
     this.props.clearStockError();
   }
 
   render() {
-    // const { vertical, horizontal, open } = this.state;
     return (
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
@@ -36,7 +24,9 @@ class PositionedSnackbar extends Component {
         ContentProps={{
           'aria-describedby': 'message-id',
         }}
-        message={<span id="message-id">{this.props.error}</span>}
+        message={
+          <span id="message-id">{this.props.error}</span>
+        }
       />
     );
   }

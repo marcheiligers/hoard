@@ -8,6 +8,14 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
 
 class EnhancedTableHead extends Component {
+  static propTypes = {
+    numSelected: PropTypes.number.isRequired,
+    onRequestSort: PropTypes.func.isRequired,
+    onSelectAllClick: PropTypes.func.isRequired,
+    order: PropTypes.string.isRequired,
+    orderBy: PropTypes.string.isRequired,
+    stocks: PropTypes.array
+  };
   createSortHandler = property => event => {
     this.props.onRequestSort(event, property);
   };
@@ -21,8 +29,8 @@ class EnhancedTableHead extends Component {
       { id: 'name', numeric: false, disablePadding: false, label: 'Name' },
       { id: 'symbol', numeric: false, disablePadding: true, label: 'Symbol' },
       { id: 'annualDividends', numeric: false, disablePadding: true, label: 'Annual Dividends' },
-      { id: 'createdAt', numeric: true, disablePadding: false, label: 'Date Added' },
-      { id: 'updatedAt', numeric: true, disablePadding: false, label: 'Date Updated' },
+      { id: 'createdAt', numeric: false, disablePadding: false, label: 'Date Added' },
+      { id: 'updatedAt', numeric: false, disablePadding: false, label: 'Date Updated' },
     ];
     return (
       <TableHead>
@@ -64,15 +72,6 @@ class EnhancedTableHead extends Component {
     );
   }
 }
-
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
-  stocks: PropTypes.array
-};
 
 export default EnhancedTableHead;
 

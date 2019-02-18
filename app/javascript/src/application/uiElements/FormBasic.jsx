@@ -1,13 +1,12 @@
 // Formik Render Prop Form
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import MuiTextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import ContainedButton from './Button';
 import { LinearProgress } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-import { fieldToTextField, TextFieldProps } from 'formik-material-ui';
+import { fieldToTextField } from 'formik-material-ui';
 
 import stocksActions from '../stocks/stocksActions';
 // REDUX
@@ -27,6 +26,12 @@ const UppercasingTextField = (props) => (
   />
 );
 class AddStockForm extends Component {
+  static propTypes = {
+    addStockRequest: PropTypes.func.isRequired,
+    clearStockError: PropTypes.func.isRequired,
+    error: PropTypes.string,
+    stocks: PropTypes.array.isRequired,
+  }
   handleClearError = () => {
     this.props.clearStockError();
   };
@@ -97,4 +102,3 @@ export default connect(
   state => ({
     error: state.stocks.error || null,
   }), { addStockRequest, clearStockError })(AddStockForm);
-  // TODO remove the top level error and just reset the form.
