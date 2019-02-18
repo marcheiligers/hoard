@@ -25,12 +25,24 @@ const updateStockRequest = stocksActions.updateStockRequest;
 
 const styles = theme => ({
   root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
+    // width: '100vw',
+    // marginTop: theme.spacing.unit * 3,
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit * 3,
+    // [theme.breakpoints.up("md")]: {
+    //   width: "90vw",
+    //   backgroundColor: theme.palette.background.primary,
+    // },
+    // [theme.breakpoints.down("sm")]: {
+    //   width: "95vw",
+    //   backgroundColor: theme.palette.background.secondary,
+    // },
+    border: "1px solid pink"
   },
-  table: {
-    minWidth: 1020,
-  },
+  // table: {
+  //   minWidth: 1020,
+  // },
   tableWrapper: {
     overflowX: 'auto',
   },
@@ -138,7 +150,7 @@ class EnhancedTable extends React.Component {
           handleDelete={this.handleDelete}
         />
         <div className={classes.tableWrapper}>
-          <Table className={classes.table} aria-labelledby="tableTitle">
+          <Table aria-labelledby="tableTitle">
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -258,7 +270,6 @@ export default connect(
   state => ({
     stocks: state.stocks.allStocks,
     selected: state.stocks.selectedStocks,
-    error: state.stocks.error
   }),
   {
     loadStocksRequest,

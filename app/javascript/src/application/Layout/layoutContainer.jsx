@@ -48,7 +48,11 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3
+    padding: theme.spacing.unit * 3,
+    [theme.breakpoints.up("md")]: {
+      width: "70%"
+    },
+    border: "1px solid pink"
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4
