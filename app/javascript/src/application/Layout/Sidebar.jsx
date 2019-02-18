@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import {
@@ -8,12 +8,23 @@ import {
   MenuList,
   MenuItem
 } from '@material-ui/core';
-import { Home, List, Bookmark, Info, AccountCircle, Build } from '@material-ui/icons';
+import {
+  Home,
+  List,
+  Bookmark,
+  Info,
+  AccountCircle,
+  Build
+} from '@material-ui/icons';
 
 export const Sidebar = ({ location, classes }) => {
   return (
     <MenuList>
-      <MenuItem component={Link} to="/" selected={'/' === location.pathname}>
+      <MenuItem
+        component={Link}
+        to="/"
+        selected={'/' === location.pathname}
+      >
         <ListItemIcon>
           <Home />
         </ListItemIcon>
@@ -68,5 +79,9 @@ export const Sidebar = ({ location, classes }) => {
     </MenuList>
   );
 };
+Sidebar.propTypes = {
+  location: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+}
 
 export default withRouter(Sidebar);

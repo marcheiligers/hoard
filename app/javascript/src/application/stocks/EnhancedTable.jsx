@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { compose } from "recompose";
 import { Link } from 'react-router-dom';
 import moment from 'moment-timezone';
 import { withStyles } from '@material-ui/core/styles';
@@ -14,44 +15,31 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Checkbox from '@material-ui/core/Checkbox';
 import { stableSort, getSorting } from '../utilities/tableUtilities';
+import { FavoriteBorder, Favorite, StarBorder, Star } from '@material-ui/icons';
+import { enhancedTableStyles } from '../uiElements/styles';
 // REDUX
 import stocksActions from './stocksActions';
-import { FavoriteBorder, Favorite, StarBorder, Star } from '@material-ui/icons';
 const loadStocksRequest = stocksActions.loadStocksRequest;
 const updateSelectedStocks = stocksActions.updateSelectedStocks;
 const deleteStockRequest = stocksActions.deleteStockRequest;
 const updateStockRequest = stocksActions.updateStockRequest;
-// these are utility functions from m-ui
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-  },
-  table: {
-    minWidth: 1020,
-  },
-  tableWrapper: {
-    overflowX: 'auto',
-  },
-});
 
 class EnhancedTable extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    stocks: PropTypes.array,
+    selected: PropTypes.array,
+    loadStocksRequest: PropTypes.func,
+    updateSelectedStocks: PropTypes.func,
+  }
   state = {
     order: 'asc',
-    orderBy: 'annualDividends',
-    // selected: [],
+    orderBy: 'name',
     page: 0,
     rowsPerPage: 5,
   };
   componentDidMount() {
     this.props.loadStocksRequest();
-  };
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.stocks !== this.props.stocks) {
-      // console.log('The stocks have changed and received in stocksTable', this.props.stocks)
-    }
   };
 
   handleRequestSort = (event, property) => {
@@ -77,7 +65,6 @@ class EnhancedTable extends React.Component {
     const selectedArray = this.props.selected;
     const selectedIndex = selectedArray.indexOf(id);
     let newSelected = [];
-
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selectedArray, id);
     } else if (selectedIndex === 0) {
@@ -90,7 +77,6 @@ class EnhancedTable extends React.Component {
         selectedArray.slice(selectedIndex + 1),
       );
     }
-
     this.props.updateSelectedStocks(newSelected);
   };
 
@@ -105,7 +91,8 @@ class EnhancedTable extends React.Component {
     if (this.props.selected.length === 1) {
       this.props.deleteStockRequest(this.props.selected[0]);
     } else {
-      // TODO: change to a modal
+      // TODO: issue a general growl
+      // this.props.showGrowl
       alert('Cannot delete mutiple items, please only choose one')
     }
   }
@@ -119,13 +106,10 @@ class EnhancedTable extends React.Component {
       this.props.updateStockRequest(stockChosen);
     } else {
       console.log('Stock not found')
-      // TODO: show modal
-      // this.props.showModal
+      // TODO: issue a general growl
+      // this.props.showGrowl
     }
-
   }
-
-
   render() {
     const { classes, stocks, selected } = this.props;
     const { order, orderBy, rowsPerPage, page } = this.state;
@@ -138,7 +122,7 @@ class EnhancedTable extends React.Component {
           handleDelete={this.handleDelete}
         />
         <div className={classes.tableWrapper}>
-          <Table className={classes.table} aria-labelledby="tableTitle">
+          <Table aria-labelledby="tableTitle">
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -166,7 +150,8 @@ class EnhancedTable extends React.Component {
                           checked={isSelected}
                           onClick={event => this.handleClick(event, stock.id)} />
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell
+                      >
                         {
                           stock.heart ?
                             <Favorite
@@ -175,7 +160,8 @@ class EnhancedTable extends React.Component {
                               onClick={event => this.toggleProp(event, stock.id, 'heart')} />
                         }
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell
+                      >
                         {
                           stock.star ?
                             <Star
@@ -184,11 +170,16 @@ class EnhancedTable extends React.Component {
                               onClick={event => this.toggleProp(event, stock.id, 'star')} />
                         }
                       </TableCell>
-                      <TableCell component="th" scope="row" padding="none">
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        padding="none"
+                      >
                         {stock.name ? stock.name : '--'}
                       </TableCell>
 
-                      <TableCell align="right">
+                      <TableCell
+                      >
                         {stock.symbol ? (
                           <Link
                             to={{
@@ -198,21 +189,29 @@ class EnhancedTable extends React.Component {
                             {stock.symbol}
                           </Link>
                         ) : (
-                            'N/A'
+                            '--'
                           )}
                       </TableCell>
-                      <TableCell align="right">{stock.annualDividends ? stock.annualDividends : 'N/A'}</TableCell>
-
-                      <TableCell align="right">{stock.createdAt
-                        ? moment(stock.createdAt)
-                          .tz('America/Phoenix')
-                          .format('YYYY/MM/DD')
-                        : 'N/A'}</TableCell>
-                      <TableCell align="right">{stock.updatedAt
-                        ? moment(stock.updatedAt)
-                          .tz('America/Phoenix')
-                          .format('YYYY/MM/DD')
-                        : 'N/A'}</TableCell>
+                      <TableCell
+                      >
+                        {stock.annualDividends ? stock.annualDividends : 'N/A'}
+                      </TableCell>
+                      <TableCell
+                      >
+                        {stock.createdAt
+                          ? moment(stock.createdAt)
+                            .tz('America/Phoenix')
+                            .format('YYYY/MM/DD')
+                          : '--'}
+                      </TableCell>
+                      <TableCell
+                      >
+                        {stock.updatedAt
+                          ? moment(stock.updatedAt)
+                            .tz('America/Phoenix')
+                            .format('YYYY/MM/DD')
+                          : '--'}
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -244,26 +243,18 @@ class EnhancedTable extends React.Component {
   }
 }
 
-EnhancedTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-  stocks: PropTypes.array,
-  selected: PropTypes.array,
-  loadStocksRequest: PropTypes.func,
-  updateSelectedStocks: PropTypes.func,
-};
-
-EnhancedTable = withStyles(styles)(EnhancedTable);
-
-export default connect(
-  state => ({
-    stocks: state.stocks.allStocks,
-    selected: state.stocks.selectedStocks,
-    error: state.stocks.error
-  }),
-  {
-    loadStocksRequest,
-    updateSelectedStocks,
-    deleteStockRequest,
-    updateStockRequest
-  }
+export default compose(
+  connect(
+    state => ({
+      stocks: state.stocks.allStocks,
+      selected: state.stocks.selectedStocks,
+    }),
+    {
+      loadStocksRequest,
+      updateSelectedStocks,
+      deleteStockRequest,
+      updateStockRequest
+    }
+  ),
+  withStyles(enhancedTableStyles)
 )(EnhancedTable)
