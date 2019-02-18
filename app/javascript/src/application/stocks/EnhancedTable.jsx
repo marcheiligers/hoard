@@ -28,15 +28,6 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
-    [theme.breakpoints.up("md")]: {
-      border: "2px solid pink"
-    },
-    [theme.breakpoints.down("md")]: {
-      border: "2px solid blue"
-    },
-    [theme.breakpoints.down("sm")]: {
-      border: "2px solid red"
-    }
   },
   tableWrapper: {
     overflowX: 'auto',
@@ -45,7 +36,7 @@ const styles = theme => ({
 
 class EnhancedTable extends React.Component {
   state = {
-    order: 'asc',
+    order: 'desc',
     orderBy: 'annualDividends',
     page: 0,
     rowsPerPage: 5,
@@ -55,9 +46,8 @@ class EnhancedTable extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (prevProps.stocks !== this.props.stocks) {
-      // console.log('The stocks have changed and received in stocksTable', this.props.stocks)
-      this.setState({ order: 'asc', orderBy: 'updatedAt' });
+    if (prevProps.stocks !== this.props.stocks && prevProps.stocks.length < this.props.stocks.length) {
+      this.setState({ order: 'desc', orderBy: 'createdAt' });
     }
   };
 
@@ -129,8 +119,6 @@ class EnhancedTable extends React.Component {
       // this.props.showGrowl
     }
   }
-
-
   render() {
     const { classes, stocks, selected } = this.props;
     const { order, orderBy, rowsPerPage, page } = this.state;

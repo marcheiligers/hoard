@@ -16,11 +16,11 @@ class EnhancedTableHead extends Component {
     const { onSelectAllClick, order, orderBy, numSelected, stocks } = this.props;
     const rowCount = stocks.length;
     const rows = [
-      { id: 'heart', numeric: true, disablePadding: false, label: 'Liked' },
-      { id: 'star', numeric: true, disablePadding: false, label: 'Watched' },
-      { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
+      { id: 'heart', numeric: false, disablePadding: true, label: 'Liked' },
+      { id: 'star', numeric: false, disablePadding: true, label: 'Watched' },
+      { id: 'name', numeric: false, disablePadding: false, label: 'Name' },
       { id: 'symbol', numeric: false, disablePadding: true, label: 'Symbol' },
-      { id: 'annualDividends', numeric: true, disablePadding: false, label: 'Annual Dividends' },
+      { id: 'annualDividends', numeric: false, disablePadding: true, label: 'Annual Dividends' },
       { id: 'createdAt', numeric: true, disablePadding: false, label: 'Date Added' },
       { id: 'updatedAt', numeric: true, disablePadding: false, label: 'Date Updated' },
     ];
