@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import StockContainer from './stockContainer';
 import CompanyContainer from '../../companies/company/CompanyContainer';
-
-
 // REDUX
 import stocksActions from '../stocksActions';
 import companyActions from '../../companies/company/companyActions';
@@ -26,7 +24,6 @@ class StockLayout extends Component {
     if (prevProps.stock !== this.props.stock) {
       if (this.props.stock.symbol) {
         this.props.loadCompanyRequest(this.props.stock.symbol);
-        // this.props.loadCompanyChartDataRequest(this.props.stock.symbol);
       }
     }
   }
@@ -35,10 +32,8 @@ class StockLayout extends Component {
       <Fragment>
         <StockContainer router={this.props} />
         {(this.props.stock && this.props.stock.symbol) ?
-          <Fragment>
-            <CompanyContainer symbol={this.props.stock.symbol} />
-
-          </Fragment> : <div>GETTING DATA</div>
+          <CompanyContainer symbol={this.props.stock.symbol} />
+          : <div>GETTING DATA</div>
         }
       </Fragment>
     )
@@ -53,6 +48,5 @@ export default connect(
   {
     loadStockRequest,
     loadCompanyRequest,
-    // loadCompanyChartDataRequest
   }
 )(StockLayout);

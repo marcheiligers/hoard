@@ -3,6 +3,7 @@ import companyActions from './companyActions';
 export const initialState = {
   selectedCompany: null,
   chartData: null,
+  chartError: null,
   error: null
 };
 
@@ -20,6 +21,21 @@ export default function companyReducer(currentState = initialState, action) {
       const newState = {
         ...currentState,
         error: action.error
+      };
+      return newState;
+    }
+    case companyActions.LOAD_COMPANY_CHART_DATA_SUCCESS: {
+      const newState = {
+        ...currentState,
+        chartData: action.chartData,
+        error: null,
+      };
+      return newState;
+    }
+    case companyActions.LOAD_COMPANY_CHART_DATA_ERROR: {
+      const newState = {
+        ...currentState,
+        chartError: action.error
       };
       return newState;
     }

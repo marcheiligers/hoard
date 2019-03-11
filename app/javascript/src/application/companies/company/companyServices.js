@@ -5,6 +5,6 @@ export const loadCompany = async symbol => {
   return await axios.get(`${baseUrl}/companies/${symbol}`);
 };
 
-export const loadCompanyChart = async (symbol, timeRange = 'ytd') => {
+export const loadCompanyChartData = async (symbol, timeRange) => {
   return await axios.get(`${baseUrl}/companies/${symbol}/chart?range=${timeRange}`);
 }
