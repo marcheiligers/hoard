@@ -2,6 +2,7 @@ import companyActions from './companyActions';
 
 export const initialState = {
   selectedCompany: null,
+  chartData: null,
   error: null
 };
 

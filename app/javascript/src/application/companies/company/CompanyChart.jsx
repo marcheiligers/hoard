@@ -1,34 +1,23 @@
-import React, { Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// REDUX
-import companyActions from './companyActions';
-const loadCompanyRequest = companyActions.loadCompanyRequest;
+import CanvasJSReact from '../../canvasjs.react';
+const CanvasJS = CanvasJSReact.CanvasJS;
+const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
+import ParetoChart from './ParetoChart';
 class CompanyChart extends Component {
   static propTypes = {
     company: PropTypes.object,
     symbol: PropTypes.string,
+    chartData: PropTypes.array,
     error: PropTypes.string,
-    loadCompanyRequest: PropTypes.func,
   };
-  componentDidMount() {
-    if (this.props.symbol) {
-      this.props.loadCompanyRequest(this.props.symbol);
-    }
-  }
   render() {
     return (
       <Fragment>
         <h1>Company Chart Goes Here</h1>
-        { this.props.company &&
-          Object.keys(this.props.company).map((item, idx) =>
-            <div key={idx}>
-              <span>{`${item}${" : "}`}</span>
-              <span>{this.props.company[item]}</span>
-            </div>
-          )
-        }
+        <ParetoChart />
       </Fragment>
     );
   }
@@ -36,9 +25,8 @@ class CompanyChart extends Component {
 
 export default connect(
   state => ({
-    company: state.company.selectedCompany || {},
+    chartData: state.company.chartData || [],
     error: state.company.error ? state.company.error : null,
   }), {
-    loadCompanyRequest,
-   }
+  }
 )(CompanyChart)
