@@ -17,13 +17,17 @@ class CompanyChart extends Component {
     chartError: PropTypes.string,
   };
   componentDidMount() {
-    this.props.loadCompanyChartDataRequest(this.props.symbol, this.state.dateRange)
+    this.props.loadCompanyChartDataRequest(this.props.symbol, this.props.chartDateRange)
   }
   componentDidUpdate(prevProps) {
     if (prevProps.chartData !== this.props.chartData) { // for handling date range selectors
       if (prevProps.chartData.length !== this.props.chartData.length) {
         console.log(`ChartData Updated ${this.props.chartData.length} data entries`)
       }
+    }
+    if (prevProps.chartDateRange !== this.props.chartDateRange) {
+      console.log('The date range has changed:', this.props.chartDateRange)
+      this.props.loadCompanyChartDataRequest(this.props.symbol, this.props.chartDateRange)
     }
   }
   updateDateRange = (dateRange) => {

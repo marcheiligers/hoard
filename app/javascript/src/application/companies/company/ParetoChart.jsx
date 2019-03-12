@@ -10,9 +10,10 @@ class ParetoChart extends Component {
   }
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
-      console.log(`Pareto Chart Updated `)
+      console.log(`Pareto Chart Updated ${this.props.chartDateRange}`)
     }
-    this.createParetoFromData(); // the chart was losing it's line graph on updating because we weren't calling the create method
+    // need to handle the specific case of selecting 1d where the time stamps are different.
+    this.createParetoFromData();
   }
   createParetoFromData = () => {
     var dps = [];
@@ -88,5 +89,6 @@ class ParetoChart extends Component {
 export default connect(state => ({
   company: state.company.selectedCompany || {},
   chartData: state.company.chartData || [],
+  chartDateRange: state.company.chartDateRange || 'ytd',
   chartError: state.company.chartError || null,
 }))(ParetoChart);

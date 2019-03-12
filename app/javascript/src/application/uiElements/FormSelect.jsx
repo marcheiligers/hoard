@@ -32,9 +32,13 @@ class SimpleSelect extends Component {
             <MenuItem value="ytd">
               <em>YTD</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={'5y'}>Five Years</MenuItem>
+            <MenuItem value={'2y'}>Two Years</MenuItem>
+            <MenuItem value={'1y'}>One Year</MenuItem>
+            <MenuItem value={'6m'}>Six Months</MenuItem>
+            <MenuItem value={'3m'}>Three Months</MenuItem>
+            <MenuItem value={'1m'}>One Month</MenuItem>
+            <MenuItem value={'1d'}>One Day</MenuItem>
           </Select>
           <FormHelperText>Select Date Range</FormHelperText>
         </FormControl>
@@ -48,3 +52,4 @@ SimpleSelect.propTypes = {
 };
 
 export default withStyles(selectStyles)(SimpleSelect);
+// Options from https://iextrading.com/developer/docs/#chart
