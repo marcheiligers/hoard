@@ -6,47 +6,45 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class ParetoChart extends Component {
   componentDidMount() {
-    this.createPareto();
+    this.createParetoFromData();
   }
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
       console.log(`Pareto Chart Updated `)
     }
-    this.createPareto(); // the chart was losing it's line graph on updating because we weren't calling the create method
-  }
-  createPareto = () => {
-    var dps = [];
-    var chart = this.chart;
-    var yValue, yTotal = 0, yPercent = 0;
-    for (var i = 0; i < chart.data[0].dataPoints.length; i++)
-      yTotal += chart.data[0].dataPoints[i].y;
-    for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
-      yValue = chart.data[0].dataPoints[i].y;
-      yPercent += (yValue / yTotal * 100);
-      dps.push({ label: chart.data[0].dataPoints[i].label, y: yPercent });
-    }
-    chart.addTo("data", { type: "line", yValueFormatString: "0.##" % "", dataPoints: dps });
-    chart.data[1].set("axisYType", "secondary", false);
-    chart.axisY[0].set("maximum", Math.round(yTotal / 20) * 20);
-    chart.axisY2[0].set("maximum", 100);
+    this.createParetoFromData(); // the chart was losing it's line graph on updating because we weren't calling the create method
   }
   createParetoFromData = () => {
     var dps = [];
     var chart = this.chart;
-    var yValue, yTotal = 0, yPercent = 0;
-    for (var i = 0; i < chart.data[0].dataPoints.length; i++)
-      yTotal += chart.data[0].dataPoints[i].y;
-    for (var i = 0; i < chart.data[0].dataPoints.length; i++) {
-      yValue = chart.data[0].dataPoints[i].y;
-      yPercent += (yValue / yTotal * 100);
-      dps.push({ label: chart.data[0].dataPoints[i].label, y: yPercent });
+    var yCloseValue, yVolumeValue, yCloseMax = 0, yVolumeMax = 0;
+    for (var i = 0; i < this.props.chartData.length; i++) {
+      yCloseValue = this.props.chartData[i].close;
+      yVolumeValue = this.props.chartData[i].volume;
+      if (yCloseValue >= yCloseMax) {
+        yCloseMax = yCloseValue;
+      }
+      if (yVolumeValue >= yVolumeMax) {
+        yVolumeMax = yVolumeValue;
+      }
+      dps.push({ label: this.props.chartData[i].date, y: yCloseValue });
     }
     chart.addTo("data", { type: "line", yValueFormatString: "0.##" % "", dataPoints: dps });
     chart.data[1].set("axisYType", "secondary", false);
-    chart.axisY[0].set("maximum", Math.round(yTotal / 20) * 20);
-    chart.axisY2[0].set("maximum", 100);
+    chart.axisY[0].set("maximum", Math.ceil(yVolumeMax));
+    chart.axisY2[0].set("maximum", Math.ceil(yCloseMax));
+  }
+  compileDataPoints = () => {
+    const dataPoints = this.props.chartData.map((itemObj, ind) => {
+      return {
+        label: itemObj.date,
+        y: itemObj.volume
+      };
+    })
+    return dataPoints;
   }
   render() {
+    const testDPtns = this.compileDataPoints();
     const options = {
       title: {
         text: `${this.props.company.companyName}`
@@ -70,35 +68,7 @@ class ParetoChart extends Component {
       data: [
         {
           type: "column",
-          dataPoints: [
-            { label: "Strain", y: 104 },
-            { label: "Scratch", y: 42 },
-            { label: "Pinhole", y: 20 },
-            { label: "Crack", y: 10 },
-            { label: "Gap", y: 4 },
-            { label: "Others", y: 14 }
-          ]
-        }, {
-          type: "column",
-          dataPoints: [
-            { label: "Strain", y: 104 },
-            { label: "Scratch", y: 42 },
-            { label: "Pinhole", y: 20 },
-            { label: "Crack", y: 10 },
-            { label: "Gap", y: 4 },
-            { label: "Others", y: 14 }
-          ]
-        },
-        {
-          type: "column",
-          dataPoints: [
-            { label: "Strain", y: 104 },
-            { label: "Scratch", y: 42 },
-            { label: "Pinhole", y: 20 },
-            { label: "Crack", y: 10 },
-            { label: "Gap", y: 4 },
-            { label: "Others", y: 14 }
-          ]
+          dataPoints: testDPtns,
         }
       ]
     }
