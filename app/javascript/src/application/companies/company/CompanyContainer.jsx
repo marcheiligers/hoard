@@ -8,6 +8,7 @@ class CompanyContainer extends Component {
     symbol: PropTypes.string, // this is passed down from the stockLayout component
     error: PropTypes.string,
   };
+
   extractCompanyInfo = () => {
     return {
       symbol: this.props.company.symbol,
@@ -22,10 +23,11 @@ class CompanyContainer extends Component {
     }
   }
   render() {
+    const info = this.extractCompanyInfo();
     return (
       <Fragment>
         <h1>{this.props.company.companyName}</h1>
-        <CompanyInfo info={this.extractCompanyInfo()} />
+        <CompanyInfo info={info} />
         <CompanyChart symbol={this.props.symbol} />
       </Fragment>
     )

@@ -21,8 +21,12 @@ class CompanyChart extends Component {
   componentDidMount() {
     this.props.loadCompanyChartDataRequest(this.props.symbol, this.state.dateRange)
   }
-  componentDidUpdate() {
-    //this is where I handle the date range selections
+  componentDidUpdate(prevProps) {
+    if (prevProps.chartData !== this.props.chartData) { // for handling date range selectors
+      if (prevProps.chartData.length !== this.props.chartData.length) {
+        console.log(`ChartData Updated ${this.props.chartData.length} data entries`)
+      }
+    }
   }
   render() {
     return (
@@ -39,6 +43,7 @@ export default connect(
   state => ({
     chartData: state.company.chartData || [],
     error: state.company.error ? state.company.error : null,
+    chartError: state.company.chartError || null
   }), {
     loadCompanyChartDataRequest,
   }

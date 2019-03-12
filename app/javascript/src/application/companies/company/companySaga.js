@@ -30,9 +30,7 @@ export function* loadCompanyChartDataRequestWatcher() {
 
 export function* loadCompanyChartDataRequest(action) {
   try {
-    debugger
     const result = yield call(loadCompanyChartData, action.symbol, action.dateRange);
-    debugger
     yield put({
       type: companyActions.LOAD_COMPANY_CHART_DATA_SUCCESS,
       chartData: result.data
