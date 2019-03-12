@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CompanyChart from './CompanyChart';
+
 class CompanyContainer extends Component {
   static propTypes = {
     company: PropTypes.object,

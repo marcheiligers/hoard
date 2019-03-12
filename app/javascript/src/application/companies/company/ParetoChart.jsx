@@ -31,8 +31,8 @@ class ParetoChart extends Component {
     }
     chart.addTo("data", { type: "line", yValueFormatString: "0.##" % "", dataPoints: dps });
     chart.data[1].set("axisYType", "secondary", false);
-    chart.axisY[0].set("maximum", Math.ceil(yVolumeMax));
-    chart.axisY2[0].set("maximum", Math.ceil(yCloseMax));
+    chart.axisY[0].set("maximum", Math.ceil(yVolumeMax + (yVolumeMax * 0.1))); // increases the max yRange to fit the data better
+    chart.axisY2[0].set("maximum", Math.ceil(yCloseMax + (yCloseMax * 0.1))); // increases the max yRange to fit the data better
   }
   compileDataPoints = () => {
     const dataPoints = this.props.chartData.map((itemObj, ind) => {
@@ -43,8 +43,7 @@ class ParetoChart extends Component {
     })
     return dataPoints;
   }
-  render() {
-    const testDPtns = this.compileDataPoints();
+  compileChartOptions = () => {
     const options = {
       title: {
         text: `${this.props.company.companyName}`
@@ -68,10 +67,14 @@ class ParetoChart extends Component {
       data: [
         {
           type: "column",
-          dataPoints: testDPtns,
+          dataPoints: this.compileDataPoints(),
         }
       ]
     }
+    return options;
+  }
+  render() {
+    const options = this.compileChartOptions();
     return (
       <div>
         <CanvasJSChart options={options}

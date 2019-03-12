@@ -3,6 +3,7 @@ import companyActions from './companyActions';
 export const initialState = {
   selectedCompany: null,
   chartData: null,
+  chartDateRange: 'ytd',
   chartError: null,
   error: null
 };
@@ -36,6 +37,13 @@ export default function companyReducer(currentState = initialState, action) {
       const newState = {
         ...currentState,
         chartError: action.error
+      };
+      return newState;
+    }
+    case companyActions.STORE_COMPANY_CHART_DATE_RANGE: {
+      const newState = {
+        ...currentState,
+        chartDateRange: action.dateRange
       };
       return newState;
     }

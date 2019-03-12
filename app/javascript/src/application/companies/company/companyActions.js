@@ -5,6 +5,7 @@ const companyActions = {
   LOAD_COMPANY_CHART_DATA_REQUEST: 'LOAD_COMPANY_CHART_DATA_REQUEST',
   LOAD_COMPANY_CHART_DATA_SUCCESS: 'LOAD_COMPANY_CHART_DATA_SUCCESS',
   LOAD_COMPANY_CHART_DATA_ERROR: 'LOAD_COMPANY_CHART_DATA_ERROR',
+  STORE_COMPANY_CHART_DATE_RANGE: 'STORE_COMPANY_CHART_DATE_RANGE',
   loadCompanyRequest: symbol => ({
     type: companyActions.LOAD_COMPANY_REQUEST,
     symbol: symbol
@@ -30,5 +31,9 @@ const companyActions = {
     type: companyAcitons.LOAD_COMPANY_CHART_DATA_ERROR,
     error: err
   }),
+  storeCompanyDateRange: dateRange => ({
+    type: companyActions.STORE_COMPANY_CHART_DATE_RANGE,
+    dateRange: dateRange
+  })
 };
 export default companyActions;

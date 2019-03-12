@@ -1,0 +1,50 @@
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import { selectStyles } from './styles';
+
+class SimpleSelect extends Component {
+  state = {
+    dateRange: "",
+    labelWidth: 0
+  };
+  handleChange = event => {
+    this.props.updateDateRange(event.target.value)
+    this.setState({ [event.target.name]: event.target.value });
+  };
+  render() {
+    const classes = this.props.classes;
+    return (
+      <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="dateRange-helper">dateRange</InputLabel>
+          <Select
+            value={this.props.dateRange}
+            onChange={this.handleChange}
+            input={<Input name="dateRange" id="dateRange-helper" />}
+          >
+            <MenuItem value="ytd">
+              <em>YTD</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+          <FormHelperText>Select Date Range</FormHelperText>
+        </FormControl>
+      </form>
+    );
+  }
+}
+
+SimpleSelect.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(selectStyles)(SimpleSelect);

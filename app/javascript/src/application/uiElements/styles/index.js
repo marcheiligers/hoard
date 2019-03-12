@@ -61,7 +61,19 @@ export const layoutStyles = theme => ({
     backgroundColor: theme.palette.background.secondary
   }
 });
-
+export const selectStyles = theme => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: "20vw",
+  },
+  selectEmpty: {
+    marginTop: theme.spacing.unit * 2
+  }
+});
 export const toolbarStyles = theme => ({
   root: {
     paddingRight: theme.spacing.unit,

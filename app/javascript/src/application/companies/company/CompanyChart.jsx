@@ -1,22 +1,20 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import SimpleSelect from '../../uiElements/FormSelect';
 import ParetoChart from './ParetoChart';
 //REDUX for fetching chart data
 import companyActions from '../../companies/company/companyActions';
 const loadCompanyChartDataRequest = companyActions.loadCompanyChartDataRequest;
+const storeCompanyDateRange = companyActions.storeCompanyDateRange;
 class CompanyChart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dateRange: 'ytd',
-    }
+  state = {
+    dateRange: 'ytd'
   }
   static propTypes = {
-    company: PropTypes.object,
-    symbol: PropTypes.string,
     chartData: PropTypes.array,
     error: PropTypes.string,
+    chartError: PropTypes.string,
   };
   componentDidMount() {
     this.props.loadCompanyChartDataRequest(this.props.symbol, this.state.dateRange)
@@ -28,11 +26,17 @@ class CompanyChart extends Component {
       }
     }
   }
+  updateDateRange = (dateRange) => {
+    console.log('Got new dateRange:', dateRange)
+    this.props.storeCompanyDateRange(dateRange);
+  }
   render() {
     return (
       <Fragment>
-        <h1>Company Chart Goes Here</h1>
-        <div>Date Range Selector Please that hands a range to state</div>
+        <h2>Company Stocks Summary</h2>
+        <SimpleSelect
+          dateRange={this.props.chartDateRange}
+          updateDateRange={this.updateDateRange} />
         <ParetoChart />
       </Fragment>
     );
@@ -41,10 +45,13 @@ class CompanyChart extends Component {
 
 export default connect(
   state => ({
+    company: state.company.selectedCompany || {},
     chartData: state.company.chartData || [],
+    chartDateRange: state.company.chartDateRange || 'ytd',
     error: state.company.error ? state.company.error : null,
     chartError: state.company.chartError || null
   }), {
     loadCompanyChartDataRequest,
+    storeCompanyDateRange
   }
 )(CompanyChart)
