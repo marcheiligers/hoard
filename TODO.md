@@ -1,7 +1,8 @@
 ## Front End
 
-## Chart Data Not Changing
-If a company recently listed there won't be updates to the chart for every selection of the date range. Add a reducer method to pass a prop to a SnackBar to show the warning.
+## Chart
+- If a company recently listed there won't be updates to the chart for every selection of the date range. Add a reducer method to pass a prop to a SnackBar to show the warning.
+- Add in datePicker for specific date selection -> will need datepicker? OR custom value text input?, research onClick handler for a datapoint for on-graph selection. (https://canvasjs.com/docs/charts/chart-options/data/datapoints/)
 
 ## Company errors:
 Clean up error handling in Redux, resuse the same error on state, implement snackbars
@@ -13,5 +14,4 @@ Convert to nicely styled cards
 Add tests for new functionality
 
 _Current WIP:_
-- Fix chart ranges on the scale for 1 day
 - Add filter selection to chart title
