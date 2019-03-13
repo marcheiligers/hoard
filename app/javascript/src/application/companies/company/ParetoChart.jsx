@@ -47,8 +47,8 @@ class ParetoChart extends Component {
     chart.data[1].set("axisYType", "secondary", false);
     // axisY is the marketVolume, axisY2 is the marketAverage
     chart.axisY[0].set("maximum", Math.ceil((yMarketVolumeMax / 10)) * 10);
-    chart.axisY2[0].set("maximum", Math.ceil((yMarketAverageMax / 10)) * 10);
-    chart.axisY2[0].set("minimum", Math.floor((yMarketAverageMin / 10)) * 10);
+    chart.axisY2[0].set("maximum", Math.ceil(yMarketAverageMax));
+    chart.axisY2[0].set("minimum", Math.floor(yMarketAverageMin));
   }
   createParetoFromData = () => {
     let dps = [];
@@ -96,7 +96,7 @@ class ParetoChart extends Component {
   compileChartOptions = () => {
     const options = {
       title: {
-        text: `${this.props.company.companyName}`
+        text: `${this.props.company.companyName} for ${this.props.chartDateRange}`
       },
       axisX: {
         title: "Date"
@@ -126,7 +126,7 @@ class ParetoChart extends Component {
   compileDailyChartOptions = () => {
     const options = {
       title: {
-        text: `${this.props.company.companyName}`
+        text: `${this.props.company.companyName} for ${this.props.chartDateRange}`
       },
       axisX: {
         title: "Minute"
