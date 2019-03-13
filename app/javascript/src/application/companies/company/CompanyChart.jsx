@@ -11,7 +11,7 @@ class CompanyChart extends Component {
   static propTypes = {
     chartData: PropTypes.array,
     error: PropTypes.string,
-    chartError: PropTypes.string,
+    error: PropTypes.string,
   };
   componentDidMount() {
     this.props.loadCompanyChartDataRequest(this.props.symbol, this.props.chartDateRange)
@@ -53,7 +53,6 @@ export default connect(
     chartData: state.company.chartData || [],
     chartDateRange: state.company.chartDateRange || '1d',
     error: state.company.error ? state.company.error : null,
-    chartError: state.company.chartError || null
   }), {
     loadCompanyChartDataRequest,
     storeCompanyDateRange

@@ -4,7 +4,6 @@ export const initialState = {
   selectedCompany: null,
   chartData: null,
   chartDateRange: '1d',
-  chartError: null,
   error: null
 };
 
@@ -36,7 +35,7 @@ export default function companyReducer(currentState = initialState, action) {
     case companyActions.LOAD_COMPANY_CHART_DATA_ERROR: {
       const newState = {
         ...currentState,
-        chartError: action.error
+        error: action.error
       };
       return newState;
     }

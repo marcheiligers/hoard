@@ -175,5 +175,5 @@ export default connect(state => ({
   company: state.company.selectedCompany || {},
   chartData: state.company.chartData || [],
   chartDateRange: state.company.chartDateRange || 'ytd',
-  chartError: state.company.chartError || null,
+  error: state.company.error || null,
 }))(ParetoChart);
