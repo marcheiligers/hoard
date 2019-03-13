@@ -43,22 +43,25 @@ class ParetoChart extends Component {
       }
       dps.push({ label: filteredData[i].minute, y: yMarketAverage });
     }
-    chart.addTo("data", { type: "line", yValueFormatString: "0.##" % "", dataPoints: dps });
+    chart.addTo("data", { type: "line", yValueFormatString: "0.##" % "", dataPoints: dps, xValueType: 'dateTime', xValueFormatString: 'DD-MMM-YYYY' });
     chart.data[1].set("axisYType", "secondary", false);
     // axisY is the marketVolume, axisY2 is the marketAverage
-    chart.axisY[0].set("maximum", Math.ceil(yMarketVolumeMax + (yMarketVolumeMax * 0.1)));
-    chart.axisY2[0].set("maximum", Math.ceil(yMarketAverageMax + (yMarketAverageMax * 0.1)));
-    chart.axisY2[0].set("minimum", Math.floor(yMarketAverageMin - (yMarketAverageMin * 0.1)));
+    chart.axisY[0].set("maximum", Math.ceil((yMarketVolumeMax / 10)) * 10);
+    chart.axisY2[0].set("maximum", Math.ceil((yMarketAverageMax / 10)) * 10);
+    chart.axisY2[0].set("minimum", Math.floor((yMarketAverageMin / 10)) * 10);
   }
   createParetoFromData = () => {
     let dps = [];
     let chart = this.chart;
-    let yCloseValue, yVolumeValue, yCloseMax = 0, yVolumeMax = 0;
+    let yCloseValue, yVolumeValue, yCloseMax = 0, yVolumeMax = 0, yCloseMin = 100;
     for (let i = 0; i < this.props.chartData.length; i++) {
       yCloseValue = this.props.chartData[i].close;
       yVolumeValue = this.props.chartData[i].volume;
       if (yCloseValue >= yCloseMax) {
         yCloseMax = yCloseValue;
+      }
+      if (yCloseValue <= yCloseMin) {
+        yCloseMin = yCloseValue;
       }
       if (yVolumeValue >= yVolumeMax) {
         yVolumeMax = yVolumeValue;
@@ -67,8 +70,9 @@ class ParetoChart extends Component {
     }
     chart.addTo("data", { type: "line", yValueFormatString: "0.##" % "", dataPoints: dps });
     chart.data[1].set("axisYType", "secondary", false);
-    chart.axisY[0].set("maximum", Math.ceil(yVolumeMax + (yVolumeMax * 0.1))); // increases the max yRange to fit the data better
-    chart.axisY2[0].set("maximum", Math.ceil(yCloseMax + (yCloseMax * 0.1))); // increases the max yRange to fit the data better
+    chart.axisY[0].set("maximum", Math.ceil((yVolumeMax / 10)) * 10);
+    chart.axisY2[0].set("maximum", Math.ceil((yCloseMax / 10)) * 10);
+    chart.axisY2[0].set("minimum", Math.floor((yCloseMin / 10)) * 10);
   }
   compileDataPoints = () => {
     const dataPoints = this.props.chartData.map((itemObj, ind) => {
@@ -144,6 +148,7 @@ class ParetoChart extends Component {
         {
           type: "column",
           dataPoints: this.compileDailyDataPoints(),
+          xValueType: 'dateTime', xValueFormatString: 'YYY-MMM-DD'
         }
       ]
     }
