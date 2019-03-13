@@ -18,6 +18,7 @@ class CompanyContainer extends Component {
       industry: this.props.company.industry,
       website: this.props.company.website,
       description: this.props.company.description,
+      ceo: this.props.company.ceo,
       issueType: this.props.company.issueType,
       sector: this.props.company.sector,
       primaryExchange: this.props.company.primaryExchange,

@@ -8,9 +8,6 @@ import companyActions from '../../companies/company/companyActions';
 const loadCompanyChartDataRequest = companyActions.loadCompanyChartDataRequest;
 const storeCompanyDateRange = companyActions.storeCompanyDateRange;
 class CompanyChart extends Component {
-  state = {
-    dateRange: 'ytd'
-  }
   static propTypes = {
     chartData: PropTypes.array,
     error: PropTypes.string,
@@ -25,8 +22,10 @@ class CompanyChart extends Component {
         console.log(`ChartData Updated ${this.props.chartData.length} data entries`)
       }
     }
+    if (prevProps.chartData === this.props.chartData) { // for handling date range selectors
+      console.log(`ChartData Did Not Update, add a snackbar to portray the message`)
+    }
     if (prevProps.chartDateRange !== this.props.chartDateRange) {
-      console.log('The date range has changed:', this.props.chartDateRange)
       this.props.loadCompanyChartDataRequest(this.props.symbol, this.props.chartDateRange)
     }
   }
@@ -51,7 +50,7 @@ export default connect(
   state => ({
     company: state.company.selectedCompany || {},
     chartData: state.company.chartData || [],
-    chartDateRange: state.company.chartDateRange || 'ytd',
+    chartDateRange: state.company.chartDateRange || '1d',
     error: state.company.error ? state.company.error : null,
     chartError: state.company.chartError || null
   }), {

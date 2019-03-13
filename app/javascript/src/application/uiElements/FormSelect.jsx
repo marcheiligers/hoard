@@ -29,16 +29,16 @@ class SimpleSelect extends Component {
             onChange={this.handleChange}
             input={<Input name="dateRange" id="dateRange-helper" />}
           >
-            <MenuItem value="ytd">
-              <em>YTD</em>
+            <MenuItem value="1d">
+              <em>One Day</em>
             </MenuItem>
+            <MenuItem value={'ytd'}>Year To Date</MenuItem>
             <MenuItem value={'5y'}>Five Years</MenuItem>
             <MenuItem value={'2y'}>Two Years</MenuItem>
             <MenuItem value={'1y'}>One Year</MenuItem>
             <MenuItem value={'6m'}>Six Months</MenuItem>
             <MenuItem value={'3m'}>Three Months</MenuItem>
             <MenuItem value={'1m'}>One Month</MenuItem>
-            <MenuItem value={'1d'}>One Day</MenuItem>
           </Select>
           <FormHelperText>Select Date Range</FormHelperText>
         </FormControl>
