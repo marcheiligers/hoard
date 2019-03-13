@@ -39,6 +39,7 @@ class SimpleSelect extends Component {
             <MenuItem value={'6m'}>Six Months</MenuItem>
             <MenuItem value={'3m'}>Three Months</MenuItem>
             <MenuItem value={'1m'}>One Month</MenuItem>
+            {/* <MenuItem value={`date/${this.props.selectedDate}`}>Date</MenuItem>*/}
           </Select>
           <FormHelperText>Select Date Range</FormHelperText>
         </FormControl>

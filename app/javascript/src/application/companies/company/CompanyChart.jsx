@@ -33,6 +33,7 @@ class CompanyChart extends Component {
     console.log('Got new dateRange:', dateRange)
     this.props.storeCompanyDateRange(dateRange);
   }
+  // add a method for the user to select a specific date, either with a date selector, on click on a graphed point or text input.
   render() {
     return (
       <Fragment>

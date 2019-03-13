@@ -26,15 +26,17 @@ class ParetoChart extends Component {
   createDailyParetoFromData = () => {
     let dps = [];
     let chart = this.chart;
-    let yMarketAverage, yMarketVolumeValue, yMarketAverageMax = 0, yMarketVolumeMax = 0;
+    let yMarketAverage, yMarketVolumeValue, yMarketAverageMax = 0, yMarketVolumeMax = 0, yMarketAverageMin = 100000;
     const filteredData = this.props.chartData.filter(item => item.marketAverage > 0);
     for (let i = 0; i < filteredData.length; i++) {
       yMarketAverage = filteredData[i].marketAverage;
       yMarketVolumeValue = filteredData[i].marketVolume;
-      console.log(yMarketAverage)
-      console.log(yMarketVolumeValue)
+      // setting max and mins
       if (yMarketAverage >= yMarketAverageMax) {
         yMarketAverageMax = yMarketAverage;
+      }
+      if (yMarketAverage <= yMarketAverageMin) {
+        yMarketAverageMin = yMarketAverage;
       }
       if (yMarketVolumeValue >= yMarketVolumeMax) {
         yMarketVolumeMax = yMarketVolumeValue;
@@ -44,8 +46,9 @@ class ParetoChart extends Component {
     chart.addTo("data", { type: "line", yValueFormatString: "0.##" % "", dataPoints: dps });
     chart.data[1].set("axisYType", "secondary", false);
     // axisY is the marketVolume, axisY2 is the marketAverage
-    chart.axisY[0].set("maximum", Math.ceil(yMarketVolumeMax + (yMarketVolumeMax * 0.1))); // increases the max yRange to fit the data better
+    chart.axisY[0].set("maximum", Math.ceil(yMarketVolumeMax + (yMarketVolumeMax * 0.1)));
     chart.axisY2[0].set("maximum", Math.ceil(yMarketAverageMax + (yMarketAverageMax * 0.1)));
+    chart.axisY2[0].set("minimum", Math.floor(yMarketAverageMin - (yMarketAverageMin * 0.1)));
   }
   createParetoFromData = () => {
     let dps = [];
