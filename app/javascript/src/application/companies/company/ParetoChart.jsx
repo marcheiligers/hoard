@@ -45,7 +45,6 @@ class ParetoChart extends Component {
     chart.data[1].set("axisYType", "secondary", false);
     // axisY is the marketVolume, axisY2 is the marketAverage
     chart.axisY[0].set("maximum", Math.ceil(yMarketVolumeMax + (yMarketVolumeMax * 0.1))); // increases the max yRange to fit the data better
-    chart.axisY[0].set("maximum", Math.ceil(yMarketVolumeMax + (yMarketVolumeMax * 0.1))); // increases the max yRange to fit the data better
     chart.axisY2[0].set("maximum", Math.ceil(yMarketAverageMax + (yMarketAverageMax * 0.1)));
   }
   createParetoFromData = () => {

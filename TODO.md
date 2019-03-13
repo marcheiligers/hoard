@@ -13,5 +13,5 @@ Convert to nicely styled cards
 Add tests for new functionality
 
 _Current WIP:_
-- Add in filter for date range
+- Fix chart ranges on the scale for 1 day
 - Add filter selection to chart title
