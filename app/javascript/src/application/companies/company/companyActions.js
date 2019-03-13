@@ -18,7 +18,7 @@ const companyActions = {
     type: companyActions.LOAD_COMPANY_ERROR,
     error: err
   }),
-  loadCompanyChartDataRequest: (symbol, dateRange = 'ytd') => ({
+  loadCompanyChartDataRequest: (symbol, dateRange = '1d') => ({
     type: companyActions.LOAD_COMPANY_CHART_DATA_REQUEST,
     symbol: symbol,
     dateRange: dateRange
@@ -27,11 +27,11 @@ const companyActions = {
     type: companyActions.LOAD_COMPANY_CHART_DATA_SUCCESS,
     chartData: chartData,
   }),
-  loadComapnyChartDataError: err => ({
-    type: companyAcitons.LOAD_COMPANY_CHART_DATA_ERROR,
+  loadCompanyChartDataError: err => ({
+    type: companyActions.LOAD_COMPANY_CHART_DATA_ERROR,
     error: err
   }),
-  storeCompanyDateRange: dateRange => ({
+  storeCompanyDateRange: (dateRange = '1d') => ({
     type: companyActions.STORE_COMPANY_CHART_DATE_RANGE,
     dateRange: dateRange
   })
