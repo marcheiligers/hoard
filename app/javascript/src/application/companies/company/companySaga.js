@@ -37,12 +37,12 @@ export function* loadCompanyChartDataRequest(action) {
     });
     const result = yield call(loadCompanyChartData, action.symbol, action.dateRange);
     yield put({
-      type: utilitiesActions.LOADING,
-      loading: false,
-    });
-    yield put({
       type: companyActions.LOAD_COMPANY_CHART_DATA_SUCCESS,
       chartData: result.data
+    });
+    yield put({
+      type: utilitiesActions.LOADING,
+      loading: false,
     });
   } catch (err) {
     yield put({

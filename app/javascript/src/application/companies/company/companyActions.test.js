@@ -1,4 +1,4 @@
-import companiesData from './companyData.js';// TODO add this file
+import companiesData from './companyData.js';
 import companyActions from './companyActions.js';
 
 describe('company action creators -> companyActions', () => {

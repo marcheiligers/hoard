@@ -1,6 +1,7 @@
 import { call, put, takeEvery, select } from 'redux-saga/effects';
 import { loadCompany, loadCompanyChartData } from './companyServices';
 import companyActions from './companyActions';
+import utilitiesActions from '../../utilities/utilitiesActions';
 import {
   loadCompanyRequestWatcher,
   loadCompanyRequest,
@@ -8,6 +9,7 @@ import {
   loadCompanyChartDataRequest
 } from './companySaga';
 import companyData from './companyData';
+
 
 describe('stocks saga -> loadCompanyRequestWatcher', () => {
   const loadCompanyRequestWatcherGen = loadCompanyRequestWatcher();
@@ -52,6 +54,14 @@ describe('stocks saga -> loadCompanyChartDataRequestWatcher', () => {
 describe('stocks saga -> loadCompanyChartDataRequest', () => {
   const testAction = { symbol: companyData.companies[0].symbol, dateRange: '1d' };
   const loadCompanyChartDataRequestGen = loadCompanyChartDataRequest(testAction);
+  it('should set loading to true', () => {
+    expect(loadCompanyChartDataRequestGen.next().value).toEqual(
+      put({
+        type: utilitiesActions.LOADING,
+        loading: true
+      })
+    );
+  });
   it('should call the api', () => {
     expect(loadCompanyChartDataRequestGen.next().value).toEqual(
       call(loadCompanyChartData, testAction.symbol, testAction.dateRange)
@@ -63,6 +73,14 @@ describe('stocks saga -> loadCompanyChartDataRequest', () => {
       put({
         type: companyActions.LOAD_COMPANY_CHART_DATA_SUCCESS,
         chartData: testResult.data
+      })
+    );
+  });
+  it('should set loading to false', () => {
+    expect(loadCompanyChartDataRequestGen.next().value).toEqual(
+      put({
+        type: utilitiesActions.LOADING,
+        loading: false
       })
     );
   });
