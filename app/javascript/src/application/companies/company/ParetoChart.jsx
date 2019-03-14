@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CanvasJSReact from '../../canvasjs.react';
+import { compileDailyChartLineDataPointsWithMinMax, compileChartLineDataPointsWithMinMax } from './ParetoChartDataHelpers.js';
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -20,54 +21,33 @@ class ParetoChart extends Component {
         this.createParetoFromData();
       }
     }
-    // need to handle the specific case of selecting 1d where the time stamps are different.
-
   }
   createDailyParetoFromData = () => {
-    let dps = [];
-    let chart = this.chart;
-    let yMarketAverage, yMarketVolumeValue, yMarketAverageMax = 0, yMarketVolumeMax = 0, yMarketAverageMin = 100000;
+    const chart = this.chart;
     const filteredData = this.props.chartData.filter(item => item.marketAverage > 0);
-    for (let i = 0; i < filteredData.length; i++) {
-      yMarketAverage = filteredData[i].marketAverage;
-      yMarketVolumeValue = filteredData[i].marketVolume;
-      // setting max and mins
-      if (yMarketAverage >= yMarketAverageMax) {
-        yMarketAverageMax = yMarketAverage;
-      }
-      if (yMarketAverage <= yMarketAverageMin) {
-        yMarketAverageMin = yMarketAverage;
-      }
-      if (yMarketVolumeValue >= yMarketVolumeMax) {
-        yMarketVolumeMax = yMarketVolumeValue;
-      }
-      dps.push({ label: filteredData[i].minute, y: yMarketAverage });
-    }
-    chart.addTo("data", { type: "line", yValueFormatString: "0.##" % "", dataPoints: dps, xValueType: 'dateTime', xValueFormatString: 'DD-MMM-YYYY' });
+    const {
+      dps,
+      yMarketVolumeMax,
+      yMarketAverageMax,
+      yMarketAverageMin,
+    } = compileDailyChartLineDataPointsWithMinMax(filteredData);
+
+    chart.addTo("data", { dataPoints: dps, type: "line", xValueFormatString: 'DD-MMM-YYYY', xValueType: 'dateTime', yValueFormatString: "0.##" % "" });
     chart.data[1].set("axisYType", "secondary", false);
-    // axisY is the marketVolume, axisY2 is the marketAverage
+    // // axisY is the marketVolume, axisY2 is the marketAverage
     chart.axisY[0].set("maximum", Math.ceil((yMarketVolumeMax / 10)) * 10);
     chart.axisY2[0].set("maximum", Math.ceil(yMarketAverageMax));
     chart.axisY2[0].set("minimum", Math.floor(yMarketAverageMin));
   }
   createParetoFromData = () => {
-    let dps = [];
     let chart = this.chart;
-    let yCloseValue, yVolumeValue, yCloseMax = 0, yVolumeMax = 0, yCloseMin = 100;
-    for (let i = 0; i < this.props.chartData.length; i++) {
-      yCloseValue = this.props.chartData[i].close;
-      yVolumeValue = this.props.chartData[i].volume;
-      if (yCloseValue >= yCloseMax) {
-        yCloseMax = yCloseValue;
-      }
-      if (yCloseValue <= yCloseMin) {
-        yCloseMin = yCloseValue;
-      }
-      if (yVolumeValue >= yVolumeMax) {
-        yVolumeMax = yVolumeValue;
-      }
-      dps.push({ label: this.props.chartData[i].date, y: yCloseValue });
-    }
+    const {
+      dps,
+      yVolumeMax,
+      yCloseMax,
+      yCloseMin,
+    } = compileChartLineDataPointsWithMinMax(this.props.chartData);
+
     chart.addTo("data", { type: "line", yValueFormatString: "0.##" % "", dataPoints: dps });
     chart.data[1].set("axisYType", "secondary", false);
     chart.axisY[0].set("maximum", Math.ceil((yVolumeMax / 10)) * 10);
@@ -96,7 +76,7 @@ class ParetoChart extends Component {
   compileChartOptions = () => {
     const options = {
       title: {
-        text: `${this.props.company.companyName} for ${this.props.chartDateRange}`
+        text: `${this.props.company.companyName} (${this.props.chartDateRange})`
       },
       axisX: {
         title: "Date"
@@ -126,7 +106,7 @@ class ParetoChart extends Component {
   compileDailyChartOptions = () => {
     const options = {
       title: {
-        text: `${this.props.company.companyName} for ${this.props.chartDateRange}`
+        text: `${this.props.company.companyName} (${this.props.chartDateRange})`
       },
       axisX: {
         title: "Minute"

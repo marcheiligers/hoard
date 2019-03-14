@@ -12,7 +12,6 @@ Clean up error handling in Redux, resuse the same error on state, implement snac
 Convert to nicely styled cards
 
 ## Redux testing:
-Add tests for new functionality
 
 _Current WIP:_
-- Tests for chart redux methods
+- Tests for chart helper methods
