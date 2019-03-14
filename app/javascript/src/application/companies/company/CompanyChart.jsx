@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SimpleSelect from '../../uiElements/FormSelect';
 import ParetoChart from './ParetoChart';
+import SimpleSelect from '../../uiElements/FormSelect';
+import CILoader from '../../uiElements/Loader'
 //REDUX for fetching chart data
 import companyActions from '../../companies/company/companyActions';
 const loadCompanyChartDataRequest = companyActions.loadCompanyChartDataRequest;
@@ -34,7 +35,7 @@ class CompanyChart extends Component {
         <SimpleSelect
           dateRange={this.props.chartDateRange}
           updateDateRange={this.updateDateRange} />
-        <ParetoChart />
+        {this.props.loading ? <CILoader /> : <ParetoChart />}
       </Fragment>
     );
   }
@@ -46,6 +47,7 @@ export default connect(
     chartData: state.company.chartData || [],
     chartDateRange: state.company.chartDateRange || '1d',
     error: state.company.error ? state.company.error : null,
+    loading: state.utilities.loading,
   }), {
     loadCompanyChartDataRequest,
     storeCompanyDateRange

@@ -1,5 +1,6 @@
 import { takeEvery, call, all, fork, put } from 'redux-saga/effects';
 import companyActions from './companyActions';
+import utilitiesActions from '../../utilities/utilitiesActions';
 import {
   loadCompany,
   loadCompanyChartData,
@@ -30,7 +31,15 @@ export function* loadCompanyChartDataRequestWatcher() {
 
 export function* loadCompanyChartDataRequest(action) {
   try {
+    yield put({
+      type: utilitiesActions.LOADING,
+      loading: true,
+    });
     const result = yield call(loadCompanyChartData, action.symbol, action.dateRange);
+    yield put({
+      type: utilitiesActions.LOADING,
+      loading: false,
+    });
     yield put({
       type: companyActions.LOAD_COMPANY_CHART_DATA_SUCCESS,
       chartData: result.data
