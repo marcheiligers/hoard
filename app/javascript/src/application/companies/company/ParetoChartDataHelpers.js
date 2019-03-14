@@ -33,7 +33,7 @@ export function compileDailyChartLineDataPointsWithMinMax(filteredData) {
   yMarketAverageMin = yMarketAverageMin ? yMarketAverageMin : 0
   return { dps, yMarketVolumeMax, yMarketAverageMax, yMarketAverageMin };
 }
-export function compileChartLineDataPointsWithMinMax(chartData) {
+export function compileChartLineDataPointsWithMinMax(chartData, isDaySelection) {
   let dps = [],
     yCloseValue,
     yVolumeValue,
@@ -57,7 +57,17 @@ export function compileChartLineDataPointsWithMinMax(chartData) {
     if (yVolumeValue >= yVolumeMax) {
       yVolumeMax = yVolumeValue;
     }
-    dps.push({ label: chartData[i].date, y: yCloseValue });
+    if (isDaySelection) {
+      dps.push({
+        label: chartData[i].label,
+        y: yCloseValue
+      });
+    } else {
+      dps.push({
+        label: chartData[i].date,
+        y: yCloseValue
+      });
+    }
   }
   // adding default 0's for empty datasets
   yCloseMax = yCloseMax ? yCloseMax : 0

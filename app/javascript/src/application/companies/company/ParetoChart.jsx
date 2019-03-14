@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CanvasJSReact from '../../canvasjs.react';
 import { compileDailyChartLineDataPointsWithMinMax, compileChartLineDataPointsWithMinMax } from './ParetoChartDataHelpers.js';
+import companyActions from '../../companies/company/companyActions';
+const storeCompanyDateRange = companyActions.storeCompanyDateRange;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class ParetoChart extends Component {
@@ -16,7 +18,8 @@ class ParetoChart extends Component {
     if (prevProps !== this.props) {
       if (this.props.chartDateRange === '1d') {
         this.createDailyParetoFromData();
-      } else {
+      }
+      else {
         this.createParetoFromData();
       }
     }
@@ -40,13 +43,14 @@ class ParetoChart extends Component {
   }
   createParetoFromData = () => {
     let chart = this.chart;
+    const isDaySelection = this.props.chartDateRange.startsWith('date/');
     const {
       dps,
       yVolumeMax,
       yCloseMax,
       yCloseMin,
-    } = compileChartLineDataPointsWithMinMax(this.props.chartData);
-
+    } = compileChartLineDataPointsWithMinMax(this.props.chartData, isDaySelection);
+    // adding in the click handler to the line data points
     chart.addTo("data", { dataPoints: dps, type: "line", yValueFormatString: "0.##" % "" });
     chart.data[1].set("axisYType", "secondary", false);
     // axisY is the volume, axis Y2 is the Close
@@ -55,12 +59,24 @@ class ParetoChart extends Component {
     chart.axisY2[0].set("minimum", Math.floor((yCloseMin / 10)) * 10);
   }
   compileDataPoints = () => {
-    const dataPoints = this.props.chartData.map((itemObj, ind) => {
-      return {
-        label: itemObj.date,
-        y: itemObj.volume
-      };
-    })
+    let dataPoints;
+    const isDaySelection = this.props.chartDateRange.startsWith('date/');
+    if (isDaySelection) {
+      dataPoints = this.props.chartData.map((itemObj, ind) => {
+        return {
+          label: itemObj.label,
+          y: itemObj.volume,
+        };
+      })
+    } else {
+      dataPoints = this.props.chartData.map((itemObj, ind) => {
+        return {
+          label: itemObj.date,
+          y: itemObj.volume,
+          click: (e) => this.props.storeCompanyDateRange(`date/${(e.dataPoint.label).split('-').join('')}`)
+        };
+      })
+    }
     return dataPoints;
   }
   compileDailyDataPoints = () => {
@@ -74,12 +90,13 @@ class ParetoChart extends Component {
     return filteredData;
   }
   compileChartOptions = () => {
+    const isDaySelection = this.props.chartDateRange.startsWith('date/');
     const options = {
       title: {
         text: `${this.props.company.companyName} (${this.props.chartDateRange})`
       },
       axisX: {
-        title: "Date"
+        title: isDaySelection ? "Minute" : "Date",
       },
       axisY: {
         title: "Volume",
@@ -150,9 +167,14 @@ class ParetoChart extends Component {
     );
   }
 }
-export default connect(state => ({
-  company: state.company.selectedCompany || {},
-  chartData: state.company.chartData || [],
-  chartDateRange: state.company.chartDateRange || 'ytd',
-  error: state.company.error || null,
-}))(ParetoChart);
+export default connect(
+  state => ({
+    company: state.company.selectedCompany || {},
+    chartData: state.company.chartData || [],
+    chartDateRange: state.company.chartDateRange || 'ytd',
+    error: state.company.error || null,
+  }),
+  {
+    storeCompanyDateRange
+  }
+)(ParetoChart);

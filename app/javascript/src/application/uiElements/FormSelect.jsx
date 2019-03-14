@@ -11,7 +11,7 @@ import { selectStyles } from './styles';
 
 class SimpleSelect extends Component {
   state = {
-    dateRange: "",
+    dateRange: this.props.dateRange,
     labelWidth: 0
   };
   handleChange = event => {
@@ -23,7 +23,7 @@ class SimpleSelect extends Component {
     return (
       <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="dateRange-helper">dateRange</InputLabel>
+          <InputLabel htmlFor="dateRange-helper">Date Range</InputLabel>
           <Select
             value={this.props.dateRange}
             onChange={this.handleChange}
@@ -39,11 +39,11 @@ class SimpleSelect extends Component {
             <MenuItem value={'6m'}>Six Months</MenuItem>
             <MenuItem value={'3m'}>Three Months</MenuItem>
             <MenuItem value={'1m'}>One Month</MenuItem>
-            {/* <MenuItem value={`date/${this.props.selectedDate}`}>Date</MenuItem>*/}
+            <MenuItem value={`${this.props.dateRange}`}>{this.props.dateRange}</MenuItem>
           </Select>
           <FormHelperText>Select Date Range</FormHelperText>
         </FormControl>
-      </form>
+      </form >
     );
   }
 }

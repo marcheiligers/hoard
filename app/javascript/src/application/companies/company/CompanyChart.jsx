@@ -10,21 +10,15 @@ const storeCompanyDateRange = companyActions.storeCompanyDateRange;
 class CompanyChart extends Component {
   static propTypes = {
     chartData: PropTypes.array,
+    chartDateRange: PropTypes.string,
     error: PropTypes.string,
-    error: PropTypes.string,
+    loadCompanyChartDataRequest: PropTypes.func,
+    storeCompanyDateRange: PropTypes.func,
   };
   componentDidMount() {
     this.props.loadCompanyChartDataRequest(this.props.symbol, this.props.chartDateRange)
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.chartData !== this.props.chartData) { // for handling date range selectors
-      if (prevProps.chartData.length !== this.props.chartData.length) {
-        console.log(`ChartData Updated ${this.props.chartData.length} data entries`)
-      }
-    }
-    if (prevProps.chartData === this.props.chartData) { // for handling date range selectors
-      console.log(`ChartData Did Not Update, add a snackbar to portray the message`)
-    }
     if (prevProps.chartDateRange !== this.props.chartDateRange) {
       this.props.loadCompanyChartDataRequest(this.props.symbol, this.props.chartDateRange)
     }
