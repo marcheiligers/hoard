@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CanvasJSReact from '../../canvasjs.react';
 import { compileDailyChartLineDataPointsWithMinMax, compileChartLineDataPointsWithMinMax } from './ParetoChartDataHelpers.js';
-const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class ParetoChart extends Component {
@@ -32,7 +31,7 @@ class ParetoChart extends Component {
       yMarketAverageMin,
     } = compileDailyChartLineDataPointsWithMinMax(filteredData);
 
-    chart.addTo("data", { dataPoints: dps, type: "line", xValueFormatString: 'DD-MMM-YYYY', xValueType: 'dateTime', yValueFormatString: "0.##" % "" });
+    chart.addTo("data", { dataPoints: dps, type: "line", yValueFormatString: "0.##" % "" });
     chart.data[1].set("axisYType", "secondary", false);
     // // axisY is the marketVolume, axisY2 is the marketAverage
     chart.axisY[0].set("maximum", Math.ceil((yMarketVolumeMax / 10)) * 10);
@@ -48,8 +47,9 @@ class ParetoChart extends Component {
       yCloseMin,
     } = compileChartLineDataPointsWithMinMax(this.props.chartData);
 
-    chart.addTo("data", { type: "line", yValueFormatString: "0.##" % "", dataPoints: dps });
+    chart.addTo("data", { dataPoints: dps, type: "line", yValueFormatString: "0.##" % "" });
     chart.data[1].set("axisYType", "secondary", false);
+    // axisY is the volume, axis Y2 is the Close
     chart.axisY[0].set("maximum", Math.ceil((yVolumeMax / 10)) * 10);
     chart.axisY2[0].set("maximum", Math.ceil((yCloseMax / 10)) * 10);
     chart.axisY2[0].set("minimum", Math.floor((yCloseMin / 10)) * 10);
@@ -146,7 +146,6 @@ class ParetoChart extends Component {
         <CanvasJSChart options={options}
           onRef={ref => this.chart = ref}
         />
-        {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
       </div>
     );
   }

@@ -13,5 +13,9 @@ Convert to nicely styled cards
 
 ## Redux testing:
 
+## Navigation
+Consider adding a quick link or drop down filter to select a stock when on the single company page.
+(Add the scrollable list back to nav?)
+
 _Current WIP:_
 - Tests for chart helper methods
