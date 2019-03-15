@@ -30,7 +30,7 @@ class StockLayout extends Component {
   render() {
     return (
       <Fragment>
-
+        <h1>{this.props.company.companyName}</h1>
         <StockContainer router={this.props} />
         {(this.props.stock && this.props.stock.symbol) ?
           <CompanyContainer symbol={this.props.stock.symbol} />

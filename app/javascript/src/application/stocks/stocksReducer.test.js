@@ -81,10 +81,17 @@ describe('stocks reducer -> load stocks', () => {
     expect(newState.error).toEqual(testError);
   });
   it('updates a stock on UPDATE_STOCK_SUCCESS', () => {
-    const testState = { ...defaultState, allStocks: data.stocks };
+    const testState = { ...defaultState, allStocks: data.stocks, selectedStock: null };
     const testUpdatedStock = { ...data.stocks[0], star: true }
     let testAction = stocksActions.updateStockSuccess(testUpdatedStock);
     const newState = stocksReducer(testState, testAction);
     expect(newState.allStocks.filter(stock => stock.id === testUpdatedStock.id).star).toBeTruthy;
+  });
+  it('updates the selected stock on UPDATE_STOCK_SUCCESS', () => {
+    const testState = { ...defaultState, allStocks: data.stocks, selectedStock: data.stocks[0] };
+    const testUpdatedStock = { ...data.stocks[0], star: true }
+    let testAction = stocksActions.updateStockSuccess(testUpdatedStock);
+    const newState = stocksReducer(testState, testAction);
+    expect(newState.selectedStock.star).toBeTruthy;
   });
 });

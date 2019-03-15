@@ -86,6 +86,12 @@ export default function stocksReducer(currentState = initialState, action) {
       return newState;
     }
     case stocksActions.UPDATE_STOCK_SUCCESS: {
+      let updatedSelectedStock = currentState.selectedStock;
+      if (currentState.selectedStock) {
+        if (currentState.selectedStock.id === action.updatedStock.id) {
+          updatedSelectedStock = action.updatedStock;
+        }
+      }
       const updatedStocks = currentState.allStocks.map((stock, idx) => {
         if (stock.id === action.updatedStock.id) {
           stock = action.updatedStock
@@ -94,6 +100,7 @@ export default function stocksReducer(currentState = initialState, action) {
       });
       const newState = {
         ...currentState,
+        selectedStock: updatedSelectedStock,
         allStocks: updatedStocks
       };
       return newState;

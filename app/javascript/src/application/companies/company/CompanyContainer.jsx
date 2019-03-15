@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CompanyChart from './CompanyChart';
-
+import SimpleCompanyCard from '../../uiElements/SimpleCard';
 class CompanyContainer extends Component {
   static propTypes = {
     company: PropTypes.object,
@@ -28,8 +28,11 @@ class CompanyContainer extends Component {
     const info = this.extractCompanyInfo();
     return (
       <Fragment>
-        <h1>{this.props.company.companyName}</h1>
-        <CompanyInfo info={info} />
+        <div >
+          <SimpleCompanyCard info={info} />
+          {/* show the next one if 'more-info' is clicked */}
+          {/* <SimpleCompanyCard info={moreInfo} /> */}
+        </div>
         <CompanyChart symbol={this.props.symbol} />
       </Fragment>
     )
@@ -42,12 +45,3 @@ export default connect(
     error: state.company.error ? state.company.error : null,
   }), {}
 )(CompanyContainer)
-
-const CompanyInfo = (info) => {
-  return Object.keys(info.info).map((item, idx) =>
-    <div key={idx}>
-      <span>{`${item}${" : "}`}</span>
-      <span>{info.info[item]}</span>
-    </div>
-  )
-}
