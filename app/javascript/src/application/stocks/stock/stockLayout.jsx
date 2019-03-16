@@ -11,7 +11,7 @@ const loadCompanyRequest = companyActions.loadCompanyRequest;
 
 class StockLayout extends Component {
   static propTypes = {
-    stock: PropTypes.object,
+    selectedStock: PropTypes.object,
     error: PropTypes.string,
     match: PropTypes.object,
     loadStockRequest: PropTypes.func,
@@ -21,9 +21,9 @@ class StockLayout extends Component {
     this.props.loadStockRequest(this.props.match.params.stock_id);
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.stock !== this.props.stock) {
-      if (this.props.stock.symbol) {
-        this.props.loadCompanyRequest(this.props.stock.symbol);
+    if (prevProps.selectedStock !== this.props.selectedStock) {
+      if (this.props.selectedStock.symbol) {
+        this.props.loadCompanyRequest(this.props.selectedStock.symbol);
       }
     }
   }
@@ -32,8 +32,8 @@ class StockLayout extends Component {
       <Fragment>
         <h1>{this.props.company.companyName}</h1>
         <StockContainer router={this.props} />
-        {(this.props.stock && this.props.stock.symbol) ?
-          <CompanyContainer symbol={this.props.stock.symbol} />
+        {(this.props.selectedStock && this.props.selectedStock.symbol) ?
+          <CompanyContainer symbol={this.props.selectedStock.symbol} />
           : <div>GETTING DATA</div>
         }
       </Fragment>
@@ -42,7 +42,7 @@ class StockLayout extends Component {
 }
 export default connect(
   state => ({
-    stock: state.stocks.selectedStock || {},
+    selectedStock: state.stocks.selectedStock || {},
     company: state.company.selectedCompany || {},
     error: state.stocks.error ? state.stocks.error : null,
   }),
