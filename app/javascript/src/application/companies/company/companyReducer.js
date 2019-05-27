@@ -3,7 +3,7 @@ import companyActions from './companyActions';
 export const initialState = {
   selectedCompany: null,
   chartData: null,
-  chartDateRange: '1d',
+  chartDateRange: '6m',
   error: null
 };
 

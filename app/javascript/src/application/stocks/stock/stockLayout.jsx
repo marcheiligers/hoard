@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import StockContainer from './stockContainer';
 import CompanyContainer from '../../companies/company/CompanyContainer';
+import CompanyChart from '../../companies/company/CompanyChart';
 // REDUX
 import stocksActions from '../stocksActions';
 import companyActions from '../../companies/company/companyActions';
@@ -30,10 +30,11 @@ class StockLayout extends Component {
   render() {
     return (
       <Fragment>
-        <h1>{this.props.company.companyName}</h1>
-        <StockContainer router={this.props} />
         {(this.props.selectedStock && this.props.selectedStock.symbol) ?
-          <CompanyContainer symbol={this.props.selectedStock.symbol} />
+          <Fragment>
+            <CompanyContainer symbol={this.props.selectedStock.symbol} />
+            <CompanyChart symbol={this.props.selectedStock.symbol} />
+          </Fragment>
           : <div>GETTING DATA</div>
         }
       </Fragment>

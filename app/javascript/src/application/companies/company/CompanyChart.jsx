@@ -45,7 +45,7 @@ export default connect(
   state => ({
     company: state.company.selectedCompany || {},
     chartData: state.company.chartData || [],
-    chartDateRange: state.company.chartDateRange || '1d',
+    chartDateRange: state.company.chartDateRange || '6m',
     error: state.company.error ? state.company.error : null,
     loading: state.utilities.loading,
   }), {

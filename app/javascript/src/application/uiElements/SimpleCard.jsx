@@ -32,9 +32,15 @@ const companyCardStyles = {
     maxWidth: '50vw'
   }
 };
-
+const info = {
+  companyName: 'comapnyName',
+  sector: 'sector',
+  ceo: 'ceo',
+  description: 'description',
+  website: 'website',
+}
 function SimpleCompanyCard(props) {
-  const { classes, info } = props;
+  const { classes } = props;
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
