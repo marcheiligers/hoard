@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import { FavoriteBorder, Favorite, StarBorder, Star } from '@material-ui/icons';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import CustomizedMenu from '../../uiElements/CustomizedMenu';
 import stocksActions from '../../stocks/stocksActions';
 const loadStockRequest = stocksActions.loadStockRequest;
 const updateStockRequest = stocksActions.updateStockRequest;
@@ -49,6 +50,12 @@ const companyCardStyles = {
   }
 };
 class CompanyContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showMoreItems: false,
+    }
+  }
   static propTypes = {
     company: PropTypes.object,
     symbol: PropTypes.string, // this is passed down from the stockLayout component
@@ -70,12 +77,10 @@ class CompanyContainer extends Component {
       primaryExchange: this.props.company.primaryExchange,
     }
   }
-  renderDropDownList = (e) => {
-    console.log(`toggle dropdown list of website link ${e.target.href}, and stats about stock actions`);
-  }
   showMoreItems = (e) => {
     e.preventDefault();
-    return this.renderDropDownList(e);
+    console.log(`toggle dropdown list of website link ${e.target.href}, and stats about stock actions`);
+    this.setState({ showMoreItems: !this.state.showMoreItems })
   }
   toggleProp = (event, prop) => {
     this.props.stock[prop] = !this.props.stock[prop];
@@ -120,9 +125,7 @@ class CompanyContainer extends Component {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={(e) => this.showMoreItems(e)}>
-            <a href={info.website} target="_blank">More</a>
-          </Button>
+          {this.props.company && <CustomizedMenu stock={this.props.stock} company={this.props.company} />}
         </CardActions>
       </Card >
     );
