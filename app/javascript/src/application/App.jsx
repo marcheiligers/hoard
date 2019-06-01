@@ -8,7 +8,6 @@ import StocksLayout from './stocks/StocksLayout';
 import StockLayout from './stocks/stock/stockLayout';
 import Layout from './Layout/layoutContainer';
 import CompanyContainer from './companies/company/CompanyContainer';
-import CompanyChart from './companies/company/CompanyChart';
 import { NotFound } from './Errors';
 
 const App = () => (
@@ -21,10 +20,8 @@ const App = () => (
       <Route path="/stocks" component={StocksLayout} />
       <Route path="/stock/:stock_id" component={StockLayout} />
       <Route path="/companies/:symbol" component={CompanyContainer} />
-      <Route path="/companies/:symbol/chart" component={CompanyChart} />
       <Route component={NotFound} />
     </Switch>
   </Layout>
 );
 export default App;
-// TODO: add a container for the Stocks again to handle adding a new stock (POST) and removing a stock (DELETE)

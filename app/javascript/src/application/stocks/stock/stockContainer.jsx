@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ItemNotFound } from '../../Errors';
-// REDUX
-import stocksActions from '../stocksActions';
-const loadStockRequest = stocksActions.loadStockRequest;
 
 // rename -> it's connected to the Redux Store.
 class StockContainer extends Component {
@@ -31,7 +28,7 @@ class StockContainer extends Component {
     return (
       <div>
         <h1>
-          <em>{name || symbol || `Stock`}</em>
+          <em>{symbol || name || `Stock`}</em>
         </h1>
         <ul>
           <li>symbol: {symbol}</li>
@@ -51,5 +48,5 @@ export default connect(
     stock: state.stocks.selectedStock || {},
     error: state.stocks.error ? state.stocks.error : null,
   }),
-  { loadStockRequest }
+  {}
 )(StockContainer);
