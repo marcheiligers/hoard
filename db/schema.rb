@@ -10,17 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_02_191050) do
+ActiveRecord::Schema.define(version: 2019_07_21_195545) do
 
-  create_table "purchases", force: :cascade do |t|
+  create_table "dividend_trades", force: :cascade do |t|
+    t.integer "dividend_id"
+    t.integer "trades_id"
+    t.index ["dividend_id"], name: "index_dividend_trades_on_dividend_id"
+    t.index ["trades_id"], name: "index_dividend_trades_on_trades_id"
+  end
+
+  create_table "dividends", force: :cascade do |t|
     t.integer "stock_id"
-    t.string "order_type"
-    t.datetime "executed_at"
-    t.decimal "price", precision: 15, scale: 10
-    t.integer "shares"
+    t.datetime "paid_on"
+    t.datetime "exdividend_on"
+    t.decimal "amount", precision: 15, scale: 10
+    t.decimal "shares", precision: 15, scale: 10
+    t.decimal "per_share", precision: 15, scale: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["stock_id"], name: "index_purchases_on_stock_id"
+    t.index ["stock_id"], name: "index_dividends_on_stock_id"
   end
 
   create_table "stocks", force: :cascade do |t|
@@ -31,6 +39,17 @@ ActiveRecord::Schema.define(version: 2019_01_02_191050) do
     t.boolean "star"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "trades", force: :cascade do |t|
+    t.integer "stock_id"
+    t.string "order_type"
+    t.datetime "executed_at"
+    t.decimal "price", precision: 15, scale: 10
+    t.decimal "shares", precision: 15, scale: 10
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stock_id"], name: "index_trades_on_stock_id"
   end
 
 end
