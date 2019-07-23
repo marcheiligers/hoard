@@ -23,6 +23,19 @@ Things you may want to cover:
 
 - ...
 
+## Ruby API:
+
+Ensure that you are using the correct ruby version:
+
+```
+$ rvm use 2.5.1
+```
+
+Ensure that all ruby gems are installed:
+```
+$ bundle
+```
+
 ## Client
 
 The client runs on "http://localhost:5000/home/index".
