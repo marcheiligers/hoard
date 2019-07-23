@@ -2,7 +2,7 @@ require 'test_helper'
 
 class StocksControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @stock = stocks(:one)
+    @stock = create(:stock)
   end
 
   test 'should get index' do
@@ -17,7 +17,7 @@ class StocksControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :created
-    assert_response_json_model(Stock.last)
+    assert_response_json_model(Stock.last, 'url' => "http://www.example.com/api/v1/stocks/#{Stock.last.id}")
   end
 
   test 'should create stock with additional info from API when only symbol is provided' do
@@ -28,7 +28,7 @@ class StocksControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :created
-    assert_response_json_model(Stock.last)
+    assert_response_json_model(Stock.last, 'url' => "http://www.example.com/api/v1/stocks/#{Stock.last.id}")
     assert_equal response_json['name'], 'Apple Inc.'
     assert_equal response_json['annualDividends'], 4
   end
@@ -51,7 +51,7 @@ class StocksControllerTest < ActionDispatch::IntegrationTest
     patch api_v1_stock_url(@stock), params: { stock: { annual_dividends: @stock.annual_dividends, heart: @stock.heart, name: @stock.name, star: @stock.star, symbol: @stock.symbol } }
 
     assert_response :ok
-    assert_response_json_model(@stock)
+    assert_response_json_model(@stock, 'url' => "http://www.example.com/api/v1/stocks/#{@stock.id}")
   end
 
   test "should destroy stock" do
