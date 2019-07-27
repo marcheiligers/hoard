@@ -2,10 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CompanyContainer from '../../companies/company/CompanyContainer';
-<<<<<<< HEAD
 import CompanyChart from '../../companies/company/CompanyChart';
-=======
->>>>>>> 8c2537774c0f40af7e05b9a67658e7a6c6a9ed72
 // REDUX
 import stocksActions from '../stocksActions';
 import companyActions from '../../companies/company/companyActions';
