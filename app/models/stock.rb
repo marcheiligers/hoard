@@ -16,6 +16,12 @@ class Stock < ApplicationRecord
   has_many :trades
   has_many :dividends
 
+  DIVIDEND_MAP = {
+    'annual': 1,
+    'quarterly': 4,
+    'monthly': 12
+  }.freeze
+
   before_destroy :ensure_no_trades
 
   def shares_owned
@@ -35,16 +41,18 @@ class Stock < ApplicationRecord
     if self.name.blank?
       company = fetch_company
       self.name = company['companyName']
+      exchange = company['exchange'];
+      website = company['website'];
+      ceo = company['CEO'];
+      sector = company['sector'];
+      industry = company['industry'];
+      employees = company['employees'].to_i
     end
 
-    # if annual_dividends.blank?
-    #   # TODO: Add tests for catching if the stocks don't pay dividends
-    #   dividends = IEX::Resources::Dividends.get(symbol, '2y').map { |div| Date.parse(div.payment_date) }
-    #   if dividends.length > 0
-    #     year_ago = dividends.first - 360.days # sometimes there is an overlap by a couple of days
-    #     annual_dividends = dividends.select { |date| date > year_ago }.size
-    #   end
-    # end
+    if annual_dividends.blank?
+      dividends = fetch_dividends
+      annual_dividends = dividends.size > 0 ? DIVIDEND_MAP[dividends.last['frequency']].to_i : 0
+    end
   end
 
   def price_paid_for_shares_owned_on(date)
@@ -62,5 +70,9 @@ class Stock < ApplicationRecord
 
     def fetch_company
       JSON.parse(Faraday.get("https://cloud.iexapis.com/stable/stock/#{symbol}/company?token=#{ENV['IEX_PUBLIC_TOKEN']}").body)
+    end
+
+    def fetch_dividends
+      JSON.parse(Faraday.get("https://cloud.iexapis.com/stable/stock/#{symbol}/dividends/2y?token=#{ENV['IEX_PUBLIC_TOKEN']}").body)
     end
 end

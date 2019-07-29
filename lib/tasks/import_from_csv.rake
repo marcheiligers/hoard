@@ -17,7 +17,8 @@ namespace :import do
       price = row["Purchase price"]
       shares = row["Number of shares"]
 
-      Trade.create(stock: stock, order_type: 'buy', executed_at: date, price: price, shares: shares)
+      existing = stock.trades.detect { |trade| trade.executed_at == date }
+      Trade.create(stock: stock, order_type: 'buy', executed_at: date, price: price, shares: shares) if existing.nil?
     end
   end
 
@@ -31,7 +32,8 @@ namespace :import do
       date = Date.parse(row["Date"])
       amount = row["Amount"]
 
-      Dividend.create(stock: stock, paid_on: date, amount: amount, shares: stock.shares_owned_on(date))
+      existing = stock.dividends.detect { |div| div.paid_on == date }
+      Dividend.create(stock: stock, paid_on: date, amount: amount, shares: stock.shares_owned_on(date)) if existing.nil?
     end
   end
 
@@ -42,9 +44,8 @@ namespace :import do
     Stock.delete_all
   end
 
-  desc "Import dividend payments from old spreadsheet"
+  desc "Import stocks and dividend payments from old spreadsheet"
   task all: :environment do
-    Rake::Task["import:clear"].invoke
     Rake::Task["import:dividend_stocks"].invoke
     Rake::Task["import:dividend_payments"].invoke
   end

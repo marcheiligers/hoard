@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_21_195545) do
+ActiveRecord::Schema.define(version: 2019_07_28_215820) do
 
   create_table "dividend_trades", force: :cascade do |t|
     t.integer "dividend_id"
@@ -39,6 +39,12 @@ ActiveRecord::Schema.define(version: 2019_07_21_195545) do
     t.boolean "star"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "exchange"
+    t.string "website"
+    t.string "ceo"
+    t.string "sector"
+    t.string "industry"
+    t.integer "employees"
   end
 
   create_table "trades", force: :cascade do |t|

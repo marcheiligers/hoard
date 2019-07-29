@@ -17,7 +17,7 @@ FactoryBot.define do
     stock { create(:stock) }
     order_type  { Trade::TYPES.sample }
     executed_at { rand(360).days.ago }
-    price { (rand * 200 - 100).round(5) }
+    price { (rand * 200).round(5) }
     shares { rand(990) + 10 }
   end
 end
