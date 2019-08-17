@@ -15,36 +15,36 @@
 require 'test_helper'
 
 class StockTest < ActiveSupport::TestCase
-  test "cannot be destroyed with a purchase history" do
+  test "cannot be destroyed with a trade history" do
     stock = create(:stock)
     assert stock.destroy
 
-    purchase = create(:purchase)
-    assert_raises { purchase.stock.destroy }
+    trade = create(:trade)
+    assert_raises { trade.stock.destroy }
   end
 
   test '#shares_owned' do
     stock = create(:stock)
-    create(:purchase, stock: stock, shares: 5)
-    create(:purchase, stock: stock, shares: 6)
+    create(:trade, stock: stock, shares: 5)
+    create(:trade, stock: stock, shares: 6)
 
     assert_equal 11, stock.shares_owned
   end
 
-  test '#total_purchase_price' do
+  test '#total_trade_price' do
     stock = create(:stock)
-    create(:purchase, stock: stock, shares: 5, price: 1.0)
-    create(:purchase, stock: stock, shares: 5, price: 2.0)
+    create(:trade, stock: stock, shares: 5, price: 1.0)
+    create(:trade, stock: stock, shares: 5, price: 2.0)
 
-    assert_equal 15.0, stock.total_purchase_price
+    assert_equal 15.0, stock.total_trade_price
   end
 
-  test '#average_purchase_price' do
+  test '#average_trade_price' do
     stock = create(:stock)
-    create(:purchase, stock: stock, shares: 5, price: 1.0)
-    create(:purchase, stock: stock, shares: 5, price: 2.0)
+    create(:trade, stock: stock, shares: 5, price: 1.0)
+    create(:trade, stock: stock, shares: 5, price: 2.0)
 
-    assert_equal 1.5, stock.average_purchase_price
+    assert_equal 1.5, stock.average_trade_price
   end
 
   test 'the stock factory does what I expect' do
