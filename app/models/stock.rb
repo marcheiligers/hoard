@@ -17,9 +17,9 @@ class Stock < ApplicationRecord
   has_many :dividends
 
   DIVIDEND_MAP = {
-    'annual': 1,
-    'quarterly': 4,
-    'monthly': 12
+    'annual'    => 1,
+    'quarterly' => 4,
+    'monthly'   => 12
   }.freeze
 
   before_destroy :ensure_no_trades
@@ -39,20 +39,22 @@ class Stock < ApplicationRecord
   def fetch_additional_info
     # TODO: Threading to parallelize IEX API requests
     if self.name.blank?
-      company = fetch_company
+      company = stock_data.company
       self.name = company['companyName']
-      exchange = company['exchange'];
-      website = company['website'];
-      ceo = company['CEO'];
-      sector = company['sector'];
-      industry = company['industry'];
-      employees = company['employees'].to_i
+      self.exchange = company['exchange'];
+      self.website = company['website'];
+      self.ceo = company['CEO'];
+      self.sector = company['sector'];
+      self.industry = company['industry'];
+      self.employees = company['employees'].to_i
     end
 
     if annual_dividends.blank?
-      dividends = fetch_dividends
-      annual_dividends = dividends.size > 0 ? DIVIDEND_MAP[dividends.last['frequency']].to_i : 0
+      dividends = stock_data.dividends
+      self.annual_dividends = dividends.size > 0 ? DIVIDEND_MAP[dividends.last['frequency'].downcase].to_i : 0
     end
+  rescue => e
+    errors.add(:base, "Error fetching additional stock information: #{e.message}")
   end
 
   def price_paid_for_shares_owned_on(date)
@@ -64,15 +66,12 @@ class Stock < ApplicationRecord
   end
 
   private
+
     def ensure_no_trades
       raise StandardError, 'Cannot destroy stock because it has a trade history' unless trades.blank?
     end
 
-    def fetch_company
-      JSON.parse(Faraday.get("https://cloud.iexapis.com/stable/stock/#{symbol}/company?token=#{ENV['IEX_PUBLIC_TOKEN']}").body)
-    end
-
-    def fetch_dividends
-      JSON.parse(Faraday.get("https://cloud.iexapis.com/stable/stock/#{symbol}/dividends/2y?token=#{ENV['IEX_PUBLIC_TOKEN']}").body)
+    def stock_data
+      @stock_data ||= StockData.new(symbol)
     end
 end

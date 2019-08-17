@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.iextrading.com/1.0/stock/CIM/company
+    uri: https://cloud.iexapis.com/stable/stock/CIM/company?token=pk_0a10f576f19e437eb756b38090974635
     body:
       encoding: US-ASCII
       string: ''
@@ -17,7 +17,7 @@ http_interactions:
       server:
       - nginx
       date:
-      - Mon, 31 Dec 2018 20:07:25 GMT
+      - Sat, 17 Aug 2019 20:53:17 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -25,24 +25,10 @@ http_interactions:
       connection:
       - close
       set-cookie:
-      - ctoken=12a03fb02b0e4fbeaf70f6a58ac47fa6; Domain=.iextrading.com; Path=/; Expires=Tue,
-        01 Jan 2019 08:07:25 GMT; Secure
-      content-security-policy:
-      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
-        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
-        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
-        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
-        'self' 'unsafe-inline' 'unsafe-eval';
-      x-content-security-policy:
-      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
-        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
-        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
-        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
-        'self' 'unsafe-inline' 'unsafe-eval';
-      frame-options:
-      - SAMEORIGIN
-      x-frame-options:
-      - SAMEORIGIN
+      - ctoken=b044c6c322ba4fe9824091057edbfd72; Max-Age=43200; Path=/; Expires=Sun,
+        18 Aug 2019 08:53:17 GMT
+      iexcloud-messages-used:
+      - '1'
       x-content-type-options:
       - nosniff
       strict-transport-security:
@@ -57,18 +43,21 @@ http_interactions:
       - Origin, X-Requested-With, Content-Type, Accept
     body:
       encoding: ASCII-8BIT
-      string: '{"symbol":"CIM","companyName":"Chimera Investment Corporation","exchange":"New
-        York Stock Exchange","industry":"REITs","website":"http://www.chimerareit.com","description":"Chimera
-        Investment Corp is a real estate investment trust that invests in a portfolio
-        of mortgage assets. Its investments include various government-sponsored agency
-        such as residential mortgage-backed securities and commercial mortgage-backed
-        securities.","CEO":"Matthew Lambiase","issueType":"cs","sector":"Real Estate","tags":["Real
-        Estate","REIT - Diversified","REITs"]}'
+      string: '{"symbol":"CIM","companyName":"Chimera Investment Corp.","exchange":"New
+        York Stock Exchange","industry":"Real Estate Investment Trusts","website":"http://www.chimerareit.com","description":"Chimera
+        Investment Corp. operates as a real estate investment trust. It engages in
+        investing directly or indirectly through its subsidiaries, on a leveraged
+        basis, in a portfolio of mortgage assets. It includes residential mortgage
+        loans, residential mortgage-backed securities, commercial mortgage loans,
+        real estate-related securities, and various other asset classes. The company
+        was founded on June 1, 2007 and is headquartered in New York, NY.","CEO":"Matthew
+        John Lambiase","securityName":"Chimera Investment Corporation","issueType":"cs","sector":"Finance","employees":38,"tags":["Finance","Real
+        Estate Investment Trusts"]}'
     http_version: 
-  recorded_at: Mon, 31 Dec 2018 20:07:25 GMT
+  recorded_at: Sat, 17 Aug 2019 20:53:17 GMT
 - request:
     method: get
-    uri: https://api.iextrading.com/1.0/stock/CIM/quote
+    uri: https://cloud.iexapis.com/stable/stock/CIM/quote?token=pk_0a10f576f19e437eb756b38090974635
     body:
       encoding: US-ASCII
       string: ''
@@ -83,7 +72,7 @@ http_interactions:
       server:
       - nginx
       date:
-      - Mon, 31 Dec 2018 20:07:25 GMT
+      - Sat, 17 Aug 2019 20:53:17 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -91,24 +80,10 @@ http_interactions:
       connection:
       - close
       set-cookie:
-      - ctoken=65f41c51f432449da413f9580b4b5965; Domain=.iextrading.com; Path=/; Expires=Tue,
-        01 Jan 2019 08:07:25 GMT; Secure
-      content-security-policy:
-      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
-        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
-        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
-        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
-        'self' 'unsafe-inline' 'unsafe-eval';
-      x-content-security-policy:
-      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
-        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
-        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
-        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
-        'self' 'unsafe-inline' 'unsafe-eval';
-      frame-options:
-      - SAMEORIGIN
-      x-frame-options:
-      - SAMEORIGIN
+      - ctoken=395672446bc94d77b7da487bce385cb6; Max-Age=43200; Path=/; Expires=Sun,
+        18 Aug 2019 08:53:17 GMT
+      iexcloud-messages-used:
+      - '1'
       x-content-type-options:
       - nosniff
       strict-transport-security:
@@ -123,9 +98,9 @@ http_interactions:
       - Origin, X-Requested-With, Content-Type, Accept
     body:
       encoding: ASCII-8BIT
-      string: '{"symbol":"CIM","companyName":"Chimera Investment Corporation","primaryExchange":"New
-        York Stock Exchange","sector":"Real Estate","calculationPrice":"tops","open":18.2,"openTime":1546266609176,"close":18.2,"closeTime":1546030846025,"high":18.24,"low":17.69,"latestPrice":17.83,"latestSource":"IEX
-        real time price","latestTime":"2:55:28 PM","latestUpdate":1546286128320,"latestVolume":825755,"iexRealtimePrice":17.83,"iexRealtimeSize":100,"iexLastUpdated":1546286128320,"delayedPrice":17.84,"delayedPriceTime":1546285942241,"extendedPrice":17.83,"extendedChange":0,"extendedChangePercent":0,"extendedPriceTime":1546286128320,"previousClose":18.2,"change":-0.37,"changePercent":-0.02033,"iexMarketPercent":0.00994,"iexVolume":8208,"avgTotalVolume":1479546,"iexBidPrice":0,"iexBidSize":0,"iexAskPrice":17.8,"iexAskSize":300,"marketCap":3334333794,"peRatio":7.46,"week52High":19.3199,"week52Low":15.77,"ytdChange":0.09604264764334948}'
+      string: '{"symbol":"CIM","companyName":"Chimera Investment Corp.","primaryExchange":"New
+        York Stock Exchange","calculationPrice":"close","open":19.51,"openTime":1565962209124,"close":19.71,"closeTime":1565985632727,"high":19.74,"low":19.51,"latestPrice":19.71,"latestSource":"Close","latestTime":"August
+        16, 2019","latestUpdate":1565985632727,"latestVolume":1012529,"iexRealtimePrice":null,"iexRealtimeSize":null,"iexLastUpdated":null,"delayedPrice":19.71,"delayedPriceTime":1565987296884,"extendedPrice":19.58,"extendedChange":-0.13,"extendedChangePercent":-0.0066,"extendedPriceTime":1566082597059,"previousClose":19.45,"previousVolume":935646,"change":0.26,"changePercent":0.01337,"volume":1012529,"iexMarketPercent":null,"iexVolume":null,"avgTotalVolume":1358174,"iexBidPrice":null,"iexBidSize":null,"iexAskPrice":null,"iexAskSize":null,"marketCap":3688864470,"peRatio":21.54,"week52High":19.97,"week52Low":16.88,"ytdChange":0.11571899999999999,"lastTradeTime":1565987296884,"isUSMarketOpen":false}'
     http_version: 
-  recorded_at: Mon, 31 Dec 2018 20:07:25 GMT
+  recorded_at: Sat, 17 Aug 2019 20:53:17 GMT
 recorded_with: VCR 4.0.0
