@@ -1,26 +1,30 @@
 # == Schema Information
 #
-# Table name: purchases
+# Table name: trades
 #
 #  id          :integer          not null, primary key
 #  stock_id    :integer
 #  order_type  :string
 #  executed_at :datetime
 #  price       :decimal(15, 10)
-#  shares      :integer
+#  shares      :decimal(15, 10)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 
-class Purchase < ApplicationRecord
+class Trade < ApplicationRecord
   belongs_to :stock
 
-  validates :stock, presence: true
+  # validates :stock_id, presence: true
 
-  TYPES = %w[trade rsu excercise]
+  TYPES = %w[buy sale rsu excercise]
   validates :order_type, inclusion: TYPES
 
   validates :executed_at, presence: true
   validates :price, numericality: { greater_than: 0 }
-  validates :shares, numericality: { only_integer: true, greater_than: 0 }
+  validates :shares, numericality: { other_than: 0 }
+
+  def total
+    price * shares
+  end
 end
