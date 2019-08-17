@@ -5,7 +5,7 @@ Rails.application.routes.draw do
         resources :stocks, only: %i[index show create update destroy] do
           resources :purchases, only: %i[index show create update destroy], on: :member
         end
-        resources :purchases, only: %i[index show create update destroy]
+        resources :trades, only: %i[index show create update destroy]
         resources :companies, only: %i[show] do
           get 'chart(/:range?)', action: 'chart', on: :member, as: 'chart'
         end
