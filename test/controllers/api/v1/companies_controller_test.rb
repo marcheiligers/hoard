@@ -13,7 +13,7 @@ class CompaniesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_equal @symbol, response_json['symbol']
-    assert_equal 'Chimera Investment Corporation', response_json['companyName']
+    assert_equal 'Chimera Investment Corp.', response_json['companyName']
   end
 
   test "should fetch a chart for today" do

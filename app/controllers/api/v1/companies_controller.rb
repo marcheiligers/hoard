@@ -1,12 +1,12 @@
 class Api::V1::CompaniesController < Api::BaseController
   def show
-    symbol = params[:id]
+    stock_data = StockData.new(params[:id]) # symbol
 
     quote = nil
-    quote_thread = Thread.new { quote = IEX::Resources::Quote.get(symbol) }
+    quote_thread = Thread.new { quote = stock_data.quote }
 
     company = nil
-    company_thread = Thread.new { company = IEX::Resources::Company.get(symbol) }
+    company_thread = Thread.new { company = stock_data.company }
 
     [quote_thread, company_thread].map(&:join)
 
@@ -14,12 +14,11 @@ class Api::V1::CompaniesController < Api::BaseController
   end
 
   def chart
-    # https://iextrading.com/developer/docs/#chart
-    symbol = params[:id]
-    range = params[:range].blank? || params[:range] == 'today' ? '1d' : params[:range]
-    puts range
-    charts = IEX::Resources::Chart.get(symbol, range)
+    stock_data = StockData.new(params[:id]) # symbol
 
-    render json: charts
+    range = params[:range].blank? || params[:range] == 'today' ? '1d' : params[:range]
+    data = stock_data.chart(range)
+
+    render json: data
   end
 end

@@ -29,8 +29,8 @@ class StocksControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :created
     assert_response_json_model(Stock.last, 'url' => "http://www.example.com/api/v1/stocks/#{Stock.last.id}")
-    assert_equal response_json['name'], 'Apple Inc.'
-    assert_equal response_json['annualDividends'], 4
+    assert_equal 'Apple, Inc.', response_json['name']
+    assert_equal 4, response_json['annualDividends']
   end
 
   test 'should return a JSON encoded error when fetching additional information fails' do
@@ -39,7 +39,7 @@ class StocksControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :unprocessable_entity
-    assert_includes response_json['error'], 'Symbol BOBO Not Found'
+    assert_includes response_json['error'], 'Unknown symbol'
   end
 
   test "should show stock" do
@@ -51,7 +51,7 @@ class StocksControllerTest < ActionDispatch::IntegrationTest
     patch api_v1_stock_url(@stock), params: { stock: { annual_dividends: @stock.annual_dividends, heart: @stock.heart, name: @stock.name, star: @stock.star, symbol: @stock.symbol } }
 
     assert_response :ok
-    assert_response_json_model(@stock, 'url' => "http://www.example.com/api/v1/stocks/#{@stock.id}")
+    assert_response_json_model(@stock.reload, 'url' => "http://www.example.com/api/v1/stocks/#{@stock.id}")
   end
 
   test "should destroy stock" do

@@ -32,10 +32,10 @@ class ActiveSupport::TestCase
   def assert_response_json_model(expected_model, overrides = {})
     expected = expected_model.attributes.merge(overrides)
     actual = response_json
-
     actual_keys = actual.keys.map(&:underscore)
-    assert_equal expected.keys, actual_keys,
-      "Missing keys: #{expected.keys - actual_keys}, extra keys: #{actual_keys - expected.keys}"
+
+    assert_equal [], expected.keys - actual_keys, "Missing keys: #{expected.keys - actual_keys}"
+    assert_equal [], actual_keys - expected.keys, "Extra keys: #{actual_keys - expected.keys}"
 
     expected.each do |key, val|
       camel_key = key.camelize(:lower)

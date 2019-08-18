@@ -11,7 +11,7 @@ class TradesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should create a trade' do
-    trade_params = { stock_id: @trade.stock_id, order_type: 'trade', executed_at: Time.now, price: 1.01, shares: 10 }
+    trade_params = { stock_id: @trade.stock_id, order_type: 'buy', executed_at: Time.now, price: 1.01, shares: 10 }
     assert_difference('Trade.count') do
       post api_v1_trades_url, params: { trade: trade_params }
     end

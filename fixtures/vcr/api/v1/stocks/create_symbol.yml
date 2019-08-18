@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.iextrading.com/1.0/stock/AAPL/company
+    uri: https://cloud.iexapis.com/stable/stock/AAPL/company?token=pk_0a10f576f19e437eb756b38090974635
     body:
       encoding: US-ASCII
       string: ''
@@ -17,7 +17,7 @@ http_interactions:
       server:
       - nginx
       date:
-      - Tue, 01 Jan 2019 18:35:48 GMT
+      - Sat, 17 Aug 2019 21:56:50 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -25,24 +25,10 @@ http_interactions:
       connection:
       - close
       set-cookie:
-      - ctoken=dfe9a63a2ae744d18892c393fa5d29c4; Domain=.iextrading.com; Path=/; Expires=Wed,
-        02 Jan 2019 06:35:48 GMT; Secure
-      content-security-policy:
-      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
-        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
-        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
-        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
-        'self' 'unsafe-inline' 'unsafe-eval';
-      x-content-security-policy:
-      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
-        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
-        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
-        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
-        'self' 'unsafe-inline' 'unsafe-eval';
-      frame-options:
-      - SAMEORIGIN
-      x-frame-options:
-      - SAMEORIGIN
+      - ctoken=e88614ced3ca4697ae97434349d44808; Max-Age=43200; Path=/; Expires=Sun,
+        18 Aug 2019 09:56:50 GMT
+      iexcloud-messages-used:
+      - '1'
       x-content-type-options:
       - nosniff
       strict-transport-security:
@@ -57,18 +43,25 @@ http_interactions:
       - Origin, X-Requested-With, Content-Type, Accept
     body:
       encoding: ASCII-8BIT
-      string: '{"symbol":"AAPL","companyName":"Apple Inc.","exchange":"Nasdaq Global
-        Select","industry":"Computer Hardware","website":"http://www.apple.com","description":"Apple
-        Inc is designs, manufactures and markets mobile communication and media devices
-        and personal computers, and sells a variety of related software, services,
-        accessories, networking solutions and third-party digital content and applications.","CEO":"Timothy
-        D. Cook","issueType":"cs","sector":"Technology","tags":["Technology","Consumer
-        Electronics","Computer Hardware"]}'
+      string: '{"symbol":"AAPL","companyName":"Apple, Inc.","exchange":"NASDAQ","industry":"Telecommunications
+        Equipment","website":"http://www.apple.com","description":"Apple, Inc. engages
+        in designing, manufacturing, and marketing of mobile communication, media
+        devices, personal computers, and portable digital music players. It operates
+        through the following geographical segments: Americas, Europe, Greater China,
+        Japan, and Rest of Asia Pacific. The Americas segment includes North and South
+        America. The Europe segment consists of European countries, as well as India,
+        the Middle East, and Africa. The Greater China segment comprises of China,
+        Hong Kong, and Taiwan. The Rest of Asia Pacific segment includes Australia
+        and Asian countries. Apple was founded by Steven Paul Jobs, Ronald Gerald
+        Wayne, and Stephen G. Wozniak on April 1, 1976 and is headquartered in Cupertino,
+        CA.","CEO":"Timothy Donald Cook","securityName":"Apple Inc.","issueType":"cs","sector":"Electronic
+        Technology","employees":132000,"tags":["Electronic Technology","Telecommunications
+        Equipment"]}'
     http_version: 
-  recorded_at: Tue, 01 Jan 2019 18:35:48 GMT
+  recorded_at: Sat, 17 Aug 2019 21:56:50 GMT
 - request:
     method: get
-    uri: https://api.iextrading.com/1.0/stock/AAPL/dividends/2y
+    uri: https://cloud.iexapis.com/stable/stock/AAPL/dividends/2y?token=pk_0a10f576f19e437eb756b38090974635
     body:
       encoding: US-ASCII
       string: ''
@@ -83,7 +76,7 @@ http_interactions:
       server:
       - nginx
       date:
-      - Tue, 01 Jan 2019 18:35:48 GMT
+      - Sat, 17 Aug 2019 21:56:51 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -91,24 +84,10 @@ http_interactions:
       connection:
       - close
       set-cookie:
-      - ctoken=f320f83850d240a4b88a3ecbf3a408a4; Domain=.iextrading.com; Path=/; Expires=Wed,
-        02 Jan 2019 06:35:48 GMT; Secure
-      content-security-policy:
-      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
-        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
-        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
-        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
-        'self' 'unsafe-inline' 'unsafe-eval';
-      x-content-security-policy:
-      - default-src 'self'; child-src 'none'; object-src 'none'; style-src 'self'
-        'unsafe-inline'; font-src data:; frame-src 'self'; connect-src 'self' https://auth.iextrading.com
-        https://api.iextrading.com https://api.iextrading.com wss://iextrading.com
-        wss://tops.iextrading.com wss://api.iextrading.com wss://iextrading.com; script-src
-        'self' 'unsafe-inline' 'unsafe-eval';
-      frame-options:
-      - SAMEORIGIN
-      x-frame-options:
-      - SAMEORIGIN
+      - ctoken=ddffee8de3b84e3e8dcfcf0960457fe2; Max-Age=43200; Path=/; Expires=Sun,
+        18 Aug 2019 09:56:51 GMT
+      iexcloud-messages-used:
+      - '10'
       x-content-type-options:
       - nosniff
       strict-transport-security:
@@ -123,15 +102,9 @@ http_interactions:
       - Origin, X-Requested-With, Content-Type, Accept
     body:
       encoding: ASCII-8BIT
-      string: '[{"exDate":"2018-02-09","paymentDate":"2018-02-15","recordDate":"2018-02-12","declaredDate":"2018-02-01","amount":0.63,"flag":"","type":"Dividend
-        income","qualified":"Q","indicated":""},{"exDate":"2017-11-10","paymentDate":"2017-11-16","recordDate":"2017-11-13","declaredDate":"2017-11-02","amount":0.63,"flag":"","type":"Dividend
-        income","qualified":"Q","indicated":""},{"exDate":"2017-08-10","paymentDate":"2017-08-17","recordDate":"2017-08-14","declaredDate":"2017-08-01","amount":0.63,"flag":"","type":"Dividend
-        income","qualified":"Q","indicated":""},{"exDate":"2017-05-11","paymentDate":"2017-05-18","recordDate":"2017-05-15","declaredDate":"2017-05-02","amount":0.63,"flag":"","type":"Dividend
-        income","qualified":"Q","indicated":""},{"exDate":"2017-02-09","paymentDate":"2017-02-16","recordDate":"2017-02-13","declaredDate":"2017-01-31","amount":0.57,"flag":"","type":"Dividend
-        income","qualified":"Q","indicated":""},{"exDate":"2016-11-03","paymentDate":"2016-11-10","recordDate":"2016-11-07","declaredDate":"2016-10-25","amount":0.57,"flag":"","type":"Dividend
-        income","qualified":"Q","indicated":""},{"exDate":"2016-08-04","paymentDate":"2016-08-11","recordDate":"2016-08-08","declaredDate":"2016-07-26","amount":0.57,"flag":"","type":"Dividend
-        income","qualified":"Q","indicated":""},{"exDate":"2016-05-05","paymentDate":"2016-05-12","recordDate":"2016-05-09","declaredDate":"2016-04-26","amount":0.57,"flag":"","type":"Dividend
-        income","qualified":"Q","indicated":""}]'
+      string: '[{"exDate":"2017-11-10","paymentDate":"2017-11-16","recordDate":"2017-11-13","declaredDate":"2017-11-02","amount":0.63,"flag":"No
+        Change QoQ","currency":"USD","description":"Apple Declares Quarterly Dividend
+        of $0.63 Per Share","frequency":"Quarterly","date":"2019-08-17"}]'
     http_version: 
-  recorded_at: Tue, 01 Jan 2019 18:35:49 GMT
+  recorded_at: Sat, 17 Aug 2019 21:56:51 GMT
 recorded_with: VCR 4.0.0
