@@ -12,5 +12,12 @@ module Hoard
     config.load_defaults 5.2
 
     config.middleware.use OliveBranch::Middleware, inflection: 'camel'
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*' # TODO: shut this down
+        resource '*', headers: :any, methods: %i[get post put delete options]
+      end
+    end
   end
 end
