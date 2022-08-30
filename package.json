@@ -17,7 +17,7 @@
     "formik": "^1.4.3",
     "formik-material-ui": "^0.0.16",
     "history": "^4.7.2",
-    "moment-timezone": "^0.5.23",
+    "moment-timezone": "^0.5.35",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
